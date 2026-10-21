@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Noto+Sans+Bengali:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap");
+@import "tailwindcss";
+@theme {
+  --color-cream: #faf4e6; --color-card: #fffdf8; --color-forest: #1f4d3a; --color-saffron: #e39b2a;
+  --color-line: #eadfc8; --color-ink: #1d2a22; --color-mute: #5f6b63;
+  --font-display: Fraunces, Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Bengali", system-ui, sans-serif;
+}
+body { margin: 0; background: var(--color-cream); color: var(--color-ink); font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
+h1, h2, h3 { font-family: var(--font-display); }
+.card { background: var(--color-card); border: 1px solid var(--color-line); border-radius: 1.5rem; padding: 1rem; margin-bottom: 0.8rem; }
+.btn { background: var(--color-forest); color: #fff; border-radius: 999px; padding: 0.55rem 1.1rem; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: 0; }
+.btn.alt { background: none; color: var(--color-forest); border: 1px solid var(--color-forest); }
+.chip { display: inline-block; border: 1px solid var(--color-line); border-radius: 999px; padding: 0.2rem 0.75rem; margin: 0.2rem 0.25rem 0 0; font-size: 0.8rem; background: var(--color-card); cursor: pointer; }
+.chip.on { background: var(--color-saffron); border-color: var(--color-saffron); }
+.note { border-left: 4px solid var(--color-saffron); background: var(--color-cream); border-radius: 0.6rem; padding: 0.5rem 0.75rem; font-size: 0.8rem; margin: 0.6rem 0; }
+.field { width: 100%; box-sizing: border-box; background: var(--color-cream); border: 1px solid var(--color-line); border-radius: 0.9rem; padding: 0.5rem 0.7rem; font: inherit; color: inherit; }
+label.l { display: block; font-size: 0.8rem; color: var(--color-mute); margin: 0.6rem 0 0.2rem; }

@@ -12,7 +12,7 @@ AI-assisted food recognition, nutrition insights, and budget-friendly shopping f
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 **Edibyte** is an AI-powered nutrition web application that helps people understand what they eat and make better food decisions. It focuses on familiar Bangladeshi foods, with prices in Bangladeshi Taka (৳) and an English/Bangla interface as goals.
 
@@ -22,30 +22,30 @@ AI-assisted food recognition, nutrition insights, and budget-friendly shopping f
 
 **How it works (intended workflow):** AI identifies foods in a photo, the user reviews and corrects the result, the system estimates nutrition, and Edibyte suggests an affordable shopping list.
 
-> ⚠️ **Project status:** Edibyte is a collaborative hackathon project under active development. This repository contains the **frontend**. See [Implementation Status](#-implementation-status) for what is working, simulated, or still pending.
+>  **Project status:** Edibyte is a collaborative hackathon project under active development. This repository contains the **frontend**. See [Implementation Status](#-implementation-status) for what is working, simulated, or still pending.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description | Status |
 |---|---|---|
-| 📸 AI Food Scanner | Upload a meal or ingredient photo and review detected items and portions | _See status table_ |
-| 📊 Nutrition Report | Estimated nutrients shown with charts | _See status table_ |
-| 🛒 Smart Shopping List | Shopping list with estimated local prices in ৳ | _See status table_ |
-| 💡 Budget-Friendly Suggestions | Affordable alternatives for healthier choices | Planned |
-| 🤖 AI Nutrition Assistant | Chat-style assistant for nutrition questions | _See status table_ |
-| 👤 Profile & Preferences | User goals, dietary preferences | _See status table_ |
-| 🌐 Bangla / English | Bilingual interface | _See status table_ |
-| 📱 Responsive UI | Works across phone, tablet, and desktop | _See status table_ |
+|  AI Food Scanner | Upload a meal or ingredient photo and review detected items and portions | _See status table_ |
+|  Nutrition Report | Estimated nutrients shown with charts | _See status table_ |
+|  Smart Shopping List | Shopping list with estimated local prices in ৳ | _See status table_ |
+|  Budget-Friendly Suggestions | Affordable alternatives for healthier choices | Planned |
+|  AI Nutrition Assistant | Chat-style assistant for nutrition questions | _See status table_ |
+|  Profile & Preferences | User goals, dietary preferences | _See status table_ |
+|  Bangla / English | Bilingual interface | _See status table_ |
+|  Responsive UI | Works across phone, tablet, and desktop | _See status table_ |
 
 <!-- TODO: Fill in the Status column from the real codebase using the legend below. -->
 
 ---
 
-## 🚦 Implementation Status
+## Implementation Status
 
-**Legend:** ✅ Implemented in frontend · 🧪 Mock/demo data only · 🔌 Waiting for backend · 🗓️ Planned
+**Legend:** Done = implemented in frontend; Mock = demo data only; Backend = waiting for backend; Planned = not started
 
 | Area | Status |
 |---|---|
@@ -56,13 +56,13 @@ AI-assisted food recognition, nutrition insights, and budget-friendly shopping f
 | AI assistant chat | TBD |
 | Profile & preferences | TBD |
 | Bangla / English toggle | TBD |
-| Real food-recognition AI | 🔌 Backend |
-| Authoritative nutrition calculations | 🔌 Backend |
-| Real price data | 🔌 Backend |
+| Real food-recognition AI | Backend |
+| Authoritative nutrition calculations | Backend |
+| Real price data | Backend |
 
 ---
 
-## 🖼️ Screenshots & Demo
+## Screenshots & Demo
 
 > Screenshots and a live demo will be added once available.
 
@@ -78,7 +78,7 @@ AI-assisted food recognition, nutrition insights, and budget-friendly shopping f
 
 ---
 
-## 🧰 Technology Stack
+## Technology Stack
 
 **Frontend (this repository)**
 
@@ -98,7 +98,7 @@ AI-assisted food recognition, nutrition insights, and budget-friendly shopping f
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 edibyte/
@@ -122,7 +122,7 @@ edibyte/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -166,7 +166,7 @@ edibyte/
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 Create a `.env` file in the project root.
 
@@ -177,11 +177,11 @@ Create a `.env` file in the project root.
 
 <!-- TODO: Confirm these names and behavior match the code, or update the table. -->
 
-> 🔒 Vite exposes `VITE_*` variables to the browser. **Never put private API keys, passwords, or secret tokens in frontend environment variables.** Keep secrets on the backend.
+>  Vite exposes `VITE_*` variables to the browser. **Never put private API keys, passwords, or secret tokens in frontend environment variables.** Keep secrets on the backend.
 
 ---
 
-## 🔄 Mock Data & API Integration
+## Mock Data & API Integration
 
 While the backend is unavailable, the frontend can run on mock data so the interface can be built and demoed independently.
 
@@ -200,7 +200,7 @@ The frontend and backend will communicate through an agreed API contract. If an 
 
 ---
 
-## 🧭 Application Workflow
+## Application Workflow
 
 ```text
 Upload Food → Review Food Items → View Nutrition Report → Generate Shopping List
@@ -215,7 +215,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## 🎨 Design & User Experience
+## Design & User Experience
 
 - Light backgrounds with soft emerald and mint gradients
 - Rounded cards and readable typography
@@ -227,7 +227,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## 🛠️ Development Scripts
+## Development Scripts
 
 | Command | Description |
 |---|---|
@@ -240,7 +240,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 - [ ] Core UI pages (scanner, report, shopping list, assistant, profile)
 - [ ] Mock data for offline development
@@ -256,7 +256,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## 🤝 Team Collaboration & Contributing
+## Team Collaboration & Contributing
 
 1. **Clone** the shared repository.
 2. **Create a feature branch** from the main branch:
@@ -278,7 +278,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## ⚠️ Responsible Use & Limitations
+## Responsible Use & Limitations
 
 - Nutrition values are **estimates** and may not be exact.
 - AI food recognition **can make mistakes**; always review detected items.
@@ -288,7 +288,7 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 ---
 
-## 📄 License & Acknowledgements
+## License & Acknowledgements
 
 **License:** Not yet specified. <!-- Update if a LICENSE file is added. -->
 
@@ -298,6 +298,6 @@ Upload Food → Review Food Items → View Nutrition Report → Generate Shoppin
 
 <div align="center">
 
-Built with 💚 for the hackathon · **Eat Smart. Live Better.**
+Built with  for the hackathon · **Eat Smart. Live Better.**
 
 </div>
