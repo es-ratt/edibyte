@@ -1,203 +1,323 @@
 <div align="center">
 
-# 🥗 EdiByte
+# EdiByte
 
-### Bangla-first AI nutrition coach for everyday food in Bangladesh
+### Bangla-first AI nutrition coach
 
-**Team Qbits** · International AI Builders Congress 2026 · Domain: FoodSphere AI · Challenge: Nutrition Intelligence
+Log what you ate in **Bangla, English or Banglish**. Get nutrition numbers from a real food table, then ask an AI coach that shows its sources.
+
+[![Live demo](https://img.shields.io/badge/Live%20demo-es--ratt.github.io%2Fedibyte-4F5D2A?style=for-the-badge)](https://es-ratt.github.io/edibyte/)
+[![Deploy](https://github.com/es-ratt/edibyte/actions/workflows/deploy-frontend.yml/badge.svg)](https://github.com/es-ratt/edibyte/actions/workflows/deploy-frontend.yml)
+![Stack](https://img.shields.io/badge/React%20%2B%20FastAPI-627335?style=flat-square)
+![Languages](https://img.shields.io/badge/UI-বাংলা%20%7C%20English%20%7C%20Banglish-7A8B41?style=flat-square)
+
+**Team Qbits** · International AI Builders Congress 2026 · Idea to Unicorn
+Domain: **FoodSphere AI** · Challenge: **Nutrition Intelligence**
 
 </div>
 
-> EdiByte gives general nutrition information only. It is not medical advice.
+| Live app | API | API docs | Demo video |
+|---|---|---|---|
+| [es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/) | `<RENDER_URL>` | `<RENDER_URL>/docs` | `<YOUTUBE_URL>` |
 
 ---
 
-## Overview
+## Table of contents
+1. [Why EdiByte](#why-edibyte)
+2. [Features and status](#features-and-status)
+3. [Architecture](#architecture)
+4. [Request flow](#request-flow)
+5. [Data model](#data-model)
+6. [Project structure](#project-structure)
+7. [Tech stack](#tech-stack)
+8. [Getting started](#getting-started)
+9. [Configuration](#configuration)
+10. [API overview](#api-overview)
+11. [Deployment](#deployment)
+12. [Testing and evaluation](#testing-and-evaluation)
+13. [Responsible AI and limitations](#responsible-ai-and-limitations)
+14. [Data sources](#data-sources)
+15. [AI usage and transparency](#ai-usage-and-transparency)
+16. [Roadmap](#roadmap)
+17. [Team and roles](#team-and-roles)
+18. [Contributing](#contributing)
 
-People in Bangladesh describe meals the way they talk: *“ek plate bhat, dal ar ekta dim”*,
-*“এক প্লেট ভাত আর মাছের ঝোল”*, or *“rice with chicken curry”*. Most nutrition apps expect
-English and Western foods. EdiByte lets you type a meal in **Bangla, English, Banglish or a mix**:
+---
 
-1. **Understand.** An LLM (or offline rules when there is no API key) extracts food names and
-   amounts only.
-2. **Look up.** Each item is fuzzy-matched to a **food table** (Bangla, English and Banglish
-   aliases), and quantities like *plate, bati, ta, piece, spoon, gram* are converted to grams.
-3. **Review.** The user checks and edits every item, and unknown foods are shown, never dropped.
-4. **Report.** A **deterministic rules engine** computes calories, protein, carbs, fat and fibre
-   against personal daily targets (Mifflin-St Jeor), then picks 2-3 tips.
-5. **Coach.** A RAG chat (BM25 over foods and tips) answers in the user's language style, with
-   source chips and a disclaimer.
+## Why EdiByte
+Most nutrition apps are built around Western foods and English. People in Bangladesh eat home-cooked meals like *bhat, dal, alu vorta* and *shutki*, and have no easy way to see what is in them.
 
-**Nutrition numbers never come from the LLM.** The LLM output is validated with Pydantic, which
-rejects any extra field such as `kcal`.
+**EdiByte** lets a user write a meal the way they speak, checks it with them, and returns nutrition from a food table, not from an AI guess.
 
-## Implementation status
+**Who it is for:** students, families and health-conscious people in Bangladesh who want simple, understandable nutrition guidance.
 
-Legend: ✅ working · 🧪 working, but with sample/demo data · 🚩 built behind a feature flag (off) · 🗓️ planned
+## Features and status
+**Legend:** Working · Sample data (working, but the data is unverified) · Planned
 
-| Area | Status | Notes |
+| Feature | Description | Status |
 |---|---|---|
-| Meal parsing: Bangla, Banglish, English, mixed (offline rules) | ✅ | Bangla digits, number words (*duita, দুইটা, half*), postfix amounts (*ruti 2ta*) |
-| Meal parsing with an LLM (Gemini / Claude / OpenAI) | ✅ | Strict JSON, retry once on invalid output, falls back to offline. Tested with a mocked provider only, no live key used during development |
-| Fuzzy matching to the food table + unmatched list | ✅ | rapidfuzz, Bangla suffix stripping, multi-food phrase splitting |
-| Food table (48 foods) | 🧪 | **All rows are UNVERIFIED SAMPLE placeholders.** Must be replaced with sourced data |
-| Tips table (15 tips, bn/en/banglish) | 🧪 | Unverified, team-written |
-| Nutrition report: totals, targets, % of target, rule-based tips | ✅ | Constants in `backend/app/nutrition_config.py`, calorie floor enforced |
-| Personal targets + 2 demo profiles | ✅ | Demo profiles are fictional |
-| RAG coach with sources (AI mode) | ✅ | Prompt-injection-safe delimited data blocks. Not tested against a live LLM |
-| Coach offline template answers | ✅ | Labelled "offline mode" |
-| Guardrails (medical, pregnancy, extreme dieting) | ✅ | Keyword-based, tested |
-| Budget swaps in ৳ | ✅ / 🧪 | Logic works and is tested, but **no price data exists yet**, so the UI says so. Prices are never guessed |
-| Photo input | 🚩 | `ENABLE_PHOTO=false` by default, needs a vision-capable model. Not tested with a live model |
-| Evaluation harness | ✅ | 34 team-made meals, see [Evaluation](#evaluation) |
-| Frontend: Home, Log → Review → Report, Coach, Profile, 6 About pages | ✅ | Mobile-first, 3 languages, olive theme |
-| Rate limiting, privacy ("clear my data"), logs without user text | ✅ | In-memory rate limit (single instance) |
-| Verified dataset, real prices, meal history, voice input, PWA | 🗓️ | See `/roadmap` in the app |
+| Three languages | UI and input in বাংলা, English and Banglish | Working |
+| Meal logging | Free-text meals, mixed languages allowed | Working |
+| AI meal parsing | LLM extracts items and quantities; rule-based fallback when offline | Working |
+| Review step | User checks and edits detected items before any calculation | Working |
+| Nutrition report | Calories and macros vs daily targets, charts | Working |
+| Personal targets | Targets from a profile; two demo profiles | Working |
+| AI coach with sources | Answers grounded in the food table and tips, with source chips | Working |
+| Food data | Bangladeshi food table with Bangla, English and Banglish names | Sample data |
+| Budget swaps (BDT) | Cheaper alternatives, only when real price data exists | Planned |
+| Photo input | Vision-based meal recognition (behind a feature flag) | Planned |
 
 ## Architecture
-
-```
-┌──────────────── frontend (React + Vite + TS + Tailwind) ────────────────┐
-│ Home · Log → Review → Report · Coach · Profile · About pages            │
-│ i18n (bn / en / banglish) · /health ping + cold-start notice · AI/offline badge
-└───────────────────────────────┬──────────────────────────────────────────┘
-                                │ JSON over HTTPS (VITE_API_BASE_URL)
-┌───────────────────────────────▼──────── backend (FastAPI) ───────────────┐
-│ /meal/parse ── normalise → extract (LLM JSON │ rule-based) → match (rapidfuzz) → grams
-│ /meal/report ─ rules engine (Mifflin-St Jeor, floor, tips, swaps) ◄── Food table
-│ /coach ─────── guardrails → BM25 (foods + tips, alias-aware) → LLM │ template
-│ llm.py: gemini | anthropic | openai | none  (model + key from env only)  │
-└───────────────────────────────┬──────────────────────────────────────────┘
-                                │ SQLModel
-                     SQLite (local) / PostgreSQL (Supabase, Neon)
+```mermaid
+flowchart LR
+  U["User<br/>Bangla / English / Banglish"] --> FE["React + Vite frontend<br/>GitHub Pages"]
+  FE -->|"REST / JSON"| API["FastAPI backend<br/>Render"]
+  API --> PARSE["Meal parser<br/>LLM + rule-based fallback"]
+  API --> MATCH["Food matcher<br/>fuzzy search + aliases"]
+  API --> RULES["Nutrition rules engine<br/>totals + daily targets"]
+  API --> RAG["Coach RAG<br/>retrieval over foods + tips"]
+  MATCH --> DB[("Food table<br/>SQLite / PostgreSQL")]
+  RULES --> DB
+  RAG --> DB
+  PARSE -.-> LLM[["LLM provider<br/>set by environment"]]
+  RAG -.-> LLM
 ```
 
-Key backend files: `app/parser.py` (extraction), `app/matcher.py` (fuzzy matching),
-`app/units.py` (grams), `app/rules.py` + `app/nutrition_config.py` (rules engine),
-`app/retrieval.py` + `app/coach.py` (RAG), `app/guardrails.py`, `app/llm.py`.
+**Design principles**
+- **The LLM never produces nutrition numbers.** It only understands text and writes explanations. Calories and macros come from the food table through a deterministic rules engine.
+- **Human in the loop.** Every AI-detected item can be edited before the report.
+- **Works offline.** With no API key, the app falls back to rule-based parsing and template answers, clearly labeled.
+- **Secrets stay on the backend.** The frontend never holds an API key.
+- **Unverified data is labeled** everywhere it appears.
 
-## Data sources and licence notes
-
-- `backend/data/foods_seed.csv`: 48 common Bangladeshi foods. **Every row has `verified=false` and
-  `source="UNVERIFIED SAMPLE - team must replace with sourced data"`.** The values are rough
-  placeholders written by the team for the demo. They are not from a published table and must not
-  be presented as accurate. Nutrients are **per 100 g edible portion**. `price_bdt_estimate` is
-  blank everywhere: no prices were invented.
-- `backend/data/tips_seed.csv`: 15 short general tips in Bangla, English and Banglish, also
-  `verified=false`.
-- **Candidate sources (planned, licence/terms to be checked before use):** Food Composition Table
-  for Bangladesh (Institute of Nutrition and Food Science, University of Dhaka) for nutrients, and
-  government market price lists (for example TCB daily prices) for dated Taka prices.
-- When importing real data, fill `source`, `source_url`, `price_date` and `price_source`, and set
-  `verified=true` only for rows checked against the source. The UI shows an **Unverified** badge for
-  every `verified=false` row, and the `/data` page reads the verification status live from the DB.
-
-Replace or update data (upserts by `id`):
-
-```bash
-cd backend
-python -m app.scripts.import_foods data/foods_seed.csv          # foods
-python -m app.scripts.import_foods data/tips_seed.csv --tips    # tips
-```
-Restart the backend afterwards so the in-memory search indexes are rebuilt.
-
-## How to run locally
-
-Requirements: Python 3.11+ and Node 20+ with pnpm (`corepack enable pnpm`, or `npm i -g pnpm`).
-
-**Terminal 1 (backend)**
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env               # optional: add an LLM key for AI mode
-uvicorn app.main:app --reload --port 8000
-```
-The database is created and seeded automatically on first start. Check `http://localhost:8000/health`
-(and `http://localhost:8000/docs` for the interactive API docs).
-
-**Terminal 2 (frontend)**
-```bash
-cd frontend
-cp .env.example .env.local
-pnpm install
-pnpm dev
-```
-Open `http://localhost:5173`.
-
-### AI mode vs offline mode
-
-With no key, the app runs in **offline mode**: rule-based parsing and template coach answers.
-The whole demo works this way. To enable AI mode, set these in `backend/.env`:
-
-```
-LLM_PROVIDER=gemini        # or anthropic, openai
-LLM_MODEL=<model id for that provider>
-LLM_API_KEY=<your key>
-```
-Model names are never hardcoded. Keys live only on the backend. If an LLM call fails, that request
-falls back to offline mode and the UI says so.
-
-### Mock mode (UI work without a backend)
-Set `VITE_USE_MOCK_DATA=true` in `frontend/.env.local`. A banner marks every page as mock data.
-
-## Tests and build
-
-```bash
-cd backend && source .venv/bin/activate && pytest -q     # parser, matching, rules, guardrails, LLM fallback
-cd frontend && pnpm build                                  # type-check + production build
+## Request flow
+```mermaid
+sequenceDiagram
+  actor User
+  participant FE as Frontend
+  participant API as FastAPI
+  participant LLM as LLM provider
+  participant DB as Food table
+  User->>FE: ajke dupure bhat, dal, dim
+  FE->>API: POST /meal/parse
+  API->>LLM: extract items as JSON
+  LLM-->>API: names and quantities
+  API->>DB: fuzzy match to foods
+  DB-->>API: matched rows
+  API-->>FE: items and unmatched list
+  User->>FE: review and edit items
+  FE->>API: POST /meal/report
+  API->>DB: read nutrition values
+  API-->>FE: totals, targets, tips
+  User->>FE: ask the coach
+  FE->>API: POST /coach
+  API->>DB: retrieve foods and tips
+  API->>LLM: answer from retrieved context
+  API-->>FE: answer and sources
 ```
 
-## Evaluation
-
-`backend/eval/meals_test.jsonl` holds **34 team-made test meals**: 10 Bangla, 10 Banglish, 10 English
-and 4 mixed, each with its expected foods. To run it:
-
-```bash
-cd backend && python -m eval.run
+## Data model
+```mermaid
+erDiagram
+  FOOD {
+    int id PK
+    string name_bn
+    string name_en
+    string aliases
+    float serving_grams
+    float kcal
+    float protein_g
+    float carbs_g
+    float fat_g
+    bool verified
+    string source
+  }
+  TIP {
+    int id PK
+    string text_bn
+    string text_en
+    string source
+    bool verified
+  }
 ```
-This writes `eval/results.json` with a timestamp and mode. The `/impact` page shows it, or
-"Not run yet" if the file is missing.
-
-**Honest caveats:** the set is small, written by the team, and was used *while building* the
-matcher (one alias, "chickpea curry", was added after the eval caught it matching chicken). It is
-not an independent benchmark, so the current offline score (all 34 meals matched) is optimistic.
-It measures food identification only, not portion size or nutrient accuracy. A held-out set
-written by people outside the team is planned.
-
-## Deployment
-
-`render.yaml` defines both services for Render: the API as a Python web service and the frontend
-as a static site. `backend/Procfile` works for Railway or Heroku-style hosts. Set `DATABASE_URL`
-to a PostgreSQL URL (Supabase or Neon; `postgres://` URLs are accepted), `CORS_ORIGINS` to the
-frontend URL, and optionally the `LLM_*` variables. Free tiers sleep when idle, and the frontend
-shows a "Starting up, one moment" notice while `/health` wakes the server.
-
-## Responsible AI and privacy
-
-- No accounts and no real health data. The profile lives in the browser (localStorage).
-- Meal logs keep only food ids and grams under an anonymous id. `DELETE /session/data` (the
-  "Clear my data" button) removes them.
-- Logs never contain user text unless `LOG_USER_TEXT=true`.
-- Guardrails redirect medical, pregnancy and extreme-dieting questions to a doctor or dietitian.
-- Calorie targets never go below a configurable floor (`MIN_KCAL_FLOOR_*`).
-- Retrieved rows and user text go to the LLM inside delimited data blocks, with instructions to
-  treat them as data, not instructions.
-
-## API
-
-See **[API_CONTRACT.md](API_CONTRACT.md)**.
 
 ## Project structure
-
+```text
+edibyte/
+├── backend/                 # FastAPI service
+│   ├── app/                 # API, parser, matcher, rules engine, RAG
+│   ├── data/                # Food and tips CSV files
+│   ├── eval/                # Evaluation harness and test meals
+│   ├── tests/               # pytest tests
+│   └── requirements.txt
+├── frontend/                # React + Vite + TypeScript app
+│   └── src/
+│       ├── components/      # Reusable UI components
+│       ├── pages/           # Route-level pages
+│       ├── services/        # API client
+│       ├── types/           # Shared TypeScript types
+│       ├── hooks/           # Custom hooks
+│       └── lib/             # Helpers and i18n
+├── docs/                    # Documentation and screenshots
+├── .github/workflows/       # GitHub Pages deployment
+├── API_CONTRACT.md          # Request and response shapes
+├── render.yaml              # Backend deployment config
+└── README.md
 ```
-backend/   FastAPI app (app/), seed CSVs (data/), eval harness (eval/), tests (tests/)
-frontend/  React app: src/{components,pages,services,types,hooks,lib}
-docs/      early prototype
+
+## Tech stack
+| Layer | Technology |
+|---|---|
+| Frontend | React, Vite, TypeScript, Tailwind CSS, React Router, Recharts, Lucide |
+| Backend | Python, FastAPI, Pydantic, SQLModel |
+| Database | SQLite (local), PostgreSQL (deployment) |
+| Matching and retrieval | rapidfuzz, BM25 |
+| LLM | Configurable provider through environment variables |
+| Hosting | GitHub Pages (frontend), Render (backend) |
+| CI/CD | GitHub Actions |
+
+## Getting started
+**Prerequisites:** Node.js (LTS), pnpm (npm also works), Python 3.11+, Git.
+
+```bash
+git clone https://github.com/es-ratt/edibyte.git
+cd edibyte
 ```
 
-## Team Qbits
+**Terminal 1: backend**
+```bash
+cd backend
+python -m venv .venv
+# Windows: .venv\Scripts\activate    macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn app.main:app --reload --port 8000
+```
 
-Team Leader / Coordinator · Business Analyst / Data Scientist · UI/UX / Frontend Developer ·
-Backend / Data Engineer · Presentation / Communication Lead. Add names in `frontend/src/lib/team.ts`.
+**Terminal 2: frontend**
+```bash
+cd frontend
+pnpm install
+cp .env.example .env
+pnpm dev
+```
+Open the URL printed by Vite (usually http://localhost:5173). With no `LLM_API_KEY`, the backend runs in offline mode.
+
+## Configuration
+**Backend (`backend/.env`)**
+
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | SQLite locally, PostgreSQL in deployment |
+| `LLM_PROVIDER` | `gemini`, `anthropic`, `openai` or `none` |
+| `LLM_MODEL` | Model name, read from the environment |
+| `LLM_API_KEY` | Provider key (never commit this) |
+| `CORS_ORIGINS` | Allowed frontend origins, include `https://es-ratt.github.io` |
+| `ENABLE_PHOTO` | Feature flag for photo input, off by default |
+
+**Frontend (`frontend/.env`)**
+
+| Variable | Purpose |
+|---|---|
+| `VITE_API_BASE_URL` | Backend URL, for example `http://localhost:8000` |
+| `VITE_USE_MOCK_DATA` | `true` for UI-only work without the backend |
+
+> `VITE_*` values are public in the browser. Keep every secret on the backend.
+
+## API overview
+Full request and response shapes are in [API_CONTRACT.md](API_CONTRACT.md).
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/health` | Status and mode (AI or offline) |
+| POST | `/meal/parse` | Text to matched food items |
+| POST | `/meal/report` | Items and profile to totals, targets, tips |
+| POST | `/coach` | Question to grounded answer with sources |
+| GET | `/foods` | Search the food table |
+| GET | `/profiles/demo` | Demo profiles |
+| GET | `/eval/results` | Latest evaluation results |
+
+## Deployment
+```mermaid
+flowchart LR
+  Dev["Push to main"] --> GA["GitHub Actions"]
+  GA --> GP["GitHub Pages<br/>frontend"]
+  Dev --> R["Render<br/>FastAPI backend"]
+  GP -->|"HTTPS + CORS"| R
+```
+1. **Backend:** create a Render Blueprint from `render.yaml`, then set the environment variables in the Render dashboard.
+2. **Frontend:** in GitHub, go to Settings, then Pages, then Source: **GitHub Actions**.
+3. **Connect them:** in Settings, then Secrets and variables, then Actions, then Variables, add `VITE_API_BASE_URL` (the Render URL) and `VITE_USE_MOCK_DATA` set to `false`.
+4. Push to `main`. The workflow in `.github/workflows/deploy-frontend.yml` builds and publishes the site.
+
+> Until the backend is live and these variables are set, the site builds in demo mode with mock data, and it shows a "Demo data" badge.
+> The free Render tier sleeps when idle, so the first request can take a while.
+
+## Testing and evaluation
+```bash
+cd backend
+pytest
+python -m eval.run
+```
+The evaluation harness runs team-made test meals (Bangla, Banglish, English, mixed) and writes `backend/eval/results.json`.
+
+| Metric | Result |
+|---|---|
+| Item matching accuracy on the team-made test set | _Not run yet_ |
+
+Numbers are added here only after the harness has been run.
+
+## Responsible AI and limitations
+- Nutrition values are **estimates**. The current food table includes unverified sample rows, which are labeled in the app.
+- AI parsing can make mistakes, so users review items before calculation.
+- EdiByte gives **general nutrition information only**. It is not medical advice, diagnosis or treatment.
+- The coach redirects medical, pregnancy and extreme-diet questions to a doctor or dietitian.
+- The demo stores no real personal health data.
+
+## Data sources
+| Data | Source | Licence | Status |
+|---|---|---|---|
+| Bangladeshi food table | Team-made sample | n/a | Unverified, to be replaced with sourced data |
+| Nutrition tips | Team-made sample | n/a | Unverified |
+
+Every dataset added later must list its source and licence here.
+
+## AI usage and transparency
+- **Development:** AI assistants (Claude) were used for planning, code generation and documentation. All output was reviewed by the team.
+- **In the product:** an LLM, configured by environment variables, is used only for text understanding and explanations. See [Architecture](#architecture).
+
+## Roadmap
+- [x] Bangla, English and Banglish UI
+- [x] Meal parsing, review step and nutrition report
+- [x] Grounded AI coach with sources
+- [ ] Replace sample food data with verified, licensed data
+- [ ] Publish evaluation results
+- [ ] Budget-aware swaps with real price data
+- [ ] Photo input
+- [ ] Regional language support
+
+## Team and roles
+**Team Qbits**
+
+| Role | Member |
+|---|---|
+| Team Leader / Coordinator | _add name_ |
+| Business Analyst / Data Scientist | _add name_ |
+| UI/UX / Frontend Developer | Esrat Jhahan Nur, Rezwan |
+| Backend / Data Engineer | Shopnil |
+| Presentation / Communication Lead | Saba |
+
+## Contributing
+1. Create a branch: `git checkout -b feature/short-description`
+2. Make one focused change and test it.
+3. Commit with a clear message, for example `feat(frontend): add profile page`.
+4. Push the branch and open a pull request for a teammate to review.
+
+---
+
+<div align="center">
+
+EdiByte gives general nutrition information only. It is not medical advice.
+Built by Team Qbits for the International AI Builders Congress 2026.
+
+</div>
