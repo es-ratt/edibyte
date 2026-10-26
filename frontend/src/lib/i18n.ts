@@ -3,10 +3,11 @@
 // Placeholders use {name} and are filled by t(key, { name: value }).
 
 export type Lang = 'bn' | 'en' | 'bl'
+// The Banglish UI option was removed. 'bl' stays in the Lang type only so old saved settings
+// and the dictionary tuples keep working; it is never offered in the UI (see normalizeLang).
 export const LANGS: { id: Lang; label: string; htmlLang: string }[] = [
   { id: 'bn', label: 'বাংলা', htmlLang: 'bn' },
   { id: 'en', label: 'English', htmlLang: 'en' },
-  { id: 'bl', label: 'Banglish', htmlLang: 'en' },
 ]
 
 type Entry = readonly [en: string, bn: string, bl: string]
@@ -86,6 +87,24 @@ const T = {
   'common.carbs': ['Carbs', 'শর্করা', 'Carbs'],
   'common.fat': ['Fat', 'চর্বি', 'Fat'],
   'common.fiber': ['Fibre', 'আঁশ', 'Fiber'],
+
+  // Demo login
+  'auth.login': ['Login', 'লগইন', 'Login'],
+  'auth.logout': ['Log out', 'লগআউট', 'Logout'],
+  'auth.title': ['Log in to EdiByte', 'EdiByte-এ লগইন করুন', 'EdiByte e login korun'],
+  'auth.subtitle': ['Enter your name and email to continue.', 'চালিয়ে যেতে আপনার নাম ও ইমেইল দিন।', 'Continue korte apnar nam ar email din.'],
+  'auth.name': ['Your name', 'আপনার নাম', 'Apnar nam'],
+  'auth.email': ['Email', 'ইমেইল', 'Email'],
+  'auth.submit': ['Log in', 'লগইন করুন', 'Login korun'],
+  'auth.guest': ['Continue as guest', 'অতিথি হিসেবে চালিয়ে যান', 'Guest hishebe continue korun'],
+  'auth.hello': ['Hi, {name}', 'হ্যালো, {name}', 'Hello, {name}'],
+  'auth.nameRequired': ['Please enter your name.', 'আপনার নাম লিখুন।', 'Apnar nam likhun.'],
+  'auth.emailInvalid': ['Please enter a valid email.', 'সঠিক ইমেইল লিখুন।', 'Shothik email likhun.'],
+  'auth.note': [
+    'Demo login: no password. Your name and email are saved only in this browser and are not sent anywhere.',
+    'ডেমো লগইন: কোনো পাসওয়ার্ড নেই। আপনার নাম ও ইমেইল শুধু এই ব্রাউজারে থাকে, কোথাও পাঠানো হয় না।',
+    'Demo login: password nei. Apnar nam ar email shudhu ei browser e thake, kothao pathano hoy na.',
+  ],
 
   // Home
   'home.badge': ['Bangla-first AI nutrition coach', 'বাংলায় এআই পুষ্টি সহায়ক', 'Bangla-first AI nutrition coach'],
@@ -258,8 +277,8 @@ const T = {
   // Coach
   'coach.title': ['Nutrition coach', 'পুষ্টি কোচ', 'Nutrition coach'],
   'coach.subtitle': [
-    'Ask about food, protein, portions or budget. Answers are based on our food table.',
-    'খাবার, প্রোটিন, পরিমাণ বা বাজেট নিয়ে জিজ্ঞেস করুন। উত্তর আসে আমাদের খাদ্য তালিকা থেকে।',
+    'Ask about food, protein, portions or budget in Bangla, English or Banglish. You get the answer in the same language.',
+    'বাংলা, ইংরেজি বা বাংলিশে খাবার, প্রোটিন, পরিমাণ বা বাজেট নিয়ে জিজ্ঞেস করুন। যে ভাষায় লিখবেন, উত্তর সেই ভাষায় পাবেন।',
     'Khabar, protein, poriman ba budget niye jiggesh korun. Uttor ashe amader food table theke.',
   ],
   'coach.welcome': [
@@ -267,7 +286,7 @@ const T = {
     'হ্যালো! আমি আপনার EdiByte কোচ। প্রতিদিনের খাবার নিয়ে যা খুশি জিজ্ঞেস করুন।',
     'Hello! Ami apnar EdiByte coach. Protidiner khabar niye ja khushi jiggesh korun.',
   ],
-  'coach.placeholder': ['Type your question…', 'আপনার প্রশ্ন লিখুন…', 'Apnar proshno likhun…'],
+  'coach.placeholder': ['Ask in Bangla, English or Banglish…', 'বাংলা, ইংরেজি বা বাংলিশে লিখুন…', 'Bangla, English ba Banglish e likhun…'],
   'coach.inputLabel': ['Your question', 'আপনার প্রশ্ন', 'Apnar proshno'],
   'coach.send': ['Send', 'পাঠান', 'Pathan'],
   'coach.typing': ['Coach is typing', 'কোচ লিখছে', 'Coach likhche'],
@@ -611,6 +630,9 @@ export function translate(lang: Lang, key: TKey, vars?: Record<string, string | 
   if (vars) for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, String(v))
   return s
 }
+
+/** Old saved 'bl' (Banglish UI) falls back to English. */
+export const normalizeLang = (l: Lang): Lang => (l === 'bn' ? 'bn' : 'en')
 
 /** UI language -> language code the API expects. */
 export const apiLang = (lang: Lang) => (lang === 'bl' ? 'banglish' : lang)

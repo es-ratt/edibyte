@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import { SkeletonCard } from '@/components/Skeleton'
 import { AppProvider } from '@/hooks/useApp'
+import { AuthProvider } from '@/hooks/useAuth'
 import Home from '@/pages/Home'
 import LogMeal from '@/pages/LogMeal'
 
@@ -17,9 +18,13 @@ const ResponsibleAI = lazy(() => import('@/pages/ResponsibleAI'))
 const Impact = lazy(() => import('@/pages/Impact'))
 const Roadmap = lazy(() => import('@/pages/Roadmap'))
 const Team = lazy(() => import('@/pages/Team'))
+const Login = lazy(() => import('@/pages/Login'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 const page = (el: React.ReactNode) => <Suspense fallback={<SkeletonCard lines={4} />}>{el}</Suspense>
+
+// BASE_URL is '/' locally and '/edibyte/' on GitHub Pages (vite build --base=/edibyte/).
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 
 const router = createBrowserRouter([
   {
@@ -37,15 +42,18 @@ const router = createBrowserRouter([
       { path: '/impact', element: page(<Impact />) },
       { path: '/roadmap', element: page(<Roadmap />) },
       { path: '/team', element: page(<Team />) },
+      { path: '/login', element: page(<Login />) },
       { path: '*', element: page(<NotFound />) },
     ],
   },
-])
+], { basename })
 
 export default function App() {
   return (
     <AppProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </AppProvider>
   )
 }

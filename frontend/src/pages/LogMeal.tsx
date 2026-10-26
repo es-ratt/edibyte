@@ -16,7 +16,6 @@ import type { MealType, ParseResponse } from '@/types/api'
 
 const EXAMPLES: { key: TKey; text: string }[] = [
   { key: 'log.exBn', text: 'এক প্লেট ভাত, এক বাটি ডাল আর একটা ডিম' },
-  { key: 'log.exBl', text: '2ta ruti, dim bhaji ar ek cup cha' },
   { key: 'log.exEn', text: 'A plate of rice with chicken curry and salad' },
   { key: 'log.exMixed', text: 'ভাত, dal ar মাছের ঝোল' },
 ]

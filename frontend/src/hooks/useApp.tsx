@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { api } from '@/services/api'
-import { LANGS, apiLang, translate, type Lang, type TKey } from '@/lib/i18n'
+import { LANGS, apiLang, normalizeLang, translate, type Lang, type TKey } from '@/lib/i18n'
 import { clearAll, load, save, sessionId } from '@/lib/storage'
 import type { ApiLang, ChatTurn, DemoProfile, Health, MealType, ParseResponse, Profile, ReportItemIn, Source } from '@/types/api'
 
@@ -75,7 +75,7 @@ const Ctx = createContext<AppState | null>(null)
 export const EMPTY_DRAFT: MealDraft = { text: '', mealType: null, rows: null, parseMode: null, warnings: [] }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(() => load<Lang>('lang', 'bn'))
+  const [lang, setLangState] = useState<Lang>(() => normalizeLang(load<Lang>('lang', 'bn')))
   const [profile, setProfileState] = useState<Profile>(() => load('profile', DEFAULT_PROFILE))
   const [ownProfile, setOwnProfile] = useState<Profile>(() => load('ownProfile', load('profile', DEFAULT_PROFILE)))
   const [profileSource, setProfileSource] = useState<string>(() => load('profileSource', 'custom'))

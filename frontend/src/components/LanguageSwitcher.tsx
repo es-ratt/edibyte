@@ -1,7 +1,7 @@
 import { LANGS } from '@/lib/i18n'
 import { useApp } from '@/hooks/useApp'
 
-/** Three-way segmented control: বাংলা / English / Banglish. */
+/** Two-way segmented control: বাংলা / English. */
 export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { lang, setLang, t } = useApp()
   return (
@@ -17,7 +17,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
             lang === l.id ? 'bg-olive-700 text-white shadow-soft' : 'text-olive-900 hover:bg-olive-100'
           }`}
         >
-          {compact && l.id === 'en' ? 'EN' : compact && l.id === 'bl' ? 'BL' : l.label}
+          {compact && l.id === 'en' ? 'EN' : l.label}
         </button>
       ))}
     </div>

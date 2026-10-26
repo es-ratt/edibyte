@@ -5,6 +5,7 @@ import { ChatBubble, TypingIndicator } from '@/components/ChatBubble'
 import { Chip } from '@/components/Chip'
 import { PageHeader } from '@/components/PageHeader'
 import { errorKey, useApp, type ChatMessage } from '@/hooks/useApp'
+import { detectLang } from '@/lib/detectLang'
 import type { TKey } from '@/lib/i18n'
 import { api } from '@/services/api'
 
@@ -12,7 +13,7 @@ const SUGGESTED: TKey[] = ['coach.q1', 'coach.q2', 'coach.q3', 'coach.q4']
 const newId = () => Math.random().toString(36).slice(2)
 
 export default function Coach() {
-  const { t, apiLang, profile, chat, setChat, chatHistory } = useApp()
+  const { t, profile, chat, setChat, chatHistory } = useApp()
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
@@ -30,7 +31,8 @@ export default function Coach() {
     setInput('')
     setBusy(true)
     try {
-      const r = await api.coach(q, apiLang, profile, history)
+      // The answer follows the language the user typed (Bangla, English or Banglish), not the UI language.
+      const r = await api.coach(q, detectLang(q), profile, history)
       const msg: ChatMessage = { id: newId(), role: 'assistant', content: r.answer, sources: r.sources, mode: r.mode, guardrail: r.guardrail }
       setChat((c) => [...c, msg])
     } catch (e) {

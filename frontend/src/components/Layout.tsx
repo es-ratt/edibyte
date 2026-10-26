@@ -1,7 +1,8 @@
-import { BarChart3, Home, Info, MessageCircle, PenLine, User } from 'lucide-react'
+import { BarChart3, Home, Info, LogIn, MessageCircle, PenLine, User } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useApp } from '@/hooks/useApp'
+import { useAuth } from '@/hooks/useAuth'
 import { useTryDemo } from '@/hooks/useTryDemo'
 import type { TKey } from '@/lib/i18n'
 import { Button } from './Button'
@@ -39,6 +40,7 @@ function Logo() {
 
 export function Layout() {
   const { t } = useApp()
+  const { user, logout } = useAuth()
   const tryDemo = useTryDemo()
   const { pathname } = useLocation()
 
@@ -79,6 +81,25 @@ export function Layout() {
               <ModeBadge />
             </span>
             <LanguageSwitcher compact />
+            {user ? (
+              <span className="flex items-center gap-1">
+                <Link to="/login" className="hidden max-w-32 truncate rounded-xl px-2 font-semibold text-olive-900 hover:bg-olive-100 sm:block">
+                  {user.name}
+                </Link>
+                <Button variant="ghost" className="px-3" onClick={logout}>
+                  {t('auth.logout')}
+                </Button>
+              </span>
+            ) : (
+              <Link
+                to="/login"
+                aria-label={t('auth.login')}
+                className="inline-flex min-h-11 items-center gap-1 rounded-xl px-3 font-semibold text-olive-700 hover:bg-olive-100"
+              >
+                <LogIn size={18} aria-hidden />
+                <span className="hidden sm:inline">{t('auth.login')}</span>
+              </Link>
+            )}
             <Link
               to="/about"
               aria-label={t('nav.about')}

@@ -2,6 +2,7 @@
 // Values are invented placeholders. The UI shows a "Mock data" banner whenever this is active.
 
 import type { Api } from './api'
+import { detectLang } from '@/lib/detectLang'
 import type { FoodBrief, Nutrients, Profile, ReportItemIn, Targets } from '@/types/api'
 
 const MOCK_SOURCE = 'MOCK DATA - not real'
@@ -56,7 +57,15 @@ export const mockApi: Api = {
       swaps: [], swaps_note: 'no_price_data', has_unverified: true, profile_used: profile, lang, disclaimer: 'Mock data. Not medical advice.',
     })
   },
-  coach: (_q, lang) => delay({ answer: 'This is a MOCK answer for UI testing.\n\nGeneral nutrition information, not medical advice.', sources: [], lang, mode: 'offline', guardrail: null }, 700),
+  coach: (q) => {
+    const lang = detectLang(q)
+    const answer = {
+      en: 'This is a MOCK answer for UI testing (no backend connected).\n\nGeneral nutrition information, not medical advice.',
+      bn: 'এটি UI পরীক্ষার জন্য একটি নমুনা উত্তর (ব্যাকএন্ড যুক্ত নেই)।\n\nএটি সাধারণ পুষ্টি তথ্য, চিকিৎসা পরামর্শ নয়।',
+      banglish: 'Eta UI test er jonno ekta MOCK uttor (backend connect kora nei).\n\nEta general nutrition information, medical advice na.',
+    }[lang]
+    return delay({ answer, sources: [], lang, mode: 'offline', guardrail: null }, 700)
+  },
   foods: (query = '') => delay(foods.filter((f) => !query || f.keys.some((k) => k.includes(query.toLowerCase()))).map((f) => ({
     ...brief(f), aliases: f.keys, kcal: f.kcal, protein_g: f.p, carbs_g: f.c, fat_g: f.f, fiber_g: null,
     price_bdt_estimate: null, price_date: null, price_source: null, tags: [], source: MOCK_SOURCE, source_url: null, notes: null,
