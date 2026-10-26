@@ -15,6 +15,7 @@ const TOP_LINKS: { to: string; key: TKey; end?: boolean }[] = [
   { to: '/log', key: 'nav.log' },
   { to: '/report', key: 'nav.report' },
   { to: '/coach', key: 'nav.coach' },
+  { to: '/history', key: 'nav.history' },
   { to: '/profile', key: 'nav.profile' },
   { to: '/about', key: 'nav.about' },
 ]
