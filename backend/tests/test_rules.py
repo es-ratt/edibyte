@@ -87,3 +87,20 @@ def test_swaps_only_with_sourced_prices(monkeypatch):
     # Vegetarian profiles never get a fish swap.
     swaps, note = rules.find_swaps([ilish], Profile(diet="vegetarian"))
     assert swaps == [] and note == "no_cheaper_option"
+
+
+def test_coach_answers_in_the_language_typed(client):
+    # UI language says "en", but the user typed Bangla / Banglish: the answer follows the typed text.
+    bn = client.post("/coach", json={"question": "একটা ডিমে কত প্রোটিন?", "lang": "en"}).json()
+    assert bn["lang"] == "bn" and bn["answer"].endswith("চিকিৎসা পরামর্শ নয়।")
+    bl = client.post("/coach", json={"question": "ekta dim e koto protein?", "lang": "bn"}).json()
+    assert bl["lang"] == "banglish" and bl["answer"].endswith("medical advice na.")
+    en = client.post("/coach", json={"question": "How much protein is in an egg?", "lang": "bn"}).json()
+    assert en["lang"] == "en" and en["answer"].endswith("not medical advice.")
+
+
+def test_coach_greeting_is_friendly(client):
+    r = client.post("/coach", json={"question": "Hi", "lang": "en"}).json()
+    assert "EdiByte coach" in r["answer"] and r["sources"] == []
+    r = client.post("/coach", json={"question": "hello", "lang": "bn"}).json()
+    assert "Couldn't find" not in r["answer"] and "couldn't find" not in r["answer"]

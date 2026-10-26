@@ -47,7 +47,7 @@ async def _call_gemini(system: str, messages: list[dict], json_mode: bool, image
             parts.insert(0, {"inline_data": {"mime_type": mime, "data": base64.b64encode(image).decode()}})
         contents.append({"role": "model" if m["role"] == "assistant" else "user", "parts": parts})
     body: dict = {"contents": contents, "systemInstruction": {"parts": [{"text": system}]}}
-    body["generationConfig"] = {"temperature": 0.2}
+    body["generationConfig"] = {"temperature": 0.3}
     if json_mode:
         body["generationConfig"]["responseMimeType"] = "application/json"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{s.llm_model}:generateContent"

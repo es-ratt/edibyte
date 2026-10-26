@@ -40,3 +40,11 @@ def test_detect_lang():
     assert detect_lang("ভাত খেয়েছি") == "bn"
     assert detect_lang("ami bhat khailam") == "banglish"
     assert detect_lang("rice and fish") == "en"
+
+
+def test_detect_lang_more_cases():
+    assert detect_lang("bhat er bodole ki khete pari") == "banglish"
+    assert detect_lang("kom khoroche protein kothay pabo") == "banglish"
+    assert detect_lang("How much protein is in an egg?") == "en"
+    assert detect_lang("Is singara a good evening snack?") == "en"
+    assert detect_lang("একটা ডিমে কত প্রোটিন?") == "bn"
