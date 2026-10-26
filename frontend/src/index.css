@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+/* EdiByte olive theme. Measured WCAG contrast on #FAFAF3: ink 14.9:1, muted 5.7:1, olive-700 6.8:1,
+   olive-600 5.0:1, danger 5.2:1; white on olive-700 7.2:1 (all pass AA for normal text).
+   olive-500 and mustard are for fills/decoration only, never for small text. */
+@theme {
+  --color-olive-900: #2f3a17;
+  --color-olive-700: #4f5d2a;
+  --color-olive-600: #627335;
+  --color-olive-500: #7a8b41;
+  --color-olive-200: #d9e0bb;
+  --color-olive-100: #eef1dc;
+  --color-olive-50: #f7f8ee;
+  --color-canvas: #fafaf3;
+  --color-ink: #1f2616;
+  --color-muted: #5e6650;
+  --color-mustard: #c9a227;
+  --color-mustard-100: #f6edcc;
+  --color-danger: #b3472f;
+  --color-danger-50: #fbefec;
+
+  /* Chart series (validated with the dataviz palette checker: CVD and normal-vision separation pass;
+     mustard is below 3:1 vs the surface, so values are always also shown as text). */
+  --color-chart-protein: #5f7a1f;
+  --color-chart-carbs: #c9a227;
+  --color-chart-fat: #a0583a;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-bengali: 'Noto Sans Bengali', 'Inter', system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(47 58 23 / 0.05), 0 4px 16px rgb(47 58 23 / 0.06);
+}
+
+@layer base {
+  html {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Bangla UI: Noto Sans Bengali, 17px, line-height 1.7 */
+  html[data-lang='bn'] {
+    font-family: var(--font-bengali);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  /* Bangla text inside English/Banglish pages (food names, chat) still renders well */
+  :lang(bn) {
+    font-family: var(--font-bengali);
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-canvas);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-olive-600);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  h1,
+  h2,
+  h3 {
+    color: var(--color-olive-900);
+    line-height: 1.3;
+    font-weight: 700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes typing-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+.typing-dot {
+  animation: typing-dot 1.2s infinite ease-in-out;
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-10-25T19:48:01+00:00",
+  "test_set": "team-made",
+  "test_file": "eval/meals_test.jsonl",
+  "mode": "offline",
+  "provider": "none",
+  "metric_note": "Item matching on food ids only. Does not measure portion or nutrient accuracy.",
+  "overall": {
+    "meals": 34,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "exact_match_rate": 1.0
+  },
+  "by_lang": {
+    "banglish": {
+      "meals": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0
+    },
+    "bn": {
+      "meals": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0
+    },
+    "en": {
+      "meals": 10,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0
+    },
+    "mixed": {
+      "meals": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0
+    }
+  },
+  "failures": []
+}

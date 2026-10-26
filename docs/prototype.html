@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EdiByte – Nutrition Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Noto+Sans+Bengali:wght@400;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf4e6;--card:#fffdf8;--ink:#1d2a22;--mut:#5f6b63;--pri:#1f4d3a;--on:#fff;--acc:#e39b2a;--line:#eadfc8;--bad:#b4472f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13201a;--card:#1b2b23;--ink:#f1ebdc;--mut:#a9b8ae;--pri:#8fd1a8;--on:#10231a;--acc:#f0b255;--line:#2d4337;--bad:#f08a70;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13201a;--card:#1b2b23;--ink:#f1ebdc;--mut:#a9b8ae;--pri:#8fd1a8;--on:#10231a;--acc:#f0b255;--line:#2d4337;--bad:#f08a70;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Plus Jakarta Sans","Noto Sans Bengali",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+#app{display:flex;min-height:100vh}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav a{flex:1;text-align:center;padding:8px 0;font-size:11px;color:var(--mut);text-decoration:none}
+nav a b{display:block;font-size:18px;font-weight:400}
+nav a.on{color:var(--pri);font-weight:700}
+.brand{display:none}
+main{flex:1;padding:18px 16px 96px;max-width:760px;margin:0 auto;width:100%;box-sizing:border-box;min-width:0}
+@media(min-width:820px){nav{position:sticky;top:0;height:100vh;width:210px;flex:none;flex-direction:column;justify-content:flex-start;border-top:0;border-right:1px solid var(--line);padding:22px 10px;box-sizing:border-box}nav a{text-align:left;font-size:14px;padding:10px 12px;border-radius:14px}nav a b{display:inline;margin-right:8px;font-size:16px}nav a.on{background:var(--bg)}.brand{display:block;padding:0 12px 18px}main{padding-bottom:40px}}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0 0 8px;line-height:1.2}h1{font-size:28px}h2{font-size:21px}h3{font-size:17px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin:0 0 14px}
+.m{color:var(--mut);font-size:13px}
+.btn{background:var(--pri);color:var(--on);border:0;border-radius:999px;padding:10px 18px;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.btn.o{background:none;color:var(--pri);border:1px solid var(--pri)}.btn.s{padding:5px 13px;font-size:13px}
+input,select,textarea{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:9px 11px;width:100%;box-sizing:border-box}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.r{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:3px 0 10px}.bar i{display:block;height:100%;background:var(--pri);border-radius:9px}.bar i.x{background:var(--bad)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin:4px 4px 0 0;font:inherit;font-size:13px;background:var(--card);color:inherit;cursor:pointer}
+.chip.on{background:var(--acc);color:#1d2a22;border-color:var(--acc)}
+.note{border-left:4px solid var(--acc);padding:8px 12px;background:var(--bg);border-radius:10px;font-size:13px;margin:10px 0}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 3px}
+.chk label{display:inline-flex;gap:5px;align-items:center;margin:3px 10px 3px 0;color:var(--ink);font-size:14px}.chk input{width:auto}
+.bub{padding:10px 14px;border-radius:18px;margin:8px 0;max-width:90%}.u{background:var(--pri);color:var(--on);margin-left:auto;width:fit-content}.a{background:var(--card);border:1px solid var(--line)}
+.load{margin:30vh auto;text-align:center}.load i{display:block;width:34px;height:34px;margin:0 auto 12px;border:4px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:s 1s linear infinite}@keyframes s{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.load i{animation:none}}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+</style></head><body><div id="app"></div>
+<script>
+const FD=`rice|Steamed rice|ভাত|grain|1 katori|150|195|4|43|.4|.6|2|73|0||cheap
+brice|Brown rice|লাল চালের ভাত|grain|1 katori|150|165|3.8|34|1.3|2.7|3|55|0||
+ruti|Atta ruti|আটার রুটি|grain|1 piece|40|120|3.5|22|2|3|100|62|0|gluten|cheap
+chira|Chira (flattened rice)|চিড়া|grain|1 bowl|60|140|2.5|30|.3|1|5|66|0||cheap
+khich|Khichuri|খিচুড়ি|mixed_dish|1 bowl|250|330|11|52|8|4|400|55|0||iron
+masoor|Masoor dal|মসুর ডাল|lentil|1 katori|150|130|9|18|3|4|220|30|0||cheap iron
+mug|Mug dal|মুগ ডাল|lentil|1 katori|150|120|8|17|2.5|4|200|38|0||cheap
+chola|Boiled chola (chickpea)|ছোলা|lentil|1 katori|150|245|13|40|4|11|15|33|0||cheap iron
+soy|Soy chunk curry|সয়া চাঙ্ক|lentil|1 bowl|150|190|20|14|5|5|300|30|0|soy|
+rui|Rui fish curry|রুই মাছ|fish|1 piece|130|200|26|3|9|.5|320|0|3|fish|cheap
+katla|Katla fish curry|কাতলা মাছ|fish|1 piece|130|220|25|3|12|.5|310|0|3|fish|
+tilapia|Tilapia fish curry|তেলাপিয়া মাছ|fish|1 piece|130|190|27|2|8|.5|300|0|3|fish|cheap
+pangas|Pangash fish curry|পাঙাশ মাছ|fish|1 piece|130|240|21|3|16|.5|330|0|3|fish|cheap
+ilish|Ilish fish curry|ইলিশ মাছ|fish|1 piece|100|300|19|2|24|0|300|0|3|fish|festive
+chingri|Chingri (prawn) bhuna|চিংড়ি ভুনা|fish|1 katori|100|140|22|3|5|0|350|0|3|shellfish|
+shutki|Shutki bhorta|শুঁটকি ভর্তা|fish|1 spoon|15|45|9|0|1|0|600|0|3|fish|salty
+chicken|Chicken curry|মুরগির ঝোল|meat|1 piece|120|230|25|4|13|.3|380|0|4||
+beef|Beef bhuna|গরুর ভুনা|meat|1 bowl|100|260|22|4|17|.3|400|0|4||
+egg|Boiled egg|সিদ্ধ ডিম|egg|1 piece|50|75|6|.5|5|0|62|0|2|egg|cheap
+omelet|Egg omelette|ডিম ওমলেট|egg|1 piece|60|120|7|1|9|0|190|0|2|egg|
+palong|Palong shak bhaji|পালং শাক|leafy_green|1 katori|100|60|3|5|3.5|3|120|15|0||iron cheap
+lal|Lal shak|লাল শাক|leafy_green|1 katori|100|55|3|6|2.5|3|100|15|0||iron cheap
+lau|Lau torkari|লাউ তরকারি|vegetable|1 katori|120|70|1.5|8|3.5|2|150|15|0||cheap
+mixveg|Mixed vegetables|মিশ্র সবজি|vegetable|1 katori|120|90|2.5|11|4|3.5|180|35|0||cheap
+begun|Begun bhorta|বেগুন ভর্তা|vegetable|1 katori|100|90|2|8|6|3|200|15|0||
+aloo|Aloo bhorta|আলু ভর্তা|vegetable|1 katori|100|130|2.5|22|4|2.5|220|78|0||
+pumpkin|Mishti kumra torkari|মিষ্টি কুমড়া|vegetable|1 katori|120|65|1.2|12|2|2|15|65|0||cheap
+salad|Cucumber-tomato salad|শসা-টমেটো সালাদ|vegetable|1 plate|100|20|1|4|.2|1.2|10|15|0||cheap
+achar|Achar (pickle)|আচার|condiment|1 spoon|15|40|.2|3|3|.3|380|0|0||salty
+dahi|Plain dahi (yogurt)|টক দই|dairy|1 cup|100|60|3.5|5|3|0|50|35|1|lactose|ca
+milk|Milk|দুধ|dairy|1 cup|200|125|6.5|9.5|7|0|90|30|1|lactose|ca
+banana|Banana|কলা|fruit|1 piece|100|90|1|23|.3|2.5|1|55|0||cheap
+guava|Guava|পেয়ারা|fruit|1 piece|100|70|2.5|14|1|5|3|12|0||cheap
+mango|Mango (seasonal)|আম|fruit|1 cup|150|100|1|25|.5|2.5|2|56|0||seasonal
+papaya|Papaya|পেঁপে|fruit|1 cup|150|60|.7|15|.3|2.5|12|55|0||cheap
+peanut|Peanuts (roasted)|চিনাবাদাম|nut_seed|1 handful|30|170|7.5|5|14|2.5|5|14|0|nuts|cheap
+muri|Muri (puffed rice)|মুড়ি|snack|1 bowl|20|80|1.5|18|.2|.5|5|70|0||cheap
+jhal|Jhalmuri|ঝালমুড়ি|street_food|1 packet|60|220|4|35|7|2|450|70|0||street salty
+singara|Singara|সিঙ্গারা|street_food|1 piece|70|260|4|30|14|2|300|65|0|gluten|street fried
+rasgulla|Rasgulla|রসগোল্লা|sweet|1 piece|50|130|3|28|1|0|20|60|1|lactose|sweet festive
+cha|Milk tea with sugar|দুধ চা|beverage|1 cup|150|60|1.5|10|1.5|0|20|0|1|lactose|sweet`;
+const K=["kcal","p","c","f","fib","na"],NI={iron:"iron rich",ca:"calcium rich"};
+const FOODS=FD.trim().split("\n").map(l=>{const a=l.split("|"),f={id:a[0],en:a[1],bn:a[2],cat:a[3],sv:a[4],g:+a[5],kcal:+a[6],p:+a[7],c:+a[8],f:+a[9],fib:+a[10],na:+a[11],gi:+a[12],diet:+a[13],al:a[14]?a[14].split(","):[],t:a[15]||""};f.tags=[...(f.na<=140?["low sodium"]:[]),...(f.gi&&f.gi<=55?["low GI"]:[]),...(f.fib>=4?["high fibre"]:[]),...(f.p>=15?["high protein"]:[]),...f.t.split(" ").filter(Boolean).map(x=>NI[x]||x),...f.al.map(x=>"contains "+x)];return f});
+const F=Object.fromEntries(FOODS.map(f=>[f.id,f]));
+const SL=[["b","Breakfast","7:30 AM",.25,.22],["m","Mid-morning","10:30 AM",.1,.08],["l","Lunch","1:00 PM",.3,.3],["a","Afternoon","4:30 PM",.1,.07],["d","Dinner","8:00 PM",.25,.33]];
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),r0=Math.round,r1=x=>Math.round(x*10)/10;
+let S;try{S=JSON.parse(localStorage.getItem("edibyte"))||{}}catch(x){S={}}
+S.logs=S.logs||[];S.vit=S.vit||[];S.chat=S.chat||[];
+const save=()=>{try{localStorage.setItem("edibyte",JSON.stringify(S))}catch(x){}};
+const iso=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10),today=()=>iso(new Date());
+const addD=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return iso(d)},dl=s=>new Date(s+"T12:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+const pdx=d=>S.plan?r0((new Date(d+"T12:00")-new Date(S.plan.start+"T12:00"))/864e5):-1;
+const ui={day:0,date:today(),slot:"l",qty:1,q:"",cat:""};
+const care=()=>S.p.conds.some(x=>["htn","chol","ckd"].includes(x))||S.p.goals.includes("heart");
+const okf=f=>{const p=S.p;if(f.diet>p.diet||f.al.some(a=>p.alg.includes(a)))return false;const d=(p.dis||"").toLowerCase().split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean);return!d.some(x=>f.en.toLowerCase().includes(x)||f.bn.includes(x))};
+function targets(p){const bmr=10*p.w+6.25*p.h-5*p.age+(p.sex=="m"?5:-161),g=p.goals,c=p.conds;let k=bmr*({sed:1.2,light:1.375,mod:1.55,act:1.725}[p.act]);
+if(g.includes("loss"))k*=.8;if(g.includes("muscle"))k*=1.1;if(g.includes("preg"))k+=300;k=r0(k/10)*10;
+let pr=1.2;if(g.includes("loss"))pr=1.6;if(g.includes("muscle"))pr=1.8;if(g.includes("preg"))pr=1.5;if(c.includes("ckd"))pr=.9;
+const prot=r0(pr*p.w),sugar=c.some(x=>["t2d","pre","pcos"].includes(x))||g.includes("diab"),carb=r0(k*(sugar?.42:.5)/4);
+return{kcal:k,prot,carb,fat:Math.max(20,r0((k-4*prot-4*carb)/9)),fib:sugar?35:30,na:(c.includes("htn")||g.includes("heart"))?1500:2300,sugar}}
+const mac=ps=>ps.reduce((a,[id,q])=>{for(const k of K)a[k]+=F[id][k]*q;return a},Object.fromEntries(K.map(k=>[k,0])));
+const nm=(ps,l)=>ps.slice(0,3).map(([i])=>F[i][l]).join(" + ");
+const port=(f,q)=>{const[n,...u]=f.sv.split(" "),v=r1(parseFloat(n)*q),w=u.join(" ");return v+" "+w+(v>1?"s":"")};
+const GP={loss:"keeps you full on fibre and protein while staying inside your calorie target",muscle:"spreads protein through the day to support muscle gain",diab:"pairs carbohydrate with dal, vegetables or protein to keep blood sugar steadier",heart:"keeps sodium and fried food low for heart health",preg:"brings iron- and protein-rich local foods for pregnancy"};
+const rat=m=>{const g=S.p.goals[0]||(S.p.t.sugar?"diab":"");return`${r0(mac(m.ps).p)} g protein toward your ${S.p.t.prot} g daily target; ${GP[g]||"a balanced local meal toward your daily targets"}.`};
+function tune(c,tk,tp,sec){const t=k=>c.reduce((a,x)=>a+x.f[k]*x.q,0),pr=c[1];
+if(pr)while(t("p")<tp&&pr.q<3)pr.q+=.5;
+if(pr&&t("p")<tp*.9&&sec&&!c.some(x=>x.f==sec)){const x={f:sec,q:1};c.push(x);while(t("p")<tp&&x.q<2)x.q+=.5}
+const fl=c[0];while(t("kcal")<tk*.9&&fl.q<3)fl.q+=.5;while(t("kcal")>tk*1.1&&fl.q>.5)fl.q-=.5}
+function build(){const p=S.p,T=p.t,cr=care(),P=ids=>ids.map(i=>F[i]).filter(f=>f&&okf(f)&&!(cr&&/salty|fried|street/.test(f.t))),pk=(ids,i)=>{const a=P(ids);return a.length?a[i%a.length]:null};
+const main=["rui","chicken","tilapia","egg","katla","beef","omelet","pangas"],plant=["soy","chola","masoor"],fr=T.sugar?["guava","papaya"]:["banana","guava","papaya","mango"];
+const days=[];for(let d=0;d<7;d++)days.push(SL.map(([s,lab,time,kf,pf])=>{const o=s=="d"?3:0,pr=pk(main,d+o)||pk(plant,d+o),dal=pk(["masoor","mug"],d),veg=pk(["palong","lal","lau","mixveg","begun"],d+o);let c;
+if(s=="b")c=[pk(d%3==2?["chira","ruti"]:["ruti","chira"],0),pk(["egg","omelet","chola","mug","soy"],d)||dal,veg];
+else if(s=="m")c=[pk(fr,d),pk(["dahi","peanut","egg","chola"],d)];
+else if(s=="l")c=[pk(d==1||d==4?["brice","rice"]:["rice"],0),pr,dal,veg,pk(["salad"],0)];
+else if(s=="a")c=[pk(d==2&&!cr?["jhal"]:["muri"],0),pk(["chola","egg","peanut","soy"],d)];
+else c=[pk(d%2?["ruti","rice"]:["rice"],0),pr,veg,pk(["lal","palong"],d+1)];
+c=c.filter(Boolean);c=c.filter((f,i)=>c.indexOf(f)==i).map(f=>({f,q:1}));tune(c,T.kcal*kf,T.prot*pf,pk(["chola","mug","dahi","soy","masoor"],d+1));
+return{s,lab,time,ps:c.map(x=>[x.f.id,x.q]),done:0}}));
+const cau=["This is educational guidance, not a diagnosis or medical advice."];
+if(T.sugar)cau.push("Rice and sweets are kept moderate and paired with dal, vegetables or protein.");
+if(cr)cau.push("Achar, shutki, packet snacks and fried foods are left out to keep sodium and fat in check.");
+if(p.conds.includes("ckd"))cau.push("CKD needs individual limits for protein, potassium and phosphorus. Confirm this plan with your kidney team.");
+if(p.goals.includes("preg"))cau.push("Pregnancy needs clinician guidance. Confirm iron, folate and fish choices with your doctor.");
+return{start:today(),days,cau,by:"Generated by the EdiByte rules engine using only the food dataset"}}
+function busy(t){$("#app").innerHTML=`<div class="load"><i></i><b>${t}</b></div>`}
+function gen(){busy("Building your week from the food dataset…");setTimeout(()=>{S.plan=build();ui.day=0;save();location.hash="#today";render()},800)}
+const tot=d=>S.logs.filter(l=>l.date==d).reduce((a,l)=>{for(const k of K)a[k]+=l[k];return a},Object.fromEntries(K.map(k=>[k,0])));
+const bar=(l,v,t,u,cap)=>`<div class="r m"><span>${l}</span><span>${r0(v)} / ${t} ${u}</span></div><div class="bar"><i class="${cap&&v>t?"x":""}" style="width:${Math.min(100,v/t*100)}%"></i></div>`;
+const bars=x=>{const t=S.p.t;return bar("Calories",x.kcal,t.kcal,"kcal")+bar("Protein",x.p,t.prot,"g")+bar("Carbohydrate",x.c,t.carb,"g")+bar("Fat",x.f,t.fat,"g")+bar("Fibre",x.fib,t.fib,"g")+bar("Sodium (limit)",x.na,t.na,"mg",1)};
+const mealCard=(m,d)=>{const x=mac(m.ps);return`<div class="c"><div class="r"><h3>${m.lab}</h3><span class="m">${m.time}</span></div><div><b>${nm(m.ps,"en")}</b></div><div class="m">${nm(m.ps,"bn")}</div><div class="m" style="margin:6px 0">${m.ps.map(([i,q])=>F[i].en+": "+port(F[i],q)).join("; ")}</div><div class="m">${r0(x.kcal)} kcal, protein ${r0(x.p)} g, carbs ${r0(x.c)} g, fat ${r0(x.f)} g, fibre ${r1(x.fib)} g</div><div class="note">${rat(m)}</div>${m.done?'<span class="chip on">Logged</span>':`<button class="btn s" data-a="logp" data-x="${d}" data-y="${m.s}">Log this meal</button>`}</div>`};
+const GUIDE='<div class="note">EdiByte offers general guidance, not a diagnosis or medical advice. Talk with a clinician about your health.</div>';
+const V={};
+V.today=()=>{const t=S.p.t,td=today(),x=tot(td),di=pdx(td),ms=di>=0&&di<7?S.plan.days[di]:null,lv=S.vit.slice(-1)[0],d7=new Set(S.logs.filter(l=>l.date>addD(td,-7)&&l.date<=td).map(l=>l.date)).size,pm=S.plan.days.flat(),pr=r0(pm.filter(m=>m.done).length/pm.length*100),rk=t.kcal-x.kcal,rp=t.prot-x.p;
+const sug=rp>5?FOODS.filter(f=>okf(f)&&f.p>=8&&f.kcal<=Math.max(150,rk)&&!/salty|fried|street|sweet/.test(f.t)).sort((a,b)=>b.p/b.kcal-a.p/a.kcal).slice(0,3):[];
+return`<h1>Today</h1><p class="m">${dl(td)}. Targets: ${t.kcal} kcal, ${t.prot} g protein.</p><div class="c"><h3>Intake so far</h3>${bars(x)}</div>
+<h2>Today’s meals</h2>${ms?ms.map(m=>mealCard(m,di)).join(""):'<div class="c">Your 7-day plan has ended. <button class="btn s" data-a="regen">Build a new week</button></div>'}
+<div class="g"><div class="c"><h3>Logging this week</h3><b>${d7} of 7</b> days logged<br><span class="m">${pr}% of planned meals logged</span></div>
+<div class="c"><h3>Latest readings</h3>${lv?`<span class="m">${dl(lv.date)}</span><br>${[lv.w&&lv.w+" kg",lv.sys&&lv.sys+"/"+lv.dia+" mmHg",lv.fg&&"fasting "+lv.fg+" mg/dL"].filter(Boolean).join(", ")}`:'<span class="m">None yet. Add one under Outcomes.</span>'}</div></div>
+<div class="c"><h3>Coach suggestions</h3>${sug.length?`<p class="m">About ${r0(rp)} g protein still to go. Good fits:</p>`+sug.map(f=>`<div>${f.en} <span class="m">${f.bn}, ${f.sv}: ${f.p} g protein, ${f.kcal} kcal</span></div>`).join(""):'<p class="m">You are close to your protein target. Ask the Coach anything about local foods.</p>'}${x.na>t.na*.8?'<div class="note">Sodium is near your limit today. Skip achar and shutki for the rest of the day.</div>':""}</div>${GUIDE}`};
+V.plan=()=>{const pl=S.plan,d=ui.day;return`<h1>Your week</h1><p class="m">${pl.by}. Daily targets: ${S.p.t.kcal} kcal, ${S.p.t.prot} g protein.</p><div>${pl.days.map((_,i)=>`<button class="chip ${i==d?"on":""}" data-a="day" data-x="${i}">${dl(addD(pl.start,i))}</button>`).join("")}</div><div style="height:10px"></div>${pl.days[d].map(m=>mealCard(m,d)).join("")}<div class="c"><h3>Good to know</h3>${pl.cau.map(x=>`<p class="m">${x}</p>`).join("")}<button class="btn o" data-a="regen">Re-generate plan</button></div>`};
+const res=()=>{const q=ui.q.toLowerCase(),l=FOODS.filter(f=>okf(f)&&(f.en+f.bn+f.id).toLowerCase().includes(q)).slice(0,10);return l.map(f=>`<div class="r" style="padding:6px 0"><span>${f.en} <span class="m">${f.bn}, ${f.sv}, ${f.kcal} kcal</span></span><button class="btn s" data-a="addf" data-x="${f.id}">Add</button></div>`).join("")||'<p class="m">No match. Try another name.</p>'};
+V.log=()=>{const d=ui.date,di=pdx(d),pend=di>=0&&di<7?S.plan.days[di].filter(m=>!m.done):[],ls=S.logs.filter(l=>l.date==d);
+return`<h1>Food log</h1><input type="date" value="${d}" data-ch="date" aria-label="Date"><div class="c" style="margin-top:12px">${bars(tot(d))}</div>
+${pend.length?`<h2>Planned, not yet logged</h2>${pend.map(m=>mealCard(m,di)).join("")}`:""}
+<div class="c"><h3>Add from the food dataset</h3><div class="g"><select data-ch="slot" aria-label="Meal">${SL.map(s=>`<option value="${s[0]}" ${ui.slot==s[0]?"selected":""}>${s[1]}</option>`).join("")}</select><select data-ch="qty" aria-label="Servings">${[.5,1,1.5,2,3].map(q=>`<option ${ui.qty==q?"selected":""}>${q}</option>`).join("")}</select></div><input style="margin:10px 0" data-in="q" value="${esc(ui.q)}" placeholder="Search foods (English or বাংলা)"><div id="res">${res()}</div></div>
+<h2>Logged</h2>${ls.map(l=>`<div class="c r"><span><b>${esc(l.n)}</b><br><span class="m">${esc(l.b)}, ${SL.find(s=>s[0]==l.slot)[1]}, ${r0(l.kcal)} kcal, ${r0(l.p)} g protein</span></span><button class="btn o s" data-a="rm" data-x="${l.id}">Remove</button></div>`).join("")||'<p class="m">Nothing logged for this date yet.</p>'}`};
+const fl=()=>{const q=ui.q.toLowerCase();return FOODS.filter(f=>(!ui.cat||f.cat==ui.cat)&&(f.en+f.bn+f.cat).toLowerCase().includes(q)).map(f=>`<div class="c"><div class="r"><b>${f.en}</b><span class="m">${f.bn}</span></div><div class="m">${f.cat.replace("_"," ")}, ${f.sv} (${f.g} g)</div><div class="g" style="margin:6px 0;font-size:13px"><span>${f.kcal} kcal</span><span>Protein ${f.p} g</span><span>Carbs ${f.c} g</span><span>Fat ${f.f} g</span><span>Fibre ${f.fib} g</span><span>Sodium ${f.na} mg</span><span>GI ${f.gi||"n/a"}</span></div>${f.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div>`).join("")};
+V.foods=()=>`<h1>Foods</h1><p class="m">${FOODS.length} everyday foods. Values are approximate, per household serving.</p><input data-in="q" value="${esc(ui.q)}" placeholder="Search foods (English or বাংলা)"><select data-ch="cat" style="margin:10px 0" aria-label="Category"><option value="">All categories</option>${[...new Set(FOODS.map(f=>f.cat))].map(c=>`<option value="${c}" ${ui.cat==c?"selected":""}>${c.replace("_"," ")}</option>`).join("")}</select><div id="fl">${fl()}</div>`;
+const ALI={dahi:"yogurt|curd",chola:"chickpea|chana",brice:"brown rice",chingri:"prawn|shrimp",khich:"khichuri|khichdi",peanut:"nuts|groundnut",mixveg:"vegetables",begun:"eggplant|brinjal",rui:"rohu",pangas:"pangash",omelet:"omelette",jhal:"jhalmuri",pumpkin:"kumra",masoor:"red lentil",mug:"moong",rice:"bhat|white rice",cha:"tea",lal:"lal shak"};
+const hit=(f,s)=>new RegExp("\\b("+[f.id,ALI[f.id]].filter(Boolean).join("|")+")\\b","i").test(s)||s.includes(f.bn);
+const line=f=>`${f.en} (${f.bn}), ${f.sv}: ${f.kcal} kcal, ${f.p} g protein, ${f.fib} g fibre, ${f.na} mg sodium${f.gi?", GI "+f.gi:""}.`;
+function coach(q){const s=q.toLowerCase(),t=S.p.t,fs=FOODS.filter(f=>hit(f,s)).slice(0,3);let a,src=[],fu=[];
+if(fs.length>1){src=fs;a=fs.map(line).join(" ");const hp=[...fs].sort((x,y)=>y.p-x.p)[0],ls=[...fs].sort((x,y)=>x.na-y.na)[0];a+=` Most protein per serving: ${hp.en}. Lowest sodium: ${ls.en}.`;fu=["Which foods are high in fibre?","What can I eat for more protein?"]}
+else if(fs.length){const f=fs[0];src=[f];a=line(f)+` That is ${r0(f.kcal/t.kcal*100)}% of your daily calories, ${r0(f.p/t.prot*100)}% of your protein target and ${r0(f.na/t.na*100)}% of your ${t.na} mg sodium limit.`;if(f.al.some(x=>S.p.alg.includes(x)))a+=" It contains an allergen you listed, so avoid it.";if(/salty/.test(f.t))a+=" It is very salty, so keep it occasional.";fu=["Compare "+f.en.split(" ")[0]+" and egg","Which foods are low in sodium?"]}
+else{const m={protein:["p",1],fibre:["fib",1],fiber:["fib",1],sodium:["na",1],salt:["na",1],gi:["gi",0],glycemic:["gi",0],sugar:["gi",0]},k=Object.keys(m).find(x=>s.includes(x));
+if(k){const[key,desc]=m[k],l=FOODS.filter(f=>okf(f)&&f.cat!="condiment"&&(key!="gi"||f.gi)&&(key!="na"||f.na>0)&&!(key=="p"&&f.cat=="sweet")).sort((x,y)=>desc?y[key]-x[key]:x[key]-y[key]).slice(0,5);src=l;
+a=(key=="na"?"Highest in sodium, so watch these (per serving): ":key=="gi"?"Lowest glycaemic index (steadier blood sugar): ":key=="fib"?"Most fibre per serving: ":"Most protein per serving: ")+l.map(f=>`${f.en} ${f[key]}${key=="gi"?"":key=="na"?" mg":" g"}`).join(", ")+".";
+a+=key=="p"?` Your daily target is ${t.prot} g.`:key=="fib"?` Your daily target is ${t.fib} g.`:key=="na"?` Your daily limit is ${t.na} mg.`:"";fu=["Compare rui and chicken","How much protein is in dal?"]}
+else{a="I can only answer from the EdiByte food dataset. Try naming a food, comparing two foods, or asking which foods are high in protein, fibre or sodium.";fu=["Which foods are high in protein?","Compare masoor dal and chola","Which foods are high in sodium?"]}}
+return{r:"c",t:a,src:src.map(f=>f.en),fu,cau:"Educational guidance, not medical advice."+(S.p.conds.length?" Check changes with your clinician.":"")}}
+V.coach=()=>`<h1>Coach</h1><p class="m">Answers come only from the food dataset, using household portions.</p>${GUIDE}${S.chat.map(m=>m.r=="u"?`<div class="bub u">${esc(m.t)}</div>`:`<div class="bub a">${esc(m.t)}${m.src.length?`<div class="m" style="margin-top:6px">Foods used: ${m.src.map(esc).join(", ")}</div>`:""}<div>${m.fu.map(x=>`<button class="chip" data-a="ask" data-x="${esc(x)}">${esc(x)}</button>`).join("")}</div><div class="note">${m.cau}</div></div>`).join("")}${ui.think?'<div class="bub a m">Thinking…</div>':""}
+${S.chat.length?"":["Which foods are high in protein?","Compare rui and chicken","Is shutki okay for me?"].map(x=>`<button class="chip" data-a="ask" data-x="${x}">${x}</button>`).join("")}<form data-f="ask" style="display:flex;gap:8px;margin-top:14px"><input id="cq" name="q" placeholder="Ask about a food" required><button class="btn">Ask</button></form>`;
+const spark=(a,u)=>{if(a.length<2)return'<div class="m">Add two or more readings to see a trend.</div>';const mn=Math.min(...a),mx=Math.max(...a),pts=a.map((v,i)=>`${i/(a.length-1)*300},${62-(v-mn)/((mx-mn)||1)*54}`).join(" ");return`<svg viewBox="0 0 300 70" width="100%" height="70" role="img" aria-label="Trend"><polyline points="${pts}" fill="none" stroke="var(--pri)" stroke-width="3" stroke-linejoin="round"/></svg><div class="m">${a[0]} to ${a[a.length-1]} ${u}</div>`};
+const col=k=>S.vit.map(v=>v[k]).filter(x=>x!=null),avg=a=>a.reduce((s,x)=>s+x,0)/(a.length||1);
+V.out=()=>{const w=col("w"),sy=col("sys").slice(-5),di=col("dia").slice(-5),fg=col("fg"),pp=col("pp"),td=today(),d14=new Set(S.logs.filter(l=>l.date>addD(td,-14)).map(l=>l.date)).size,pm=S.plan.days.flat(),sm=[];
+if(w.length>1)sm.push(`Weight moved ${r1(w[w.length-1]-w[0])} kg since your first reading. Target is ${S.p.tw} kg (${r1(w[w.length-1]-S.p.tw)} kg to go).`);
+if(sy.length)sm.push(`Recent blood pressure averages ${r0(avg(sy))}/${r0(avg(di))} mmHg. Readings that stay at or above 130/80 are worth discussing with a clinician.`);
+if(fg.length)sm.push(`Fasting glucose averages ${r0(avg(fg))} mg/dL. Persistently higher readings are worth discussing with a clinician.`);
+const fi=(l,n,x="")=>`<div><label>${l}</label><input name="${n}" type="number" step="any" ${x}></div>`;
+return`<h1>Outcomes</h1>${GUIDE}<div class="c"><h3>Record readings</h3><form data-f="vit"><div class="g"><div><label>Date</label><input name="date" type="date" value="${td}"></div>${fi("Weight (kg)","w")}${fi("BP systolic","sys")}${fi("BP diastolic","dia")}${fi("Fasting glucose (mg/dL)","fg")}${fi("Post-meal glucose (mg/dL)","pp")}${fi("Waist (cm)","wa")}</div><br><button class="btn">Save readings</button></form></div>
+<div class="c"><h3>Summary</h3>${sm.map(x=>`<p>${x}</p>`).join("")||'<p class="m">Save a few readings to see plain-language summaries.</p>'}<p class="m">Logged ${d14} of the last 14 days. ${r0(pm.filter(m=>m.done).length/pm.length*100)}% of planned meals logged.</p></div>
+<div class="g"><div class="c"><h3>Weight</h3>${spark(w,"kg")}</div><div class="c"><h3>Systolic BP</h3>${spark(col("sys"),"mmHg")}</div><div class="c"><h3>Fasting glucose</h3>${spark(fg,"mg/dL")}</div><div class="c"><h3>Post-meal glucose</h3>${spark(pp,"mg/dL")}</div></div>`};
+const chk=(n,o,s=[])=>`<div class="chk">${o.map(([v,l])=>`<label><input type="checkbox" name="${n}" value="${v}" ${s.includes(v)?"checked":""}>${l}</label>`).join("")}</div>`,sl=(n,o,v)=>`<select name="${n}">${o.map(([a,b])=>`<option value="${a}" ${String(a)==String(v)?"selected":""}>${b}</option>`).join("")}</select>`;
+V.ob=()=>{const p=S.p||{goals:[],conds:[],alg:[]},fi=(l,n,t="number",v=p[n],x="required")=>`<div><label>${l}</label><input name="${n}" type="${t}" step="any" value="${esc(v)}" ${x}></div>`;
+return`<h1>${S.p?"Edit profile":"Welcome to EdiByte"}</h1><p class="m">Personalized nutrition from everyday Bangladeshi foods. Takes about two minutes. Your data stays in this browser.</p><form data-f="ob" class="c"><div class="g">${fi("Age","age")}<div><label>Sex</label>${sl("sex",[["f","Female"],["m","Male"]],p.sex)}</div>${fi("Height (cm)","h")}${fi("Weight (kg)","w")}${fi("Target weight (kg)","tw")}<div><label>Activity</label>${sl("act",[["sed","Sedentary"],["light","Light"],["mod","Moderate"],["act","Active"]],p.act||"light")}</div></div>
+<label>Goals</label>${chk("goals",[["loss","Weight loss"],["muscle","Muscle gain"],["diab","Manage diabetes"],["heart","Heart health"],["preg","Pregnancy"]],p.goals)}<label>Conditions</label>${chk("conds",[["t2d","Type 2 diabetes"],["pre","Prediabetes"],["htn","Hypertension"],["chol","High cholesterol"],["pcos","PCOS"],["ckd","CKD"]],p.conds)}<label>Allergies and intolerances</label>${chk("alg",[["lactose","Lactose"],["gluten","Gluten"],["nuts","Nuts"],["shellfish","Shellfish"],["egg","Egg"],["soy","Soy"],["fish","Fish"]],p.alg)}
+<div class="g"><div><label>Diet pattern</label>${sl("diet",[[4,"Omnivore"],[3,"Pescatarian"],[2,"Eggetarian"],[1,"Vegetarian"],[0,"Vegan"]],p.diet??4)}</div><div><label>Region</label>${sl("reg",["Dhaka","Chattogram","Sylhet","Rajshahi","Khulna","Barishal","Rangpur","Mymensingh"].map(x=>[x,x]),p.reg)}</div>${fi("City","city","text",p.city,"")}${fi("Household size","hh","number",p.hh||4)}${fi("Monthly food budget (৳)","bud","number",p.bud||15000)}${fi("Cooking time (min)","cook","number",p.cook||45)}<div><label>Spice</label>${sl("spice",[["mild","Mild"],["medium","Medium"],["hot","Hot"]],p.spice||"medium")}</div></div>
+<div class="chk"><label><input type="checkbox" name="rice" ${p.rice?"checked":""}>Rice at every meal</label><label><input type="checkbox" name="fast" ${p.fast?"checked":""}>I observe fasting</label></div><label>Disliked foods (comma separated)</label><input name="dis" value="${esc(p.dis)}"><label>Notes</label><textarea name="notes" rows="2">${esc(p.notes)}</textarea><br><button class="btn">Save and build my plan</button></form>`};
+V.profile=()=>{const p=S.p,t=p.t;return`<h1>Profile</h1><div class="c"><h3>Your daily targets</h3>${[["Calories",t.kcal+" kcal"],["Protein",t.prot+" g"],["Carbohydrate",t.carb+" g"],["Fat",t.fat+" g"],["Fibre",t.fib+" g"],["Sodium limit",t.na+" mg"]].map(([a,b])=>`<div class="r"><span>${a}</span><b>${b}</b></div>`).join("")}<p class="m">Mifflin-St Jeor energy needs, adjusted for your goals and conditions.</p></div><div class="c"><h3>About you</h3><p class="m">${p.age} years, ${p.h} cm, ${p.w} kg, target ${p.tw} kg. ${p.city?esc(p.city)+", ":""}${p.reg}. Household ${p.hh}.</p><button class="btn" data-a="edit">Edit profile</button> <button class="btn o" data-a="regen">Rebuild plan</button> <button class="btn o" data-a="reset">Reset all data</button></div>${GUIDE}`};
+const TB=[["today","Today","🏠"],["plan","Plan","📅"],["log","Log","✍️"],["foods","Foods","🍛"],["coach","Coach","💬"],["outcomes","Outcomes","📈"],["profile","Profile","👤"]];
+function render(){const r=(location.hash||"#today").slice(1),ob=!S.p||!S.p.done||ui.edit;if(ob){$("#app").innerHTML=`<main>${V.ob()}</main>`;return}
+const k=r=="outcomes"?"out":V[r]?r:"today";$("#app").innerHTML=`<nav><div class="brand"><h2>EdiByte</h2><div class="m">Eat well, the local way</div></div>${TB.map(([h,l,i])=>`<a href="#${h}" class="${h==r?"on":""}"><b>${i}</b>${l}</a>`).join("")}</nav><main>${V[k]()}</main>`;if(k=="coach"){const c=$("#cq");c&&!ui.think&&c.focus();scrollTo(0,document.body.scrollHeight)}}
+const A={day:i=>{ui.day=+i;render()},
+logp:(d,s)=>{const m=S.plan.days[d].find(x=>x.s==s);if(m.done)return;m.done=1;const x=mac(m.ps);S.logs.push({id:Math.random().toString(36).slice(2),date:addD(S.plan.start,+d),slot:s,src:"plan",pd:+d,n:nm(m.ps,"en"),b:nm(m.ps,"bn"),...x});save();render()},
+addf:id=>{const f=F[id],q=+ui.qty;S.logs.push({id:Math.random().toString(36).slice(2),date:ui.date,slot:ui.slot,src:"manual",n:f.en,b:f.bn+", "+port(f,q),...Object.fromEntries(K.map(k=>[k,f[k]*q]))});save();render()},
+rm:id=>{const l=S.logs.find(x=>x.id==id);if(l&&l.src=="plan"){const m=S.plan.days[l.pd]?.find(x=>x.s==l.slot);if(m)m.done=0}S.logs=S.logs.filter(x=>x.id!=id);save();render()},
+regen:gen,edit:()=>{ui.edit=1;render()},reset:()=>{if(confirm("Delete all EdiByte data from this browser?")){S={logs:[],vit:[],chat:[]};try{localStorage.removeItem("edibyte")}catch(x){}render()}},
+ask:q=>{S.chat.push({r:"u",t:q});ui.think=1;render();setTimeout(()=>{S.chat.push(coach(q));ui.think=0;save();render()},600)}};
+const FS={ob:fd=>{const g=k=>fd.getAll(k),n=k=>+fd.get(k),p={age:n("age"),sex:fd.get("sex"),h:n("h"),w:n("w"),tw:n("tw"),act:fd.get("act"),goals:g("goals"),conds:g("conds"),alg:g("alg"),diet:n("diet"),city:fd.get("city"),reg:fd.get("reg"),hh:n("hh"),bud:n("bud"),cook:n("cook"),spice:fd.get("spice"),rice:fd.has("rice"),fast:fd.has("fast"),dis:fd.get("dis"),notes:fd.get("notes"),done:1};p.t=targets(p);S.p=p;ui.edit=0;gen()},
+vit:fd=>{const n=k=>fd.get(k)===""?null:+fd.get(k);S.vit.push({date:fd.get("date"),w:n("w"),sys:n("sys"),dia:n("dia"),fg:n("fg"),pp:n("pp"),wa:n("wa")});S.vit.sort((a,b)=>a.date<b.date?-1:1);save();render()},
+ask:fd=>A.ask(fd.get("q"))};
+document.addEventListener("click",ev=>{const b=ev.target.closest("[data-a]");b&&A[b.dataset.a](b.dataset.x,b.dataset.y)});
+document.addEventListener("submit",ev=>{ev.preventDefault();FS[ev.target.dataset.f](new FormData(ev.target))});
+document.addEventListener("change",ev=>{const k=ev.target.dataset.ch;if(k){ui[k]=ev.target.value;render()}});
+document.addEventListener("input",ev=>{if(ev.target.dataset.in){ui.q=ev.target.value;const r=$("#res")||$("#fl");r&&(r.innerHTML=$("#res")?res():fl())}});
+addEventListener("hashchange",()=>{ui.q="";render()});render();
+</script></body></html>

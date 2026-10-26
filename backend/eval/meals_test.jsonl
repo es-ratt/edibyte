@@ -1,0 +1,34 @@
+{"id": "m01", "lang": "bn", "text": "আমি এক প্লেট ভাত আর এক বাটি ডাল খেয়েছি", "expected": ["bhat", "dal"], "source": "team-made"}
+{"id": "m02", "lang": "bn", "text": "সকালে দুইটা রুটি আর একটা ডিম ভাজি", "expected": ["ruti", "dim_bhaji"], "source": "team-made"}
+{"id": "m03", "lang": "bn", "text": "দুপুরে ভাত, রুই মাছ আর লাল শাক", "expected": ["bhat", "rui_machh", "shak"], "source": "team-made"}
+{"id": "m04", "lang": "bn", "text": "রাতে খিচুড়ি আর বেগুন ভাজা", "expected": ["khichuri", "begun_bhaja"], "source": "team-made"}
+{"id": "m05", "lang": "bn", "text": "বিকালে দুটো সিঙ্গারা আর এক কাপ চা", "expected": ["singara", "cha"], "source": "team-made"}
+{"id": "m06", "lang": "bn", "text": "এক বাটি মুড়ি আর একটা কলা", "expected": ["muri", "kola"], "source": "team-made"}
+{"id": "m07", "lang": "bn", "text": "ভাতের সাথে মুরগির মাংস আর সালাদ", "expected": ["bhat", "murgi", "salad"], "source": "team-made"}
+{"id": "m08", "lang": "bn", "text": "২টা পরোটা, আলু ভাজি আর দুধ চা", "expected": ["paratha", "alu_bhaji", "cha"], "source": "team-made"}
+{"id": "m09", "lang": "bn", "text": "এক প্লেট বিরিয়ানি আর এক গ্লাস ডাবের পানি", "expected": ["biryani", "dab"], "source": "team-made"}
+{"id": "m10", "lang": "bn", "text": "টক দই আর একটা পেয়ারা", "expected": ["doi", "peyara"], "source": "team-made"}
+{"id": "m11", "lang": "banglish", "text": "ek plate bhat ar dal khailam", "expected": ["bhat", "dal"], "source": "team-made"}
+{"id": "m12", "lang": "banglish", "text": "2ta ruti ar dim bhaji", "expected": ["ruti", "dim_bhaji"], "source": "team-made"}
+{"id": "m13", "lang": "banglish", "text": "bhat, machher jhol ar shobji", "expected": ["bhat", "rui_machh", "shobji"], "source": "team-made"}
+{"id": "m14", "lang": "banglish", "text": "nastay porota ar cha", "expected": ["paratha", "cha"], "source": "team-made"}
+{"id": "m15", "lang": "banglish", "text": "bikale jhalmuri ar duita piaju", "expected": ["jhal_muri", "piaju"], "source": "team-made"}
+{"id": "m16", "lang": "banglish", "text": "dupure polao ar gorur mangsho", "expected": ["polao", "gorur_mangsho"], "source": "team-made"}
+{"id": "m17", "lang": "banglish", "text": "ratre ruti ar alu vorta", "expected": ["ruti", "alu_vorta"], "source": "team-made"}
+{"id": "m18", "lang": "banglish", "text": "ekta kola ar ek glass dudh", "expected": ["kola", "dudh"], "source": "team-made"}
+{"id": "m19", "lang": "banglish", "text": "fuchka ar chotpoti khaisi", "expected": ["fuchka", "chotpoti"], "source": "team-made"}
+{"id": "m20", "lang": "banglish", "text": "chira, doi ar aam", "expected": ["chira", "doi", "aam"], "source": "team-made"}
+{"id": "m21", "lang": "en", "text": "I had a plate of rice with lentil dal and fish curry", "expected": ["bhat", "dal", "rui_machh"], "source": "team-made"}
+{"id": "m22", "lang": "en", "text": "two chapatis and a boiled egg", "expected": ["ruti", "dim_sheddho"], "source": "team-made"}
+{"id": "m23", "lang": "en", "text": "chicken biryani and coconut water", "expected": ["biryani", "dab"], "source": "team-made"}
+{"id": "m24", "lang": "en", "text": "a bowl of mixed vegetables with rice", "expected": ["shobji", "bhat"], "source": "team-made"}
+{"id": "m25", "lang": "en", "text": "milk tea and two biscuits", "expected": ["cha", "biscuit"], "source": "team-made"}
+{"id": "m26", "lang": "en", "text": "an omelette with bread", "expected": ["dim_bhaji", "pauruti"], "source": "team-made"}
+{"id": "m27", "lang": "en", "text": "beef curry, polao and salad", "expected": ["gorur_mangsho", "polao", "salad"], "source": "team-made"}
+{"id": "m28", "lang": "en", "text": "banana and an apple", "expected": ["kola", "apel"], "source": "team-made"}
+{"id": "m29", "lang": "en", "text": "instant noodles with an egg", "expected": ["noodles", "dim_sheddho"], "source": "team-made"}
+{"id": "m30", "lang": "en", "text": "chickpea curry and puffed rice", "expected": ["chola", "muri"], "source": "team-made"}
+{"id": "m31", "lang": "mixed", "text": "ভাত, dal ar ডিম", "expected": ["bhat", "dal", "dim_sheddho"], "source": "team-made"}
+{"id": "m32", "lang": "mixed", "text": "2 plate bhat and মাছের ঝোল", "expected": ["bhat", "rui_machh"], "source": "team-made"}
+{"id": "m33", "lang": "mixed", "text": "rice ar লাল শাক with dal", "expected": ["bhat", "shak", "dal"], "source": "team-made"}
+{"id": "m34", "lang": "mixed", "text": "singara, samucha and রং চা", "expected": ["singara", "samucha", "rong_cha"], "source": "team-made"}
