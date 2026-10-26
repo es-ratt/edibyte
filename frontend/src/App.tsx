@@ -18,6 +18,7 @@ const ResponsibleAI = lazy(() => import('@/pages/ResponsibleAI'))
 const Impact = lazy(() => import('@/pages/Impact'))
 const Roadmap = lazy(() => import('@/pages/Roadmap'))
 const Team = lazy(() => import('@/pages/Team'))
+const History = lazy(() => import('@/pages/History'))
 const Login = lazy(() => import('@/pages/Login'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: '/impact', element: page(<Impact />) },
       { path: '/roadmap', element: page(<Roadmap />) },
       { path: '/team', element: page(<Team />) },
+      { path: '/history', element: page(<History />) },
       { path: '/login', element: page(<Login />) },
       { path: '*', element: page(<NotFound />) },
     ],

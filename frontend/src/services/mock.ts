@@ -59,12 +59,36 @@ export const mockApi: Api = {
   },
   coach: (q) => {
     const lang = detectLang(q)
-    const answer = {
-      en: 'This is a MOCK answer for UI testing (no backend connected).\n\nGeneral nutrition information, not medical advice.',
-      bn: 'এটি UI পরীক্ষার জন্য একটি নমুনা উত্তর (ব্যাকএন্ড যুক্ত নেই)।\n\nএটি সাধারণ পুষ্টি তথ্য, চিকিৎসা পরামর্শ নয়।',
-      banglish: 'Eta UI test er jonno ekta MOCK uttor (backend connect kora nei).\n\nEta general nutrition information, medical advice na.',
+    const text = q.toLowerCase()
+    const hits = foods.filter((f) => f.keys.some((k) => text.includes(k)))
+    const per = (f: (typeof foods)[number]) => ({ kcal: Math.round((f.kcal * f.g) / 100), p: +((f.p * f.g) / 100).toFixed(1) })
+    const notice = {
+      en: '(Demo mode: sample values, no server connected.)',
+      bn: '(ডেমো মোড: নমুনা মান, সার্ভার যুক্ত নেই।)',
+      banglish: '(Demo mode: sample value, server connect nei.)',
     }[lang]
-    return delay({ answer, sources: [], lang, mode: 'offline', guardrail: null }, 700)
+    const disclaimer = {
+      en: 'General nutrition information, not medical advice.',
+      bn: 'এটি সাধারণ পুষ্টি তথ্য, চিকিৎসা পরামর্শ নয়।',
+      banglish: 'Eta general nutrition information, medical advice na.',
+    }[lang]
+    let body: string
+    if (hits.length) {
+      const lines = hits.slice(0, 3).map((f) => {
+        const v = per(f)
+        if (lang === 'bn') return `• ${f.name_bn}: প্রায় ${v.kcal} ক্যালরি, ${v.p} গ্রাম প্রোটিন (১ পরিবেশন)`
+        if (lang === 'banglish') return `• ${f.name_bl}: prai ${v.kcal} kcal, ${v.p} g protein (1 serving)`
+        return `• ${f.name_en.replace(' (mock)', '')}: about ${v.kcal} kcal, ${v.p} g protein (1 serving)`
+      })
+      body = lines.join('\n')
+    } else {
+      body = {
+        en: 'Try asking about rice, dal, egg or ruti, for example: "How much protein is in an egg?"',
+        bn: 'ভাত, ডাল, ডিম বা রুটি নিয়ে জিজ্ঞেস করুন, যেমন: “একটা ডিমে কত প্রোটিন?”',
+        banglish: 'Bhat, dal, dim ba ruti niye jiggesh korun, jemon: "Ekta dim e koto protein?"',
+      }[lang]
+    }
+    return delay({ answer: `${body}\n\n${notice}\n${disclaimer}`, sources: [], lang, mode: 'offline', guardrail: null }, 600)
   },
   foods: (query = '') => delay(foods.filter((f) => !query || f.keys.some((k) => k.includes(query.toLowerCase()))).map((f) => ({
     ...brief(f), aliases: f.keys, kcal: f.kcal, protein_g: f.p, carbs_g: f.c, fat_g: f.f, fiber_g: null,

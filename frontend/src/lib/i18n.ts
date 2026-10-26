@@ -38,9 +38,9 @@ const T = {
     'AI chara cholche: rule-based reading ar ready answer.',
   ],
   'mock.banner': [
-    'Mock data mode: everything shown is placeholder data, not real.',
-    'মক ডেটা মোড: এখানে দেখানো সব তথ্য নমুনা, আসল নয়।',
-    'Mock data mode: ekhane dekhano shob data sample, ashol na.',
+    'Demo mode: no server is connected, so the results shown are sample data, not real analysis.',
+    'ডেমো মোড: সার্ভার যুক্ত নেই, তাই এখানে দেখানো ফলাফল নমুনা, আসল বিশ্লেষণ নয়।',
+    'Demo mode: server connect nei, tai ekhane dekhano result sample, ashol analysis na.',
   ],
   'startup.waking': ['Starting up, one moment…', 'চালু হচ্ছে, একটু অপেক্ষা করুন…', 'Chalu hocche, ektu wait korun…'],
   'startup.wakingSub': [
@@ -105,6 +105,22 @@ const T = {
     'ডেমো লগইন: কোনো পাসওয়ার্ড নেই। আপনার নাম ও ইমেইল শুধু এই ব্রাউজারে থাকে, কোথাও পাঠানো হয় না।',
     'Demo login: password nei. Apnar nam ar email shudhu ei browser e thake, kothao pathano hoy na.',
   ],
+
+  // Meal history
+  'nav.history': ['History', 'ইতিহাস', 'History'],
+  'history.title': ['Your meal history', 'আপনার খাবারের ইতিহাস', 'Apnar meal history'],
+  'history.subtitle': ['Your last 7 days at a glance.', 'গত ৭ দিনের হিসাব এক নজরে।', 'Gato 7 diner hishab ek nojore.'],
+  'history.emptyTitle': ['No meals saved yet', 'এখনো কোনো খাবার সংরক্ষিত নেই', 'Ekhono kono meal save hoyni'],
+  'history.emptyText': ['Every meal you check is saved here, on this device only.', 'আপনি যে খাবার যাচাই করবেন তা এই ডিভাইসেই এখানে জমা থাকবে।', 'Apni ja check korben ta ei device-ei ekhane jomma thakbe.'],
+  'history.avgKcal': ['Average per day', 'দিনে গড়', 'Dine gor'],
+  'history.target': ['Daily target about {n} kcal', 'দৈনিক লক্ষ্য প্রায় {n} ক্যালরি', 'Daily target prai {n} kcal'],
+  'history.avgProtein': ['Protein per day (average)', 'দিনে গড় প্রোটিন', 'Dine gor protein'],
+  'history.mealsWeek': ['Meals this week', 'এই সপ্তাহে খাবার', 'Ei shoptahe meal'],
+  'history.chartTitle': ['Calories per day', 'দিনে ক্যালরি', 'Dine calorie'],
+  'history.chartNote': ['The dashed line is your daily target. Values are estimates.', 'ড্যাশ দেওয়া রেখাটি আপনার দৈনিক লক্ষ্য। মানগুলো আনুমানিক।', 'Dash dewa rekha ta apnar daily target. Value gulo approximate.'],
+  'history.recent': ['Recent meals', 'সাম্প্রতিক খাবার', 'Shomprotik meal'],
+  'history.clear': ['Clear history', 'ইতিহাস মুছুন', 'History muchhun'],
+  'history.privacy': ['Saved only in this browser. Not sent to any server.', 'শুধু এই ব্রাউজারে সংরক্ষিত। কোনো সার্ভারে পাঠানো হয় না।', 'Shudhu ei browser e save. Kono server e pathano hoy na.'],
 
   // Home
   'home.badge': ['Bangla-first AI nutrition coach', 'বাংলায় এআই পুষ্টি সহায়ক', 'Bangla-first AI nutrition coach'],

@@ -11,7 +11,8 @@ import { Skeleton, SkeletonCard } from '@/components/Skeleton'
 import { EMPTY_DRAFT, errorKey, useApp } from '@/hooks/useApp'
 import { foodName, unitKey } from '@/lib/food'
 import { fmtNum, type TKey } from '@/lib/i18n'
-import { load } from '@/lib/storage'
+import { addMeal } from '@/lib/history'
+import { load, save } from '@/lib/storage'
 import { api } from '@/services/api'
 import type { ReportResponse } from '@/types/api'
 
@@ -37,8 +38,26 @@ export default function Report() {
     if (logNow) markReportLogged()
     api
       .report(reportItems, profile, apiLang, reportMealType, logNow ? sessionId : null)
-      .then((r) => !cancelled && setReport(r))
-      .catch((e) => !cancelled && setError(errorKey(e)))
+      .then((r) => {
+        // Save to the on-device history once per meal, even if this effect run was cancelled (StrictMode).
+        if (logNow) {
+          addMeal({
+            ts: Date.now(),
+            mealType: reportMealType,
+            kcal: r.totals.kcal,
+            protein_g: r.totals.protein_g,
+            carbs_g: r.totals.carbs_g,
+            fat_g: r.totals.fat_g,
+            foods: r.items.map((i) => ({ bn: i.food.name_bn, en: i.food.name_en })),
+          })
+        }
+        if (!cancelled) setReport(r)
+      })
+      .catch((e) => {
+        // Request failed before the meal was saved: release the claim so Retry can still log it.
+        if (logNow) save('reportLogged', false)
+        if (!cancelled) setError(errorKey(e))
+      })
       .finally(() => !cancelled && setLoading(false))
     return () => {
       cancelled = true
@@ -252,6 +271,9 @@ export default function Report() {
         </ButtonLink>
         <ButtonLink to="/coach">
           <MessageCircle size={18} aria-hidden /> {t('report.askCoach')}
+        </ButtonLink>
+        <ButtonLink to="/history" variant="ghost">
+          {t('nav.history')}
         </ButtonLink>
       </div>
     </div>
