@@ -25,6 +25,8 @@ export interface Food {
   serving_desc_bn: string
   serving_desc_en: string
   serving_grams: number
+  /** Weight of one piece; null when not known (a piece count then cannot be converted). */
+  piece_grams?: number | null
   kcal: number
   protein_g: number
   carbs_g: number
@@ -49,6 +51,7 @@ export interface FoodBrief {
   serving_desc_bn: string
   serving_desc_en: string
   serving_grams: number
+  piece_grams?: number | null
   verified: boolean
 }
 
@@ -81,6 +84,9 @@ export interface ParsedItem {
   grams: number
   assumed: boolean
   confidence: number
+  /** True when the match is a guess (confidence below 0.9). */
+  uncertain?: boolean
+  portion_note?: 'piece_weight_unknown' | null
 }
 
 export interface UnmatchedItem {

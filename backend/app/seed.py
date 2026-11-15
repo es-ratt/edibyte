@@ -55,6 +55,7 @@ def food_from_row(row: dict[str, str]) -> Food:
         serving_desc_bn=row["serving_desc_bn"].strip(),
         serving_desc_en=row["serving_desc_en"].strip(),
         serving_grams=float(row["serving_grams"]),
+        piece_grams=_float(row.get("piece_grams")),
         kcal=float(row["kcal"]),
         protein_g=float(row["protein_g"]),
         carbs_g=float(row["carbs_g"]),

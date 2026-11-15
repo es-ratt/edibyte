@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .models import Food
-from .nutrition_config import FIXED_UNIT_GRAMS, SERVING_UNITS
+from .nutrition_config import FIXED_UNIT_GRAMS, PIECE_UNITS
 
 # Raw word (bn / en / banglish) -> canonical unit.
 UNIT_WORDS: dict[str, str] = {
@@ -54,20 +54,43 @@ def canonical_unit(word: str | None) -> str | None:
     return UNIT_WORDS.get(w)
 
 
+def piece_weight(food: Food) -> float | None:
+    """Grams of one piece, or None when it is not known for this food."""
+    if food.piece_grams:
+        return food.piece_grams
+    return None
+
+
+def piece_weight_unknown(food: Food, quantity: float | None, unit: str | None) -> bool:
+    """True when the user gave a piece count but this food has no piece weight."""
+    return quantity is not None and canonical_unit(unit) in PIECE_UNITS and piece_weight(food) is None
+
+
 def to_grams(food: Food, quantity: float | None, unit: str | None) -> tuple[float, bool]:
     """Convert a quantity to grams for a specific food.
 
-    Returns (grams, assumed). `assumed` is True when the quantity was missing
-    and one default serving was used.
+    Returns (grams, assumed). `assumed` is True when the amount could not be
+    taken from what the user wrote and ONE default serving was used instead:
+    * no quantity was given; or
+    * a piece count was given ("10ta") for a food whose piece weight is not
+      known. The count is NOT multiplied by the serving weight (10 fuchka is
+      not 10 plates); the user is asked to check the portion.
     """
     assumed = quantity is None
     qty = 1.0 if quantity is None else max(0.0, float(quantity))
-    unit = canonical_unit(unit) or "serving"
+    unit = canonical_unit(unit)
+    per_piece = piece_weight(food)
     if unit in FIXED_UNIT_GRAMS:
         grams = qty * FIXED_UNIT_GRAMS[unit]
+    elif unit in PIECE_UNITS:
+        if per_piece is not None:
+            grams = qty * per_piece
+        else:
+            grams, assumed = food.serving_grams, True
+    elif unit is None and quantity is not None and per_piece is not None:
+        # A bare count ("2 biscuits", "duita dim") means pieces when we know a piece weight.
+        grams = qty * per_piece
     else:
-        # plate / bati / cup / piece / ta ... -> standard servings of this food
-        if unit not in SERVING_UNITS:
-            unit = "serving"
+        # plate / bati / cup / glass / handful / serving -> standard servings of this food
         grams = qty * food.serving_grams
     return round(grams, 1), assumed

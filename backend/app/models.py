@@ -3,6 +3,7 @@
 Nutrient columns on Food (kcal, protein_g, carbs_g, fat_g, fiber_g) are
 **per 100 g edible portion**, the convention used by food composition tables.
 `serving_grams` is the weight of one typical serving (e.g. 1 plate of rice).
+`piece_grams` is the weight of one countable piece, when that is known.
 `price_bdt_estimate` is the estimated cost of ONE serving in Taka, only when a
 real, dated source exists.
 """
@@ -28,6 +29,9 @@ class Food(SQLModel, table=True):
     serving_desc_bn: str
     serving_desc_en: str
     serving_grams: float
+    # Weight of ONE piece (1 fuchka, 1 biscuit) when a serving is a plate/bowl/several pieces.
+    # None = not known: a piece count can then not be converted and the user is asked to check.
+    piece_grams: float | None = None
     kcal: float
     protein_g: float
     carbs_g: float
