@@ -34,7 +34,8 @@ def _int(name: str, default: int) -> int:
 @dataclass(frozen=True)
 class Settings:
     database_url: str = field(
-        default_factory=lambda: os.getenv("DATABASE_URL", f"sqlite:///{BACKEND_DIR / 'edibyte.db'}")
+        # An empty value (e.g. a blank field in the Render dashboard) also means local SQLite.
+        default_factory=lambda: os.getenv("DATABASE_URL", "").strip() or f"sqlite:///{BACKEND_DIR / 'edibyte.db'}"
     )
     # gemini | anthropic | openai | none
     llm_provider: str = field(default_factory=lambda: os.getenv("LLM_PROVIDER", "none").strip().lower())

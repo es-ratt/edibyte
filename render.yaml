@@ -1,5 +1,11 @@
-# Render blueprint: backend web service + frontend static site.
-# Set the secret env vars (DATABASE_URL, LLM_API_KEY) in the Render dashboard.
+# Render blueprint for the backend API. Render watches this GitHub repo and redeploys on
+# every push to main. The frontend is deployed separately to GitHub Pages
+# (.github/workflows/deploy-frontend.yml).
+#
+# Works with no secrets: offline mode (rules engine + BM25 coach) and SQLite seeded from
+# backend/data on every start. Optional, added later in the Render dashboard:
+#   DATABASE_URL  PostgreSQL URL, so anonymous meal history survives restarts
+#   LLM_PROVIDER / LLM_MODEL / LLM_API_KEY  AI mode
 services:
   - type: web
     name: edibyte-api
@@ -12,31 +18,13 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.7
-      - key: DATABASE_URL
-        sync: false
       - key: LLM_PROVIDER
         value: none
-      - key: LLM_MODEL
-        sync: false
-      - key: LLM_API_KEY
-        sync: false
+      # Origins only (no path). The GitHub Pages site plus local development.
       - key: CORS_ORIGINS
-        value: https://edibyte-web.onrender.com
+        value: https://es-ratt.github.io,http://localhost:5173
       - key: ENABLE_PHOTO
         value: "false"
       # Render sits in front of the app and sets X-Forwarded-For itself.
       - key: TRUST_PROXY
         value: "true"
-  - type: web
-    name: edibyte-web
-    runtime: static
-    rootDir: frontend
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_BASE_URL
-        value: https://edibyte-api.onrender.com
