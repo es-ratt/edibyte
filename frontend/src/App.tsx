@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import { SkeletonCard } from '@/components/Skeleton'
 import { AppProvider } from '@/hooks/useApp'
-import { AuthProvider } from '@/hooks/useAuth'
 import Home from '@/pages/Home'
 import LogMeal from '@/pages/LogMeal'
 
@@ -19,7 +18,6 @@ const Impact = lazy(() => import('@/pages/Impact'))
 const Roadmap = lazy(() => import('@/pages/Roadmap'))
 const Team = lazy(() => import('@/pages/Team'))
 const History = lazy(() => import('@/pages/History'))
-const Login = lazy(() => import('@/pages/Login'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 const page = (el: React.ReactNode) => <Suspense fallback={<SkeletonCard lines={4} />}>{el}</Suspense>
@@ -44,7 +42,6 @@ const router = createBrowserRouter([
       { path: '/roadmap', element: page(<Roadmap />) },
       { path: '/team', element: page(<Team />) },
       { path: '/history', element: page(<History />) },
-      { path: '/login', element: page(<Login />) },
       { path: '*', element: page(<NotFound />) },
     ],
   },
@@ -53,9 +50,7 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <AppProvider>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <RouterProvider router={router} />
     </AppProvider>
   )
 }
