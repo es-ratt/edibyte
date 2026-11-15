@@ -18,7 +18,7 @@ Domain: **FoodSphere AI** · Challenge: **Nutrition Intelligence**
 
 | Live app | API | API docs | Demo video |
 |---|---|---|---|
-| [es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/) | `<RENDER_URL>` | `<RENDER_URL>/docs` | `<YOUTUBE_URL>` |
+| [es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/) (demo data until the API is live) | Not deployed yet, see [DEPLOY.md](DEPLOY.md) | Available at `/docs` once deployed | Not recorded yet |
 
 ---
 
@@ -125,6 +125,7 @@ erDiagram
     string name_en
     string aliases
     float serving_grams
+    float piece_grams
     float kcal
     float protein_g
     float carbs_g
@@ -214,6 +215,8 @@ Open the URL printed by Vite (usually http://localhost:5173). With no `LLM_API_K
 | `LLM_API_KEY` | Provider key (never commit this) |
 | `CORS_ORIGINS` | Allowed frontend origins, include `https://es-ratt.github.io` |
 | `ENABLE_PHOTO` | Feature flag for photo input, off by default |
+| `TRUST_PROXY` | `true` only behind a proxy you trust (Render). Off by default, so a client cannot fake its IP to dodge the rate limit |
+| `MATCH_THRESHOLD` | Fuzzy match threshold, 0 to 100 (default 88) |
 
 **Frontend (`frontend/.env`)**
 
@@ -263,9 +266,11 @@ The evaluation harness runs team-made test meals (Bangla, Banglish, English, mix
 
 | Metric | Result |
 |---|---|
-| Item matching accuracy on the team-made test set | _Not run yet_ |
+| Parser regression check: 34 team-written meals, offline mode, run 2026-11-15 (not an accuracy result, see below) | 34/34 food lists correct |
+| Accuracy on real weighed meals (energy, protein, sodium, sugar; food identification) | Not measured yet. Planned: 100+ weighed meals incl. street and fast food |
+| Backend tests | 63 passing, including a regression test for every bug fixed in `tests/test_section4_bugs.py` |
 
-Numbers are added here only after the harness has been run.
+**Read this number carefully.** The 34 meals were written by the team, so the score only shows the parser handles phrasings it was built for. It does not measure portion or nutrient accuracy, and it has not been run in AI mode. It will be replaced by a validation on weighed meals written and photographed by people outside the team.
 
 ## Responsible AI and limitations
 - Nutrition values are **estimates**. The current food table includes unverified sample rows, which are labeled in the app.
