@@ -9,7 +9,7 @@ import { FoodPicker } from '@/components/FoodPicker'
 import { PageHeader } from '@/components/PageHeader'
 import { SkeletonCard } from '@/components/Skeleton'
 import { errorKey, useApp, type ReviewRow } from '@/hooks/useApp'
-import { foodName, previewGrams, servingDesc, unitKey, UNITS } from '@/lib/food'
+import { foodName, pieceWeightUnknown, previewGrams, servingDesc, unitKey, UNITS } from '@/lib/food'
 import { fmtNum, type TKey } from '@/lib/i18n'
 import { api } from '@/services/api'
 import type { MealType, ParseResponse } from '@/types/api'
@@ -355,6 +355,9 @@ function ReviewRowCard({ row, onChange, onRemove }: { row: ReviewRow; onChange: 
         <p className="mt-2 text-sm text-muted">
           {t('review.approx', { g: fmtNum(previewGrams(row.food, row.quantity, row.unit), lang) })}
           {row.quantity == null && <> · {t('review.assumedHint', { serving: servingDesc(row.food, lang) })}</>}
+          {pieceWeightUnknown(row.food, row.quantity, row.unit) && (
+            <span className="mt-1 block font-semibold text-ink">{t('review.pieceUnknown', { serving: servingDesc(row.food, lang) })}</span>
+          )}
         </p>
       )}
     </div>

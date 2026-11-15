@@ -23,7 +23,7 @@ export function servingDesc(food: Pick<FoodBrief, 'serving_desc_bn' | 'serving_d
 export function toBrief(f: Food): FoodBrief {
   return {
     id: f.id, name_bn: f.name_bn, name_en: f.name_en, name_bl: foodName(f, 'bl'), category: f.category,
-    serving_desc_bn: f.serving_desc_bn, serving_desc_en: f.serving_desc_en, serving_grams: f.serving_grams, verified: f.verified,
+    serving_desc_bn: f.serving_desc_bn, serving_desc_en: f.serving_desc_en, serving_grams: f.serving_grams, piece_grams: f.piece_grams ?? null, verified: f.verified,
   }
 }
 
@@ -34,9 +34,23 @@ const FIXED_GRAMS: Record<string, number> = { g: 1, kg: 1000, ml: 1, l: 1000, tb
 
 export const unitKey = (u: string) => `unit.${u}` as TKey
 
-/** Client-side preview only; the backend recomputes grams for the report. */
+const PIECE_UNITS = new Set(['piece', 'slice'])
+
+/** True when a piece count was given but this food has no known piece weight. */
+export function pieceWeightUnknown(food: FoodBrief, quantity: number | null, unit: string | null): boolean {
+  return quantity != null && unit != null && PIECE_UNITS.has(unit) && !food.piece_grams
+}
+
+/**
+ * Client-side preview only; the backend recomputes grams for the report.
+ * Mirrors to_grams() in backend/app/units.py: pieces use piece_grams (10 fuchka is not
+ * 10 plates); when the piece weight is unknown one serving is shown instead.
+ */
 export function previewGrams(food: FoodBrief, quantity: number | null, unit: string | null): number {
   const q = quantity ?? 1
-  const u = unit ?? 'serving'
-  return Math.round(u in FIXED_GRAMS ? q * FIXED_GRAMS[u] : q * food.serving_grams)
+  if (unit && unit in FIXED_GRAMS) return Math.round(q * FIXED_GRAMS[unit])
+  const piece = food.piece_grams || null
+  if (unit && PIECE_UNITS.has(unit)) return Math.round(piece ? q * piece : food.serving_grams)
+  if (unit == null && quantity != null && piece) return Math.round(q * piece)
+  return Math.round(q * food.serving_grams)
 }

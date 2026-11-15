@@ -88,23 +88,6 @@ const T = {
   'common.fat': ['Fat', 'চর্বি', 'Fat'],
   'common.fiber': ['Fibre', 'আঁশ', 'Fiber'],
 
-  // Demo login
-  'auth.login': ['Login', 'লগইন', 'Login'],
-  'auth.logout': ['Log out', 'লগআউট', 'Logout'],
-  'auth.title': ['Log in to EdiByte', 'EdiByte-এ লগইন করুন', 'EdiByte e login korun'],
-  'auth.subtitle': ['Enter your name and email to continue.', 'চালিয়ে যেতে আপনার নাম ও ইমেইল দিন।', 'Continue korte apnar nam ar email din.'],
-  'auth.name': ['Your name', 'আপনার নাম', 'Apnar nam'],
-  'auth.email': ['Email', 'ইমেইল', 'Email'],
-  'auth.submit': ['Log in', 'লগইন করুন', 'Login korun'],
-  'auth.guest': ['Continue as guest', 'অতিথি হিসেবে চালিয়ে যান', 'Guest hishebe continue korun'],
-  'auth.hello': ['Hi, {name}', 'হ্যালো, {name}', 'Hello, {name}'],
-  'auth.nameRequired': ['Please enter your name.', 'আপনার নাম লিখুন।', 'Apnar nam likhun.'],
-  'auth.emailInvalid': ['Please enter a valid email.', 'সঠিক ইমেইল লিখুন।', 'Shothik email likhun.'],
-  'auth.note': [
-    'Demo login: no password. Your name and email are saved only in this browser and are not sent anywhere.',
-    'ডেমো লগইন: কোনো পাসওয়ার্ড নেই। আপনার নাম ও ইমেইল শুধু এই ব্রাউজারে থাকে, কোথাও পাঠানো হয় না।',
-    'Demo login: password nei. Apnar nam ar email shudhu ei browser e thake, kothao pathano hoy na.',
-  ],
 
   // Meal history
   'nav.history': ['History', 'ইতিহাস', 'History'],
@@ -206,6 +189,11 @@ const T = {
     'No amount given, so one standard serving ({serving}) is used.',
     'পরিমাণ লেখা হয়নি, তাই এক পরিবেশন ({serving}) ধরা হয়েছে।',
     'Poriman lekha hoyni, tai 1 serving ({serving}) dhora hoyeche.',
+  ],
+  'review.pieceUnknown': [
+    'We do not know the weight of one piece of this food yet, so one serving ({serving}) is used. Please pick plate, bowl or grams.',
+    'এই খাবারের একটির ওজন এখনো আমাদের জানা নেই, তাই এক পরিবেশন ({serving}) ধরা হয়েছে। প্লেট, বাটি বা গ্রাম বেছে নিন।',
+    'Ei khabarer ektar ojon ekhono jana nei, tai 1 serving ({serving}) dhora hoyeche. Plate, bati ba gram select korun.',
   ],
   'review.youWrote': ['You wrote: “{text}”', 'আপনি লিখেছেন: “{text}”', 'Apni likhechen: “{text}”'],
   'review.unmatchedTitle': ["We couldn't find these", 'এগুলো খুঁজে পাইনি', 'Egulo khuje paini'],

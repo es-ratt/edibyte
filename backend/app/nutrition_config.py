@@ -81,3 +81,8 @@ FIXED_UNIT_GRAMS = {
     "tsp": 5.0,
 }
 SERVING_UNITS = {"serving", "plate", "bati", "cup", "glass", "piece", "slice", "handful"}
+# Count units. These use Food.piece_grams (weight of ONE piece), not the serving weight,
+# because "10 fuchka" is not 10 plates. When piece_grams is unknown the count is not converted.
+PIECE_UNITS = {"piece", "slice"}
+# A match below this confidence is shown to the user as "not sure".
+UNCERTAIN_BELOW = 0.9

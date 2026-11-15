@@ -24,6 +24,9 @@ services:
         value: https://edibyte-web.onrender.com
       - key: ENABLE_PHOTO
         value: "false"
+      # Render sits in front of the app and sets X-Forwarded-For itself.
+      - key: TRUST_PROXY
+        value: "true"
   - type: web
     name: edibyte-web
     runtime: static

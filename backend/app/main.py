@@ -16,7 +16,7 @@ from .config import get_settings
 from .db import engine, init_db
 from .middleware import RateLimitMiddleware, setup_logging
 from .routers import coach, meal, system
-from .seed import seed_if_empty
+from .seed import FOOD_SEED, import_csv, seed_if_empty
 from .store import refresh
 
 log = logging.getLogger("edibyte")
@@ -25,11 +25,14 @@ log = logging.getLogger("edibyte")
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     setup_logging()
-    init_db()
+    new_columns = init_db()
     with Session(engine) as session:
         added = seed_if_empty(session)
+        if new_columns and not added["foods"]:
+            # An older database just gained a column: reload the seed CSV so it is filled in.
+            added["foods"] = import_csv(session, FOOD_SEED, "food")
     refresh()
-    log.info("startup", extra={"mode": get_settings().mode, "seeded": added})
+    log.info("startup", extra={"mode": get_settings().mode, "seeded": added, "new_columns": new_columns})
     yield
 
 

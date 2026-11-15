@@ -11,7 +11,7 @@ export interface TeamMember {
 export const TEAM: TeamMember[] = [
   { role: 'team.r1', description: 'team.r1d', name: '' },
   { role: 'team.r2', description: 'team.r2d', name: '' },
-  { role: 'team.r3', description: 'team.r3d', name: '' },
-  { role: 'team.r4', description: 'team.r4d', name: '' },
-  { role: 'team.r5', description: 'team.r5d', name: '' },
+  { role: 'team.r3', description: 'team.r3d', name: 'Esrat Jhahan Nur, Rezwan' },
+  { role: 'team.r4', description: 'team.r4d', name: 'Shopnil' },
+  { role: 'team.r5', description: 'team.r5d', name: 'Saba' },
 ]

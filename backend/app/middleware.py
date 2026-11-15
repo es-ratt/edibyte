@@ -39,6 +39,19 @@ def setup_logging() -> None:
 log = logging.getLogger("edibyte.http")
 
 
+def client_ip(request: Request, trust_proxy: bool) -> str:
+    """IP used for rate limiting.
+
+    X-Forwarded-For is set by whoever sends the request, so it is only read when
+    TRUST_PROXY=true (the app is behind a proxy that sets the header itself).
+    """
+    if trust_proxy:
+        forwarded = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        if forwarded:
+            return forwarded
+    return request.client.host if request.client else "?"
+
+
 class RateLimitMiddleware(BaseHTTPMiddleware):
     """Simple in-memory sliding window per client IP (fine for one instance)."""
 
@@ -52,9 +65,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         if request.method == "OPTIONS" or path == "/health":
             return await call_next(request)
         limit = s.coach_rate_limit_per_minute if path.startswith("/coach") else s.rate_limit_per_minute
-        ip = request.headers.get("x-forwarded-for", "").split(",")[0].strip() or (
-            request.client.host if request.client else "?"
-        )
+        ip = client_ip(request, s.trust_proxy)
         key = f"{ip}:{'coach' if path.startswith('/coach') else 'api'}"
         now = time.monotonic()
         window = self.hits[key]

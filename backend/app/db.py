@@ -26,10 +26,27 @@ _connect_args = {"check_same_thread": False} if _url.startswith("sqlite") else {
 engine = create_engine(_url, connect_args=_connect_args, pool_pre_ping=True)
 
 
-def init_db() -> None:
+# Columns added after the first release: (table, column, SQL type). create_all() never
+# alters an existing table, so these are added by hand on startup.
+_ADDED_COLUMNS = [("food", "piece_grams", "FLOAT")]
+
+
+def init_db() -> list[str]:
+    """Create tables and add any newer columns. Returns the columns that were added."""
+    from sqlalchemy import inspect, text
+
     from . import models  # noqa: F401  (register tables)
 
     SQLModel.metadata.create_all(engine)
+    added: list[str] = []
+    inspector = inspect(engine)
+    for table, column, sql_type in _ADDED_COLUMNS:
+        existing = {c["name"] for c in inspector.get_columns(table)}
+        if column not in existing:
+            with engine.begin() as conn:
+                conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}"))
+            added.append(f"{table}.{column}")
+    return added
 
 
 def get_session() -> Iterator[Session]:

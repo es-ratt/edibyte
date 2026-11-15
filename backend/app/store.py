@@ -69,5 +69,6 @@ def brief(food: Food) -> FoodBrief:
         serving_desc_bn=food.serving_desc_bn,
         serving_desc_en=food.serving_desc_en,
         serving_grams=food.serving_grams,
+        piece_grams=food.piece_grams,
         verified=food.verified,
     )

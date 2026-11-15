@@ -25,6 +25,7 @@ class FoodOut(BaseModel):
     serving_desc_bn: str
     serving_desc_en: str
     serving_grams: float
+    piece_grams: float | None = None
     kcal: float
     protein_g: float
     carbs_g: float
@@ -49,6 +50,7 @@ class FoodBrief(BaseModel):
     serving_desc_bn: str
     serving_desc_en: str
     serving_grams: float
+    piece_grams: float | None = Field(default=None, description="Weight of one piece, or null when not known")
     verified: bool
 
 
@@ -89,6 +91,8 @@ class ParsedItem(BaseModel):
     grams: float
     assumed: bool = Field(description="True when no quantity was given and one default serving was used")
     confidence: float = Field(ge=0, le=1)
+    uncertain: bool = Field(default=False, description="True when the match is a guess (confidence below 0.9): show 'not sure'")
+    portion_note: str | None = Field(default=None, description="'piece_weight_unknown' when a piece count could not be converted to grams")
 
 
 class UnmatchedItem(BaseModel):

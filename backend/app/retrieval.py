@@ -22,10 +22,13 @@ CONCEPTS: dict[str, list[str]] = {
     "protein": ["protein", "proteins", "প্রোটিন", "আমিষ", "amish", "muscle", "পেশি", "peshi"],
     "calorie": ["calorie", "calories", "kcal", "ক্যালরি", "ক্যালোরি", "kalori", "energy", "শক্তি"],
     "fiber": ["fiber", "fibre", "আঁশ", "ash", "ফাইবার"],
-    "weight": ["weight", "ওজন", "ojon", "lose", "komano", "কমানো", "slim", "diet", "ডায়েট"],
+    "weight": ["weight", "ওজন", "ojon", "slim", "diet", "ডায়েট"],
+    # Direction matters: a weight-loss tip must never answer a weight-gain question.
+    "weight_loss": ["lose", "losing", "loss", "reduce", "komano", "komate", "komabo", "komai", "কমানো", "কমাতে", "কমাব", "কমাই"],
+    "weight_gain": ["gain", "gaining", "barano", "barate", "barabo", "barai", "বাড়ানো", "বাড়াতে", "বাড়াব", "বাড়াই", "mota"],
     "sugar": ["sugar", "চিনি", "chini", "sweet", "মিষ্টি", "mishti"],
     "fried": ["fried", "ভাজা", "bhaja", "vaja", "oil", "তেল", "tel"],
-    "budget": ["budget", "cheap", "taka", "টাকা", "khoroch", "খরচ", "সস্তা", "shosta", "price", "দাম", "dam"],
+    "budget": ["budget", "cheap", "cheaply", "cheaper", "cheapest", "taka", "টাকা", "khoroch", "খরচ", "সস্তা", "shosta", "price", "দাম", "dam"],
     "vegetable": ["vegetable", "vegetables", "সবজি", "shobji", "sobji", "শাক", "shak"],
     "fruit": ["fruit", "fruits", "ফল", "fol", "phol"],
     "water": ["water", "পানি", "pani", "jol", "জল"],
@@ -41,6 +44,11 @@ STOPWORDS = {
     "ki", "koto", "kon", "ar", "e", "te", "er", "ta", "ami", "amar", "apni", "ache", "hobe", "kore",
     "কি", "কী", "কত", "কোন", "আর", "আমি", "আমার", "আছে", "হবে", "করে", "এর", "ও", "যে", "এটা",
 }  # fmt: skip
+
+
+# A document that is not a food the user named must share this many question words.
+MIN_SHARED_WORDS = 2
+_OPPOSITES = [("c:weight_gain", "c:weight_loss"), ("c:weight_loss", "c:weight_gain")]
 
 
 @dataclass
@@ -90,18 +98,47 @@ class Retriever:
                     out.append(f"food:{self.alias[phrase]}")
         return out
 
+    def _units(self, query: str) -> list[set[str]]:
+        """One token set per meaningful query word (its variants, concept and food tokens)."""
+        units: list[set[str]] = []
+        for w in tokenize(query):
+            if w in STOPWORDS:
+                continue
+            toks = set(self.tokens(w))
+            if toks:
+                units.append(toks)
+        return units
+
     def search(self, query: str, k: int = 5) -> list[Doc]:
+        """Rank foods and tips for a question.
+
+        Relevance rules (so the coach says "I don't have data" instead of showing an
+        unrelated tip):
+        * a food the user named always counts;
+        * anything else must share at least MIN_SHARED_WORDS different question words
+          with the document (one shared word like "calories" or "weight" is not enough,
+          unless the question has only one meaningful word);
+        * a weight-loss document never answers a weight-gain question, and the reverse.
+        """
         if not self.bm25:
             return []
         q = self.tokens(query)
         if not q:
             return []
         scores = list(self.bm25.get_scores(q))
-        # Foods the user named explicitly always rank first.
         named = {t[5:] for t in q if t.startswith("food:")}
+        units = self._units(query)
+        need = min(MIN_SHARED_WORDS, len(units))
+        qset = set(q)
         for i, d in enumerate(self.docs):
             if d.kind == "food" and d.id in named:
-                scores[i] += 1000
+                scores[i] += 1000  # foods the user named explicitly always rank first
+                continue
+            doc = set(d.tokens)
+            shared = sum(1 for u in units if u & doc)
+            opposite = any(a in qset and b in doc and a not in doc for a, b in _OPPOSITES)
+            if shared < need or opposite:
+                scores[i] = 0
         ranked = sorted(range(len(self.docs)), key=lambda i: scores[i], reverse=True)
         return [self.docs[i] for i in ranked[:k] if scores[i] > 0]
 

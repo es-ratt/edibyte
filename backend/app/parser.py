@@ -44,14 +44,24 @@ FILLERS = {
     "i", "had", "have", "ate", "eat", "eaten", "eating", "for", "breakfast", "lunch", "dinner",
     "snack", "snacks", "today", "tonight", "morning", "evening", "night", "some", "of", "the", "my",
     "me", "also", "then", "just", "little", "bit", "was", "is", "it", "in", "at", "this",
+    "only", "did", "do", "took", "take", "got", "we", "he", "she", "they", "yesterday", "afternoon",
     # Banglish
     "ami", "amar", "khailam", "khaisi", "khaichi", "kheyechi", "khelam", "khecchi", "khacchi",
     "khabo", "aj", "aaj", "ajke", "sokale", "shokale", "sokal", "dupure", "dupur", "rate", "rat",
     "ratre", "bikale", "bikel", "nasta", "nastay", "nashta", "e", "te", "ektu", "kichu", "shudhu",
-    "er", "ache", "chilo", "hoyeche", "khawa", "khaoa", "korlam",
+    "er", "ache", "chilo", "hoyeche", "khawa", "khaoa", "korlam", "khai", "khaitesi", "khaite", "khete",
+    "kheyeci", "khaichilam", "kheyechilam", "nilam", "nisi", "gotokal", "kal", "kalke",
     # Bangla
     "আমি", "আমার", "খেয়েছি", "খেলাম", "খাইছি", "খাচ্ছি", "খেয়েছিলাম", "আজ", "আজকে", "সকালে",
-    "দুপুরে", "রাতে", "বিকালে", "বিকেলে", "নাস্তায়", "নাস্তা", "একটু", "কিছু", "শুধু", "খাবার",
+    "দুপুরে", "রাতে", "বিকালে", "বিকেলে", "নাস্তায়", "নাস্তা", "একটু", "কিছু", "শুধু", "খাবার", "খাই", "গতকাল", "কাল",
+}  # fmt: skip
+
+# Negation. "no rice", "without rice" -> the food AFTER the word was not eaten.
+NEG_BEFORE = {"no", "not", "without", "didnt", "didn't", "skip", "skipped", "except"}
+# "bhat khai nai", "ভাত খাইনি", "bhat chara", "ভাত বাদে" -> the food BEFORE the word was not eaten.
+NEG_AFTER = {
+    "nai", "nei", "khaini", "khainai", "khaina", "khailam na", "chara", "chhara", "bade", "bad",
+    "নাই", "নেই", "খাইনি", "খাইনাই", "খাইনা", "খাইনি।", "ছাড়া", "বাদে", "বাদ",
 }  # fmt: skip
 
 _NUM_WITH_SUFFIX = re.compile(r"^(\d+(?:\.\d+)?)([a-zঀ-৿]*)$")
@@ -80,44 +90,123 @@ def _parse_number(tok: str, english: bool) -> tuple[float, str | None] | None:
     return None
 
 
-def extract_rule_based(text: str) -> list[RawItem]:
-    norm = normalize(text)
-    english = not has_bangla(norm)
-    tokens = _SPLIT_PUNCT.sub(" , ", norm).split()
-    items: list[RawItem] = []
-    cur: dict = {"qty": None, "unit": None, "words": []}
+class ParsedRaw(RawItem):
+    """RawItem from the rule-based parser. `amount_after` is True when the amount was
+    written after the food ("bhat dal 2 bati"), so in a multi-food phrase it belongs
+    to the LAST food instead of the first."""
 
-    def flush() -> None:
-        if cur["words"]:
-            items.append(RawItem(name=" ".join(cur["words"])[:80], quantity=cur["qty"], unit=cur["unit"]))
-        elif (cur["qty"] is not None or cur["unit"]) and items and items[-1].quantity is None:
-            # Postfix amount: "ruti 2ta" -> attach to the previous item.
-            items[-1].quantity = cur["qty"]
-            items[-1].unit = items[-1].unit or cur["unit"]
-        cur.update(qty=None, unit=None, words=[])
+    amount_after: bool = False
 
+
+def _clause_items(tokens: list[str], english: bool) -> tuple[list[ParsedRaw], list[tuple[float | None, str | None]]]:
+    """Parse one clause (no separators inside).
+
+    Returns (items, orphan_amounts). An orphan amount is one that had no food in
+    this clause to attach to; the caller gives it to the previous item.
+    """
+    # 1. Group tokens into elements: ("food", [words]) | ("amt", qty, unit) | ("neg_before",) | ("neg_after",)
+    elems: list[list] = []
     for tok in tokens:
-        if tok in SEPARATORS:
-            flush()
+        if tok in NEG_BEFORE:
+            elems.append(["neg_before"])
+            continue
+        if tok in NEG_AFTER:
+            elems.append(["neg_after"])
             continue
         if tok in FILLERS:
             continue
         num = _parse_number(tok, english)
         if num:
-            if cur["words"]:
-                flush()
-            cur["qty"], unit = num
-            if unit:
-                cur["unit"] = unit
+            qty, unit = num
+            elems.append(["amt", qty, unit])
             continue
         unit = canonical_unit(tok)
         if unit and tok not in {"l"}:
-            if cur["words"] and (cur["qty"] is not None or cur["unit"]):
-                flush()
-            cur["unit"] = unit
+            if elems and elems[-1][0] == "amt" and elems[-1][2] is None:
+                elems[-1][2] = unit  # "2" + "plate"
+            else:
+                elems.append(["amt", None, unit])
             continue
-        cur["words"].append(tok)
-    flush()
+        if elems and elems[-1][0] == "food":
+            elems[-1][1].append(tok)
+        else:
+            elems.append(["food", [tok]])
+
+    # 2. Negation removes the neighbouring food (and never leaves its amount behind).
+    drop: set[int] = set()
+    for i, e in enumerate(elems):
+        if e[0] == "neg_before":
+            j = next((k for k in range(i + 1, len(elems)) if elems[k][0] == "food"), None)
+        elif e[0] == "neg_after":
+            j = next((k for k in range(i - 1, -1, -1) if elems[k][0] == "food"), None)
+        else:
+            continue
+        drop.add(i)
+        if j is not None:
+            drop.add(j)
+            # amounts sitting between the negation word and its food go too
+            lo, hi = sorted((i, j))
+            drop.update(k for k in range(lo, hi) if elems[k][0] == "amt")
+    elems = [e for i, e in enumerate(elems) if i not in drop]
+
+    foods = [i for i, e in enumerate(elems) if e[0] == "food"]
+    amts = [i for i, e in enumerate(elems) if e[0] == "amt"]
+    if not foods:
+        return [], [(elems[i][1], elems[i][2]) for i in amts]
+
+    # 3. Decide where amounts sit. "bhat 300g dal 200ml" (food first, amount last) -> after the food.
+    #    "2 plate bhat 1 bati dal" (amount first) -> before the food.
+    after = bool(amts) and elems[0][0] == "food" and elems[-1][0] == "amt"
+    owner: dict[int, tuple[float | None, str | None]] = {}
+    orphans: list[tuple[float | None, str | None]] = []
+    for i in amts:
+        amount = (elems[i][1], elems[i][2])
+        prev_food = next((k for k in reversed(foods) if k < i), None)
+        next_food = next((k for k in foods if k > i), None)
+        order = [prev_food, next_food] if after else [next_food, prev_food]
+        target = next((k for k in order if k is not None and k not in owner), None)
+        if target is None:
+            orphans.append(amount)  # never silently dropped: the caller reports it
+        else:
+            owner[target] = amount
+    items = []
+    for k in foods:
+        qty, unit = owner.get(k, (None, None))
+        items.append(
+            ParsedRaw(name=" ".join(elems[k][1])[:80], quantity=qty, unit=unit, amount_after=after and k in owner)
+        )
+    return items, orphans
+
+
+def extract_rule_based(text: str) -> list[ParsedRaw]:
+    norm = normalize(text)
+    english = not has_bangla(norm)
+    tokens = _SPLIT_PUNCT.sub(" , ", norm).split()
+    # "khai nai" / "খাই নাই" written as two words
+    joined: list[str] = []
+    for tok in tokens:
+        if joined and tok in {"nai", "na", "নাই", "না", "নি"} and joined[-1] in {"khai", "khailam", "খাই", "খেলাম"}:
+            joined[-1] = "nai"
+        else:
+            joined.append(tok)
+    clauses: list[list[str]] = [[]]
+    for tok in joined:
+        if tok in SEPARATORS:
+            clauses.append([])
+        else:
+            clauses[-1].append(tok)
+
+    items: list[ParsedRaw] = []
+    for clause in clauses:
+        found, orphans = _clause_items(clause, english)
+        for qty, unit in orphans:
+            # "ruti, 2ta" -> the amount belongs to the item just before it.
+            target = found[-1] if found else (items[-1] if items else None)
+            if target is not None and target.quantity is None:
+                target.quantity = qty
+                target.unit = target.unit or unit
+                target.amount_after = True
+        items.extend(found)
     return items[:20]
 
 

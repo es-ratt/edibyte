@@ -15,6 +15,7 @@ Common types:
 | `unit` | `g` `kg` `ml` `l` `tbsp` `tsp` `plate` `bati` `cup` `glass` `piece` `slice` `handful` `serving` |
 
 Nutrients on `Food` are **per 100 g edible portion**. `serving_grams` is one typical serving.
+`piece_grams` is the weight of ONE piece (1 egg, 1 biscuit), or `null` when it is not known.
 Container/count units (`plate`, `bati`, `cup`, `glass`, `piece`, `slice`, `handful`, `serving`)
 mean *one standard serving of that food*; `g/kg/ml/l/tbsp/tsp` are fixed weights.
 
@@ -38,8 +39,9 @@ Request
       "raw_name": "bhat",
       "food": { "id": "bhat", "name_bn": "ভাত", "name_en": "Cooked white rice", "name_bl": "Bhat",
                 "category": "grain", "serving_desc_bn": "১ প্লেট", "serving_desc_en": "1 plate",
-                "serving_grams": 250, "verified": false },
-      "quantity": 1, "unit": "plate", "grams": 250, "assumed": false, "confidence": 1.0
+                "serving_grams": 250, "piece_grams": null, "verified": false },
+      "quantity": 1, "unit": "plate", "grams": 250, "assumed": false, "confidence": 1.0,
+      "uncertain": false, "portion_note": null
     }
   ],
   "unmatched": [
@@ -51,7 +53,17 @@ Request
   "warnings": []
 }
 ```
-`assumed: true` means no quantity was given and one default serving was used.
+`assumed: true` means the amount could not be taken from the text and one default serving was used
+(no quantity given, or a piece count for a food with no known piece weight).
+
+- **Pieces.** `piece` and `slice` use `piece_grams`. A bare count ("2 biscuits") also means pieces when
+  `piece_grams` is known. If it is `null`, the count is not converted: `grams` is one serving,
+  `assumed` is `true` and `portion_note` is `"piece_weight_unknown"`, so the user must fix the portion.
+- **Not sure.** `uncertain: true` (confidence below 0.9) marks a guess, for example "fried rice" matched
+  to plain rice. A phrase whose last word is unknown ("chicken burger") is never matched: it is
+  returned in `unmatched` with suggestions.
+- **Repeated foods** in one meal are merged into one row with the summed amount.
+- **Negation.** Foods the user says they did not eat ("bhat khai nai", "no rice") are left out.
 Possible `warnings`: `ai_unavailable_used_offline_parser`, `no_food_found`.
 
 ## `POST /meal/parse-image` (feature flag)

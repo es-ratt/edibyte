@@ -53,7 +53,10 @@ class Settings:
     coach_rate_limit_per_minute: int = field(default_factory=lambda: _int("COACH_RATE_LIMIT_PER_MINUTE", 15))
     # Off by default: logs never contain what users typed.
     log_user_text: bool = field(default_factory=lambda: _bool("LOG_USER_TEXT", False))
-    match_threshold: int = field(default_factory=lambda: _int("MATCH_THRESHOLD", 82))
+    # Only read X-Forwarded-For when the app sits behind a proxy we trust (Render, a load
+    # balancer). Off by default: otherwise any client could fake its IP and dodge the limiter.
+    trust_proxy: bool = field(default_factory=lambda: _bool("TRUST_PROXY", False))
+    match_threshold: int = field(default_factory=lambda: _int("MATCH_THRESHOLD", 88))
 
     @property
     def ai_enabled(self) -> bool:
