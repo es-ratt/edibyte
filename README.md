@@ -18,7 +18,7 @@ Domain: **FoodSphere AI** · Challenge: **Nutrition Intelligence**
 
 | Live app | API | API docs | Demo video |
 |---|---|---|---|
-| [es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/) (demo data until the API is live) | Not deployed yet, see [DEPLOY.md](DEPLOY.md) | Available at `/docs` once deployed | Not recorded yet |
+| [es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/) (demo data until the API is live) | Not deployed yet. Render, auto-deployed from this repo: see [DEPLOY.md](DEPLOY.md) | `/docs` on the API once deployed | Not recorded yet |
 
 ---
 
@@ -248,10 +248,10 @@ flowchart LR
   Dev --> R["Render<br/>FastAPI backend"]
   GP -->|"HTTPS + CORS"| R
 ```
-1. **Backend:** create a Render Blueprint from `render.yaml`, then set the environment variables in the Render dashboard.
-2. **Frontend:** in GitHub, go to Settings, then Pages, then Source: **GitHub Actions**.
-3. **Connect them:** in Settings, then Secrets and variables, then Actions, then Variables, add `VITE_API_BASE_URL` (the Render URL) and `VITE_USE_MOCK_DATA` set to `false`.
-4. Push to `main`. The workflow in `.github/workflows/deploy-frontend.yml` builds and publishes the site.
+Everything deploys from GitHub: after a one-time setup, a push to `main` updates both parts. Step-by-step guide: [DEPLOY.md](DEPLOY.md).
+1. **Backend:** on Render, **New → Blueprint** → this repo. `render.yaml` needs no secrets (offline mode, SQLite seeded on start).
+2. **Frontend:** already published by `.github/workflows/deploy-frontend.yml` (Settings → Pages → Source: **GitHub Actions**).
+3. **Connect them:** Settings → Secrets and variables → Actions → Variables, add `VITE_API_BASE_URL` (the Render URL), then re-run the Pages workflow. Mock data switches off automatically.
 
 > Until the backend is live and these variables are set, the site builds in demo mode with mock data, and it shows a "Demo data" badge.
 > The free Render tier sleeps when idle, so the first request can take a while.
