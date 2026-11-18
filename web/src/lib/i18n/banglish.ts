@@ -1,0 +1,71 @@
+import type { TKey } from './bn'
+
+export const banglish: Record<TKey, string> = {
+  'app.name': 'EdiByte',
+  'app.tagline': 'Khawar age jene nao: ei khabar tomar jonno thik to?',
+
+  'nav.main': 'Main menu',
+  'nav.skip': 'Main content e jao',
+  'nav.home': 'Home',
+  'nav.photo': 'Chobi',
+  'nav.photoLabel': 'Khabarer chobi tolo',
+  'nav.progress': 'Progress',
+  'nav.plans': 'Plan',
+  'nav.coach': 'Coach',
+  'nav.settings': 'Settings',
+
+  'lang.label': 'Bhasha',
+  'lang.bn': 'বাংলা',
+  'lang.en': 'English',
+  'lang.banglish': 'Banglish',
+
+  'banner.demo': 'Demo data: sample value dekhano hocche, server connect nei.',
+  'banner.offline': 'Tumi ekhon offline. Ei phone e rakha tottho dekha jabe.',
+  'banner.update': 'App er notun version eseche.',
+  'banner.reload': 'Notun ta chalu koro',
+
+  'welcome.title': 'EdiByte e shagotom',
+  'welcome.body': 'Khabarer chobi tolo, khabar gulo miliye nao, tarpor dekho eta tomar goal er sathe kemon mele.',
+  'welcome.point1': 'Shonkha gulo ashe food table theke, AI theke na.',
+  'welcome.point2': 'Tomar profile ar khabarer tottho ei phone ei thake.',
+  'welcome.point3': 'Chobi kokhono save kora hoy na.',
+  'welcome.chooseLang': 'Kon bhashay chalabe?',
+  'welcome.start': 'Shuru kori',
+  'welcome.note': 'Eta general nutrition tottho, medical advice na.',
+
+  'route.onboarding': 'Tomar profile',
+  'route.home': 'Aaj',
+  'route.capture': 'Khabarer chobi',
+  'route.confirm': 'Khabar miliye nao',
+  'route.result': 'Ei khabar kemon?',
+  'route.coach': 'Coach',
+  'route.progress': 'Progress',
+  'route.plans': 'Plan',
+  'route.settings': 'Settings',
+  'route.data': 'Data ar source',
+  'route.notFound': 'Page ta pawa jayni',
+
+  'common.soon': 'Ei part ta ekhon toiri hocche.',
+  'common.goHome': 'Home e jao',
+  'common.loading': 'Load hocche…',
+  'common.error': 'Kichu ekta thikmoto hoyni. Ektu pore abar try koro.',
+  'common.continue': 'Chaliye jao',
+
+  'home.photoTitle': 'Ei khabar ki tomar jonno thik?',
+  'home.photoBody': 'Khawar age ekta chobi tolo ba gallery theke beche nao.',
+  'home.photoCta': 'Chobi diye dekhi',
+
+  'settings.language': 'App er bhasha',
+  'settings.lowData': 'Kom data mode',
+  'settings.lowDataHint': 'Chobi ar barti load bondho thake, mobile data bache.',
+  'settings.dataLink': 'Data ar source dekho',
+
+  'data.intro': 'App er protiti shonkha kotha theke ashe, ekhane shotbhabe dekhano hoy.',
+  'data.foods': 'Khabarer row',
+  'data.verified': 'Source theke verify kora',
+  'data.unverified': 'Ekhono verify hoyni',
+  'data.tips': 'Poramorsho',
+  'data.sources': 'Source',
+  'data.rows': '{n} ta row',
+  'data.unverifiedNote': 'Verify na hoya value gulo approximate. App e egulor pashe "verify hoyni" lekha thake.',
+}

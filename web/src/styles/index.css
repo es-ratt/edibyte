@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts (work offline in the PWA). Unicode-range subsets: Bangla glyphs load only when used. */
+@import '@fontsource/hind-siliguri/400.css';
+@import '@fontsource/hind-siliguri/500.css';
+@import '@fontsource/hind-siliguri/600.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+/* EdiByte design tokens (REBUILD_PLAN §4). Tailwind 4 reads tokens from @theme, not tailwind.config.
+   WCAG contrast measured on cream #FBFAF5:
+     ink 14.5:1 · olive-900 11.0:1 · olive-700 5.8:1 · muted 5.7:1 · amber-ink 5.7:1 · terracotta 5.5:1
+     white on olive-700 6.1:1 · ink on mustard 6.9:1 · ink on mustard-100 13.5:1
+   Mustard #E0A526 is 2.1:1 on cream: FILL ONLY, always with ink text on top. Never text, icon or bar outline.
+   "Go easy" (limit) text and range-bar outlines use amber-ink. Terracotta is ONLY for allergy/medical notices. */
+@theme {
+  --color-olive-900: #2f3e1a;
+  --color-olive-700: #4f6b2a;
+  --color-olive-500: #7f9a52;
+  --color-olive-200: #d5dfbf;
+  --color-olive-100: #e7eed6;
+  --color-olive-50: #f2f5e9;
+  --color-mustard: #e0a526;
+  --color-mustard-100: #fbf1d6;
+  --color-amber-ink: #8a5a00;
+  --color-cream: #fbfaf5;
+  --color-surface: #ffffff;
+  --color-ink: #22281b;
+  --color-muted: #5e6653;
+  --color-line: #e3e6d8;
+  --color-terracotta: #b3402a;
+  --color-terracotta-50: #fbeeea;
+
+  --font-sans: 'Inter', 'Hind Siliguri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-bangla: 'Hind Siliguri', 'Inter', system-ui, sans-serif;
+
+  --radius-card: 20px;
+  --shadow-card: 0 1px 2px rgb(47 62 26 / 0.05), 0 6px 20px rgb(47 62 26 / 0.06);
+  --spacing-tap: 48px;
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  html:lang(bn) {
+    font-family: var(--font-bangla);
+    line-height: 1.7;
+  }
+  body {
+    background: var(--color-cream);
+    min-height: 100dvh;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-olive-700);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

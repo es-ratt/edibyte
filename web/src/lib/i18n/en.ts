@@ -1,0 +1,71 @@
+import type { TKey } from './bn'
+
+export const en: Record<TKey, string> = {
+  'app.name': 'EdiByte',
+  'app.tagline': 'Before you eat, check: is this meal right for you?',
+
+  'nav.main': 'Main menu',
+  'nav.skip': 'Skip to content',
+  'nav.home': 'Home',
+  'nav.photo': 'Photo',
+  'nav.photoLabel': 'Take a photo of your meal',
+  'nav.progress': 'Progress',
+  'nav.plans': 'Plans',
+  'nav.coach': 'Coach',
+  'nav.settings': 'Settings',
+
+  'lang.label': 'Language',
+  'lang.bn': 'বাংলা',
+  'lang.en': 'English',
+  'lang.banglish': 'Banglish',
+
+  'banner.demo': 'Demo data: sample values are shown, no server is connected.',
+  'banner.offline': "You're offline. Information saved on this phone still works.",
+  'banner.update': 'A new version of the app is ready.',
+  'banner.reload': 'Use the new version',
+
+  'welcome.title': 'Welcome to EdiByte',
+  'welcome.body': 'Take a photo of your meal, confirm the foods, then see how it fits your goal.',
+  'welcome.point1': 'Numbers come from a food table, not from AI.',
+  'welcome.point2': 'Your profile and meals stay on this phone.',
+  'welcome.point3': 'Photos are never saved.',
+  'welcome.chooseLang': 'Which language do you want?',
+  'welcome.start': "Let's start",
+  'welcome.note': 'This is general nutrition information, not medical advice.',
+
+  'route.onboarding': 'Your profile',
+  'route.home': 'Today',
+  'route.capture': 'Meal photo',
+  'route.confirm': 'Check the foods',
+  'route.result': 'How is this meal?',
+  'route.coach': 'Coach',
+  'route.progress': 'Progress',
+  'route.plans': 'Plans',
+  'route.settings': 'Settings',
+  'route.data': 'Data and sources',
+  'route.notFound': 'Page not found',
+
+  'common.soon': 'This part is being built.',
+  'common.goHome': 'Go home',
+  'common.loading': 'Loading…',
+  'common.error': 'Something went wrong. Please try again in a moment.',
+  'common.continue': 'Continue',
+
+  'home.photoTitle': 'Is this meal right for you?',
+  'home.photoBody': 'Before you eat, take a photo or pick one from your gallery.',
+  'home.photoCta': 'Check with a photo',
+
+  'settings.language': 'App language',
+  'settings.lowData': 'Low-data mode',
+  'settings.lowDataHint': 'Turns off images and extra loading to save mobile data.',
+  'settings.dataLink': 'See data and sources',
+
+  'data.intro': 'Where every number in the app comes from, shown honestly.',
+  'data.foods': 'Food rows',
+  'data.verified': 'Verified from a source',
+  'data.unverified': 'Not verified yet',
+  'data.tips': 'Tips',
+  'data.sources': 'Sources',
+  'data.rows': '{n} rows',
+  'data.unverifiedNote': 'Unverified values are estimates. The app marks them "not verified" wherever they appear.',
+}
