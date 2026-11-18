@@ -82,6 +82,12 @@ def test_amount_after_each_food(client):
         ("dim 2ta kola 1ta", [("dim", 2, "piece"), ("kola", 1, "piece")]),
         ("2 plate bhat 1 bati dal", [("bhat", 2, "plate"), ("dal", 1, "bati")]),
         ("ruti 2ta, 250g doi", [("ruti", 2, "piece"), ("doi", 250, "g")]),
+        # Regression (found in the Phase 3 live check): a trailing food with no amount used to
+        # shift every amount one food to the right (bhat got nothing, dal got 300 g).
+        ("bhat 300g dal 200ml begun bhorta", [("bhat", 300, "g"), ("dal", 200, "ml"), ("begun bhorta", None, None)]),
+        ("cha 2 cup biscuit 4ta muri", [("cha", 2, "cup"), ("biscuit", 4, "piece"), ("muri", None, None)]),
+        # Amount-first style keeps working; "dal salad" is split later by the matcher (dal gets 1 bati).
+        ("2 plate bhat 1 bati dal salad", [("bhat", 2, "plate"), ("dal salad", 1, "bati")]),
     ],
 )
 def test_amount_attachment(text, expected):
@@ -225,8 +231,11 @@ def test_old_database_gets_piece_grams_column(tmp_path, monkeypatch):
     with old.begin() as conn:
         conn.execute(text("CREATE TABLE food (id VARCHAR PRIMARY KEY, name_bn VARCHAR)"))
     monkeypatch.setattr(db, "engine", old)
-    assert db.init_db() == ["food.piece_grams"]
-    assert "piece_grams" in {c["name"] for c in inspect(old).get_columns("food")}
+    added = db.init_db()
+    # piece_grams (bug 4a) plus the Phase 3 columns; every one must now exist.
+    assert "food.piece_grams" in added
+    assert {f"food.{c}" for c in ("dish_type", "free_sugars_g", "sodium_mg", "method", "verified_by")} <= set(added)
+    assert {a.split(".")[1] for a in added} <= {c["name"] for c in inspect(old).get_columns("food")}
     assert db.init_db() == []  # second start: nothing to add
 
 

@@ -154,9 +154,12 @@ def _clause_items(tokens: list[str], english: bool) -> tuple[list[ParsedRaw], li
     if not foods:
         return [], [(elems[i][1], elems[i][2]) for i in amts]
 
-    # 3. Decide where amounts sit. "bhat 300g dal 200ml" (food first, amount last) -> after the food.
-    #    "2 plate bhat 1 bati dal" (amount first) -> before the food.
-    after = bool(amts) and elems[0][0] == "food" and elems[-1][0] == "amt"
+    # 3. Decide where amounts sit from how the clause starts:
+    #    "bhat 300g dal 200ml (begun bhorta)" starts with a food -> each amount follows its food;
+    #    "2 plate bhat 1 bati dal" starts with an amount -> each amount comes before its food.
+    #    (The clause end does not matter: a trailing food without an amount used to flip the
+    #    direction and shift every amount one food to the right.)
+    after = bool(amts) and elems[0][0] == "food"
     owner: dict[int, tuple[float | None, str | None]] = {}
     orphans: list[tuple[float | None, str | None]] = []
     for i in amts:
