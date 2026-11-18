@@ -3,6 +3,7 @@
 // Phases 2-8 extend this interface; the demo adapter must implement every method it adds.
 
 import type { ProfileSummary } from '@/features/profile/model'
+import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
 import type { Lang } from '@/lib/i18n'
 import type { ReferenceTargets } from '@/lib/targets'
 
@@ -36,13 +37,44 @@ export interface FoodHit {
   verified: boolean
 }
 
+/** One food recognised in text or a photo. Names and rough portions only, never nutrition numbers. */
+export interface ParsedItem {
+  raw_name: string
+  food: FoodBrief
+  quantity: number | null
+  unit: string | null
+  grams: number
+  assumed: boolean
+  confidence: number
+  uncertain?: boolean
+  portion_note?: string | null
+}
+
+export interface UnmatchedItem {
+  raw_name: string
+  quantity: number | null
+  unit: string | null
+  suggestions: FoodBrief[]
+}
+
+export interface ParseResult {
+  items: ParsedItem[]
+  unmatched: UnmatchedItem[]
+  mode: 'ai' | 'offline'
+  warnings: string[]
+}
+
 export interface Api {
   readonly mode: ApiMode
   health(): Promise<Health>
   dataStatus(): Promise<DataStatus>
-  searchFoods(query: string, lang: Lang): Promise<FoodHit[]>
+  searchFoods(query: string, lang: Lang): Promise<FoodBrief[]>
   /** Sourced targets/limits for this age and sex; rows without a source come back "unavailable". */
   referenceTargets(summary: ProfileSummary): Promise<ReferenceTargets>
+  parseMeal(text: string, lang: Lang): Promise<ParseResult>
+  /** The photo is sent once for recognition and never stored. */
+  parseImage(photo: Blob, lang: Lang, signal?: AbortSignal): Promise<ParseResult>
+  checkMeal(req: CheckRequest): Promise<CheckResponse>
 }
 
 export class ApiError extends Error {

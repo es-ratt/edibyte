@@ -1,0 +1,3520 @@
+[
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "bhat",
+     "quantity": 1.0,
+     "unit": "plate",
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "dal",
+     "quantity": 1.0,
+     "unit": "bati",
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "shak",
+     "quantity": null,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "any"
+   },
+   "meal_type": "lunch"
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "bhat",
+      "name_bn": "ভাত",
+      "name_en": "Cooked white rice",
+      "name_bl": "Bhat",
+      "category": "grain",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 250.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 1.0,
+     "unit": "plate",
+     "grams": 250.0,
+     "grams_low": 175.0,
+     "grams_high": 325.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "medium",
+     "confidence_reasons": [
+      "unverified_data"
+     ],
+     "groups": [
+      "grain"
+     ],
+     "tags": [
+      "staple",
+      "grain",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "dal",
+      "name_bn": "ডাল",
+      "name_en": "Lentil dal (masur)",
+      "name_bl": "Dal",
+      "category": "lentil",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 1.0,
+     "unit": "bati",
+     "grams": 150.0,
+     "grams_low": 75.0,
+     "grams_high": 225.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data"
+     ],
+     "groups": [
+      "protein_food"
+     ],
+     "tags": [
+      "protein",
+      "lentil",
+      "vegetarian",
+      "high_fiber"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": null,
+     "unit": null,
+     "grams": 100.0,
+     "grams_low": 50.0,
+     "grams_high": 150.0,
+     "assumed": true,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data",
+      "portion_assumed"
+     ],
+     "groups": [
+      "vegetable"
+     ],
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 490.0,
+    "low": 310.0,
+    "high": 670.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 92.5,
+     "low": 60.2,
+     "high": 124.8,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 5.5,
+     "low": 2.9,
+     "high": 8.2,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 16.3,
+     "low": 9.5,
+     "high": 23.1,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 7.0,
+     "low": 3.7,
+     "high": 10.3,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": true,
+    "protein_food": true,
+    "veg_fruit": true,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "fits",
+    "reasons": [
+     {
+      "code": "has_veg",
+      "kind": "good",
+      "food_ids": []
+     },
+     {
+      "code": "has_protein",
+      "kind": "good",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [],
+   "swaps": [],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 3
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "bhat",
+     "quantity": null,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "any"
+   },
+   "meal_type": "lunch"
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "bhat",
+      "name_bn": "ভাত",
+      "name_en": "Cooked white rice",
+      "name_bl": "Bhat",
+      "category": "grain",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 250.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": null,
+     "unit": null,
+     "grams": 250.0,
+     "grams_low": 125.0,
+     "grams_high": 375.0,
+     "assumed": true,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "unverified_data",
+      "portion_assumed"
+     ],
+     "groups": [
+      "grain"
+     ],
+     "tags": [
+      "staple",
+      "grain",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 325.0,
+    "low": 162.0,
+    "high": 488.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 70.0,
+     "low": 35.0,
+     "high": 105.0,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 0.8,
+     "low": 0.4,
+     "high": 1.1,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 6.8,
+     "low": 3.4,
+     "high": 10.1,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 1.0,
+     "low": 0.5,
+     "high": 1.5,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": true,
+    "protein_food": false,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "mostly",
+    "reasons": [
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "add_protein",
+      "kind": "tip",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "chola",
+      "name_bn": "ছোলা",
+      "name_en": "Chickpea curry (chola)",
+      "name_bl": "Chola",
+      "category": "lentil",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_protein",
+     "tags": [
+      "protein",
+      "lentil",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "dal",
+      "name_bn": "ডাল",
+      "name_en": "Lentil dal (masur)",
+      "name_bl": "Dal",
+      "category": "lentil",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_protein",
+     "tags": [
+      "protein",
+      "lentil",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "dim_sheddho",
+      "name_bn": "সেদ্ধ ডিম",
+      "name_en": "Boiled egg",
+      "name_bl": "Dim",
+      "category": "egg",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 50.0,
+      "piece_grams": 50.0,
+      "verified": false
+     },
+     "reason": "add_protein",
+     "tags": [
+      "protein",
+      "egg",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "doi",
+      "name_bn": "দই",
+      "name_en": "Plain yogurt (doi)",
+      "name_bl": "Doi",
+      "category": "dairy",
+      "serving_desc_bn": "১ কাপ",
+      "serving_desc_en": "1 cup",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_protein",
+     "tags": [
+      "dairy",
+      "protein",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 1
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "singara",
+     "quantity": 2.0,
+     "unit": "piece",
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "cha",
+     "quantity": null,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": 2
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "any"
+   },
+   "meal_type": "snack"
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "singara",
+      "name_bn": "সিঙ্গারা",
+      "name_en": "Singara",
+      "name_bl": "Singara",
+      "category": "snack",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 60.0,
+      "piece_grams": 60.0,
+      "verified": false
+     },
+     "quantity": 2.0,
+     "unit": "piece",
+     "grams": 120.0,
+     "grams_low": 60.0,
+     "grams_high": 180.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data"
+     ],
+     "groups": [
+      "fried",
+      "street_food"
+     ],
+     "tags": [
+      "snack",
+      "fried",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "cha",
+      "name_bn": "দুধ চা",
+      "name_en": "Milk tea with sugar",
+      "name_bl": "Cha",
+      "category": "drink",
+      "serving_desc_bn": "১ কাপ",
+      "serving_desc_en": "1 cup",
+      "serving_grams": 120.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": null,
+     "unit": null,
+     "grams": 120.0,
+     "grams_low": 60.0,
+     "grams_high": 180.0,
+     "assumed": true,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data",
+      "portion_assumed"
+     ],
+     "groups": [
+      "drink",
+      "sugary_drink",
+      "sweet"
+     ],
+     "tags": [
+      "drink",
+      "sweet",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 414.0,
+    "low": 207.0,
+    "high": 621.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 48.0,
+     "low": 24.0,
+     "high": 72.0,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 21.8,
+     "low": 10.9,
+     "high": 32.8,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 7.2,
+     "low": 3.6,
+     "high": 10.8,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 3.0,
+     "low": 1.5,
+     "high": 4.5,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": {
+    "spoons": 2,
+    "grams": 10.0,
+    "method": "estimate"
+   },
+   "plate": {
+    "grain": false,
+    "protein_food": false,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "change",
+    "reasons": [
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "fried",
+      "kind": "tip",
+      "food_ids": [
+       "singara"
+      ]
+     },
+     {
+      "code": "sugary_drink",
+      "kind": "tip",
+      "food_ids": [
+       "cha"
+      ]
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [
+    {
+     "from_food": {
+      "id": "singara",
+      "name_bn": "সিঙ্গারা",
+      "name_en": "Singara",
+      "name_bl": "Singara",
+      "category": "snack",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 60.0,
+      "piece_grams": 60.0,
+      "verified": false
+     },
+     "to_food": {
+      "id": "chotpoti",
+      "name_bn": "চটপটি",
+      "name_en": "Chotpoti",
+      "name_bl": "Chotpoti",
+      "category": "snack",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 200.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "not_fried",
+     "to_tags": [
+      "snack",
+      "vegetarian",
+      "high_fiber"
+     ]
+    }
+   ],
+   "notes": [
+    "energy_target_pending",
+    "added_sugar_estimate"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 2
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "fuchka",
+     "quantity": 10.0,
+     "unit": "piece",
+     "source": "photo",
+     "match_confidence": 0.95
+    }
+   ],
+   "answers": {
+    "oil": "lot",
+    "fried": "yes",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "any"
+   },
+   "meal_type": null
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "fuchka",
+      "name_bn": "ফুচকা",
+      "name_en": "Fuchka",
+      "name_bl": "Fuchka",
+      "category": "snack",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 10.0,
+     "unit": "piece",
+     "grams": 150.0,
+     "grams_low": 75.0,
+     "grams_high": 225.0,
+     "assumed": true,
+     "portion_note": "piece_weight_unknown",
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data",
+      "portion_from_photo",
+      "portion_assumed",
+      "extra_oil"
+     ],
+     "groups": [
+      "street_food"
+     ],
+     "tags": [
+      "snack",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 300.0,
+    "low": 150.0,
+    "high": 450.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 45.0,
+     "low": 22.5,
+     "high": 67.5,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 10.5,
+     "low": 5.2,
+     "high": 15.8,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 7.5,
+     "low": 3.8,
+     "high": 11.2,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 4.5,
+     "low": 2.2,
+     "high": 6.8,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": false,
+    "protein_food": false,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "mostly",
+    "reasons": [
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "fried",
+      "kind": "tip",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [],
+   "notes": [
+    "extra_oil_not_counted",
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 1
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "bhat",
+     "quantity": null,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "murgi",
+     "quantity": 1.0,
+     "unit": "bati",
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "vegetarian"
+   },
+   "meal_type": "dinner"
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "bhat",
+      "name_bn": "ভাত",
+      "name_en": "Cooked white rice",
+      "name_bl": "Bhat",
+      "category": "grain",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 250.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": null,
+     "unit": null,
+     "grams": 250.0,
+     "grams_low": 125.0,
+     "grams_high": 375.0,
+     "assumed": true,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "unverified_data",
+      "portion_assumed"
+     ],
+     "groups": [
+      "grain"
+     ],
+     "tags": [
+      "staple",
+      "grain",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "murgi",
+      "name_bn": "মুরগির মাংস",
+      "name_en": "Chicken curry",
+      "name_bl": "Murgi",
+      "category": "meat",
+      "serving_desc_bn": "১ বাটি (২ টুকরা)",
+      "serving_desc_en": "1 bowl (2 pieces)",
+      "serving_grams": 150.0,
+      "piece_grams": 75.0,
+      "verified": false
+     },
+     "quantity": 1.0,
+     "unit": "bati",
+     "grams": 150.0,
+     "grams_low": 75.0,
+     "grams_high": 225.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data"
+     ],
+     "groups": [
+      "protein_food"
+     ],
+     "tags": [
+      "protein",
+      "meat",
+      "poultry"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 572.0,
+    "low": 286.0,
+    "high": 859.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 76.0,
+     "low": 38.0,
+     "high": 114.0,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 14.2,
+     "low": 7.2,
+     "high": 21.3,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 32.2,
+     "low": 16.2,
+     "high": 48.3,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 1.8,
+     "low": 0.9,
+     "high": 2.6,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": true,
+    "protein_food": true,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "change",
+    "reasons": [
+     {
+      "code": "diet_conflict",
+      "kind": "warn",
+      "food_ids": [
+       "murgi"
+      ]
+     },
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "has_protein",
+      "kind": "good",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 2
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "dim_bhaji",
+     "quantity": null,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "paratha",
+     "quantity": 2.0,
+     "unit": "piece",
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 19,
+    "sex": "male",
+    "activity": "high",
+    "goal": "muscle",
+    "diet": "no_beef"
+   },
+   "meal_type": "breakfast"
+  },
+  "response": {
+   "teen": false,
+   "items": [
+    {
+     "food": {
+      "id": "dim_bhaji",
+      "name_bn": "ডিম ভাজা",
+      "name_en": "Fried egg / omelette",
+      "name_bl": "Dim bhaji",
+      "category": "egg",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 60.0,
+      "piece_grams": 60.0,
+      "verified": false
+     },
+     "quantity": null,
+     "unit": null,
+     "grams": 60.0,
+     "grams_low": 30.0,
+     "grams_high": 90.0,
+     "assumed": true,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data",
+      "portion_assumed"
+     ],
+     "groups": [
+      "fried",
+      "protein_food"
+     ],
+     "tags": [
+      "protein",
+      "egg",
+      "fried",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "paratha",
+      "name_bn": "পরোটা",
+      "name_en": "Paratha",
+      "name_bl": "Paratha",
+      "category": "grain",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 80.0,
+      "piece_grams": 80.0,
+      "verified": false
+     },
+     "quantity": 2.0,
+     "unit": "piece",
+     "grams": 160.0,
+     "grams_low": 80.0,
+     "grams_high": 240.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data"
+     ],
+     "groups": [
+      "fried",
+      "grain"
+     ],
+     "tags": [
+      "grain",
+      "fried",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 630.0,
+    "low": 315.0,
+    "high": 944.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 72.6,
+     "low": 36.3,
+     "high": 108.9,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 29.8,
+     "low": 14.9,
+     "high": 44.7,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 18.5,
+     "low": 9.2,
+     "high": 27.7,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 4.8,
+     "low": 2.4,
+     "high": 7.2,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 2.0,
+     "limit_unit": "g per day",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": true,
+    "protein_food": true,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "mostly",
+    "reasons": [
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "has_protein",
+      "kind": "good",
+      "food_ids": []
+     },
+     {
+      "code": "fried",
+      "kind": "tip",
+      "food_ids": [
+       "dim_bhaji",
+       "paratha"
+      ]
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [
+    {
+     "from_food": {
+      "id": "dim_bhaji",
+      "name_bn": "ডিম ভাজা",
+      "name_en": "Fried egg / omelette",
+      "name_bl": "Dim bhaji",
+      "category": "egg",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 60.0,
+      "piece_grams": 60.0,
+      "verified": false
+     },
+     "to_food": {
+      "id": "dim_sheddho",
+      "name_bn": "সেদ্ধ ডিম",
+      "name_en": "Boiled egg",
+      "name_bl": "Dim",
+      "category": "egg",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 50.0,
+      "piece_grams": 50.0,
+      "verified": false
+     },
+     "reason": "not_fried",
+     "to_tags": [
+      "protein",
+      "egg",
+      "vegetarian"
+     ]
+    },
+    {
+     "from_food": {
+      "id": "paratha",
+      "name_bn": "পরোটা",
+      "name_en": "Paratha",
+      "name_bl": "Paratha",
+      "category": "grain",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 80.0,
+      "piece_grams": 80.0,
+      "verified": false
+     },
+     "to_food": {
+      "id": "bhat",
+      "name_bn": "ভাত",
+      "name_en": "Cooked white rice",
+      "name_bl": "Bhat",
+      "category": "grain",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 250.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "not_fried",
+     "to_tags": [
+      "staple",
+      "grain",
+      "vegetarian"
+     ]
+    }
+   ],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 2
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "biryani",
+     "quantity": 1.5,
+     "unit": "plate",
+     "source": "photo",
+     "match_confidence": 0.8
+    },
+    {
+     "food_id": "dab",
+     "quantity": 300.0,
+     "unit": "ml",
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": null,
+   "meal_type": "dinner"
+  },
+  "response": {
+   "teen": null,
+   "items": [
+    {
+     "food": {
+      "id": "biryani",
+      "name_bn": "বিরিয়ানি",
+      "name_en": "Biryani",
+      "name_bl": "Biryani",
+      "category": "mixed_dish",
+      "serving_desc_bn": "১ প্লেট",
+      "serving_desc_en": "1 plate",
+      "serving_grams": 350.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 1.5,
+     "unit": "plate",
+     "grams": 525.0,
+     "grams_low": 262.5,
+     "grams_high": 787.5,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "low",
+     "confidence_reasons": [
+      "dish_varies",
+      "unverified_data",
+      "portion_from_photo",
+      "match_unsure"
+     ],
+     "groups": [
+      "protein_food"
+     ],
+     "tags": [
+      "mixed_dish",
+      "meat"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "dab",
+      "name_bn": "ডাব",
+      "name_en": "Coconut water (dab)",
+      "name_bl": "Dab",
+      "category": "drink",
+      "serving_desc_bn": "১ গ্লাস",
+      "serving_desc_en": "1 glass",
+      "serving_grams": 250.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 300.0,
+     "unit": "ml",
+     "grams": 300.0,
+     "grams_low": 210.0,
+     "grams_high": 390.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "medium",
+     "confidence_reasons": [
+      "unverified_data"
+     ],
+     "groups": [
+      "drink"
+     ],
+     "tags": [
+      "drink",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 1107.0,
+    "low": 565.0,
+    "high": 1649.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 137.1,
+     "low": 70.8,
+     "high": 203.4,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 42.6,
+     "low": 21.4,
+     "high": 63.8,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 49.4,
+     "low": 25.1,
+     "high": 73.6,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 8.6,
+     "low": 4.9,
+     "high": 12.2,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": false,
+    "protein_food": true,
+    "veg_fruit": false,
+    "dairy": false
+   },
+   "verdict": {
+    "level": "mostly",
+    "reasons": [
+     {
+      "code": "add_veg",
+      "kind": "tip",
+      "food_ids": []
+     },
+     {
+      "code": "has_protein",
+      "kind": "good",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [
+    {
+     "food": {
+      "id": "salad",
+      "name_bn": "সালাদ",
+      "name_en": "Salad (cucumber tomato onion)",
+      "name_bl": "Salad",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian"
+     ]
+    },
+    {
+     "food": {
+      "id": "shak",
+      "name_bn": "শাক",
+      "name_en": "Leafy greens (shak)",
+      "name_bl": "Shak",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "shobji",
+      "name_bn": "সবজি",
+      "name_en": "Mixed vegetable curry",
+      "name_bl": "Shobji",
+      "category": "vegetable",
+      "serving_desc_bn": "১ বাটি",
+      "serving_desc_en": "1 bowl",
+      "serving_grams": 150.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "vegetable",
+      "vegetarian",
+      "high_fiber"
+     ]
+    },
+    {
+     "food": {
+      "id": "aam",
+      "name_bn": "আম",
+      "name_en": "Mango",
+      "name_bl": "Aam",
+      "category": "fruit",
+      "serving_desc_bn": "১টি (মাঝারি)",
+      "serving_desc_en": "1 medium",
+      "serving_grams": 150.0,
+      "piece_grams": 150.0,
+      "verified": false
+     },
+     "reason": "add_veg",
+     "tags": [
+      "fruit",
+      "vegetarian"
+     ]
+    }
+   ],
+   "swaps": [],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 2
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ },
+ {
+  "request": {
+   "items": [
+    {
+     "food_id": "kola",
+     "quantity": 2.0,
+     "unit": null,
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "doi",
+     "quantity": 1.0,
+     "unit": "cup",
+     "source": "manual",
+     "match_confidence": 1.0
+    },
+    {
+     "food_id": "chira",
+     "quantity": 50.0,
+     "unit": "g",
+     "source": "manual",
+     "match_confidence": 1.0
+    }
+   ],
+   "answers": {
+    "oil": "unknown",
+    "fried": "unknown",
+    "sugar_spoons": null
+   },
+   "profile": {
+    "age": 15,
+    "sex": "female",
+    "activity": "medium",
+    "goal": "balanced",
+    "diet": "any"
+   },
+   "meal_type": "breakfast"
+  },
+  "response": {
+   "teen": true,
+   "items": [
+    {
+     "food": {
+      "id": "kola",
+      "name_bn": "কলা",
+      "name_en": "Banana",
+      "name_bl": "Kola",
+      "category": "fruit",
+      "serving_desc_bn": "১টি",
+      "serving_desc_en": "1 piece",
+      "serving_grams": 90.0,
+      "piece_grams": 90.0,
+      "verified": false
+     },
+     "quantity": 2.0,
+     "unit": null,
+     "grams": 180.0,
+     "grams_low": 126.0,
+     "grams_high": 234.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "medium",
+     "confidence_reasons": [
+      "unverified_data"
+     ],
+     "groups": [
+      "fruit"
+     ],
+     "tags": [
+      "fruit",
+      "vegetarian",
+      "high_fiber"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "doi",
+      "name_bn": "দই",
+      "name_en": "Plain yogurt (doi)",
+      "name_bl": "Doi",
+      "category": "dairy",
+      "serving_desc_bn": "১ কাপ",
+      "serving_desc_en": "1 cup",
+      "serving_grams": 100.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 1.0,
+     "unit": "cup",
+     "grams": 100.0,
+     "grams_low": 70.0,
+     "grams_high": 130.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "medium",
+     "confidence_reasons": [
+      "unverified_data"
+     ],
+     "groups": [
+      "dairy",
+      "protein_food"
+     ],
+     "tags": [
+      "dairy",
+      "protein",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    },
+    {
+     "food": {
+      "id": "chira",
+      "name_bn": "চিড়া",
+      "name_en": "Flattened rice (chira)",
+      "name_bl": "Chira",
+      "category": "grain",
+      "serving_desc_bn": "১ কাপ",
+      "serving_desc_en": "1 cup",
+      "serving_grams": 40.0,
+      "piece_grams": null,
+      "verified": false
+     },
+     "quantity": 50.0,
+     "unit": "g",
+     "grams": 50.0,
+     "grams_low": 35.0,
+     "grams_high": 65.0,
+     "assumed": false,
+     "portion_note": null,
+     "confidence": "medium",
+     "confidence_reasons": [
+      "unverified_data"
+     ],
+     "groups": [
+      "grain"
+     ],
+     "tags": [
+      "grain",
+      "vegetarian"
+     ],
+     "source": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "method": "estimate",
+     "verified": false
+    }
+   ],
+   "energy": {
+    "value": 395.0,
+    "low": 277.0,
+    "high": 514.0,
+    "unit": "kcal"
+   },
+   "macros": [
+    {
+     "nutrient": "carbs",
+     "unit": "g",
+     "value": 84.9,
+     "low": 59.4,
+     "high": 110.4,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fat",
+     "unit": "g",
+     "value": 4.1,
+     "low": 2.9,
+     "high": 5.4,
+     "complete": true,
+     "status": "known",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "get_enough": [
+    {
+     "nutrient": "protein",
+     "unit": "g",
+     "value": 8.8,
+     "low": 6.1,
+     "high": 11.4,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "fibre",
+     "unit": "g",
+     "value": 5.4,
+     "low": 3.8,
+     "high": 7.1,
+     "complete": true,
+     "status": "target_pending",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "iron",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "zinc",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    },
+    {
+     "nutrient": "calcium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": null,
+     "limit_status": "none",
+     "limit_source_url": null
+    }
+   ],
+   "go_easy": [
+    {
+     "nutrient": "free_sugars",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "saturated_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 10.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "trans_fat",
+     "unit": "g",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": 1.0,
+     "limit_unit": "% of daily energy",
+     "limit_status": "sourced",
+     "limit_source_url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet"
+    },
+    {
+     "nutrient": "sodium",
+     "unit": "mg",
+     "value": null,
+     "low": null,
+     "high": null,
+     "complete": false,
+     "status": "no_data",
+     "pct_of_target": null,
+     "target_value": null,
+     "share_of_meal_energy_pct": null,
+     "pct_of_limit": null,
+     "limit_value": null,
+     "limit_unit": "g per day",
+     "limit_status": "pending",
+     "limit_source_url": null
+    }
+   ],
+   "added_sugar": null,
+   "plate": {
+    "grain": true,
+    "protein_food": true,
+    "veg_fruit": true,
+    "dairy": true
+   },
+   "verdict": {
+    "level": "fits",
+    "reasons": [
+     {
+      "code": "has_veg",
+      "kind": "good",
+      "food_ids": []
+     },
+     {
+      "code": "has_protein",
+      "kind": "good",
+      "food_ids": []
+     }
+    ]
+   },
+   "add_ons": [],
+   "swaps": [],
+   "notes": [
+    "energy_target_pending"
+   ],
+   "sources": [
+    {
+     "kind": "food",
+     "label": "UNVERIFIED SAMPLE - team must replace with sourced data",
+     "url": null,
+     "verified": false,
+     "rows": 3
+    },
+    {
+     "kind": "reference",
+     "label": "WHO Healthy diet fact sheet (26 Jan 2026)",
+     "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+     "verified": true,
+     "rows": 1
+    }
+   ],
+   "method_note": "Amounts = food-table value per 100 g x confirmed grams. Ranges use the confidence level (high +/-15%, medium +/-30%, low +/-50%); these widths are engineering defaults until the weighed-meal validation measures the real error. Unverified rows are team estimates."
+  }
+ }
+]

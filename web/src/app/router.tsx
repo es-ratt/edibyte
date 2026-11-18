@@ -4,11 +4,14 @@ import { Layout } from './Layout'
 import { useAppStore, useT } from './store'
 import Home from '@/routes/Home'
 import Onboarding from '@/routes/Onboarding'
+import Capture from '@/routes/Capture'
 import { Placeholder } from '@/routes/Placeholder'
 import Welcome from '@/routes/Welcome'
 
 const Settings = lazy(() => import('@/routes/Settings'))
 const DataSources = lazy(() => import('@/routes/DataSources'))
+const Confirm = lazy(() => import('@/routes/Confirm'))
+const Result = lazy(() => import('@/routes/Result'))
 
 function Loading() {
   const t = useT()
@@ -73,9 +76,9 @@ export const router = createBrowserRouter(
         { path: '/welcome', element: page(<Welcome />) },
         { path: '/onboarding', element: gated(<Onboarding />) },
         { path: '/', element: gated(<Home />) },
-        { path: '/capture', element: gated(<Placeholder titleKey="route.capture" />) },
-        { path: '/confirm', element: gated(<Placeholder titleKey="route.confirm" />) },
-        { path: '/result', element: gated(<Placeholder titleKey="route.result" />) },
+        { path: '/capture', element: gated(<Capture />) },
+        { path: '/confirm', element: gated(<Confirm />) },
+        { path: '/result', element: gated(<Result />) },
         { path: '/coach', element: gated(<Placeholder titleKey="route.coach" />) },
         { path: '/progress', element: gated(<Placeholder titleKey="route.progress" />) },
         { path: '/plans', element: gated(<Placeholder titleKey="route.plans" />) },

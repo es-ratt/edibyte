@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DEMO_SOURCE } from './demo'
+import { demoParse } from './demo'
 import { selectApi } from './index'
 
 describe('API selection', () => {
@@ -16,10 +16,20 @@ describe('API selection', () => {
 })
 
 describe('demo adapter', () => {
-  it('never reports sample data as verified', async () => {
+  it('reports the shared food table honestly (no row verified yet)', async () => {
     const status = await selectApi({}).dataStatus()
+    expect(status.foods_total).toBeGreaterThanOrEqual(48)
     expect(status.foods_verified).toBe(0)
-    expect(status.sources[0].source).toBe(DEMO_SOURCE)
+  })
+  it('parses text with the longest name first and keeps a leading count', () => {
+    const r = demoParse('2 ruti ar dim bhaji')
+    expect(r.items.map((i) => i.food.id)).toEqual(['dim_bhaji', 'ruti'])
+    expect(r.items.find((i) => i.food.id === 'ruti')?.quantity).toBe(2)
+  })
+  it('returns a labelled sample meal for a photo, with one unsure match', async () => {
+    const r = await selectApi({}).parseImage(new Blob(['x']), 'en')
+    expect(r.warnings).toContain('demo_sample')
+    expect(r.items.some((i) => i.uncertain)).toBe(true)
   })
   it('searches foods by Banglish id, English or Bangla name', async () => {
     const api = selectApi({})

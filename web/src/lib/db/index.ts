@@ -34,6 +34,8 @@ export interface QueuedEvent {
   id?: number
   name: string
   at: string
+  /** Only for "item_wrong" feedback: the food id. Never user text. */
+  foodId?: string
 }
 
 interface EdiByteDB extends DBSchema {
@@ -133,6 +135,15 @@ export function listPlans(): Promise<StoredPlan[]> {
 
 export function queueEvent(name: string): Promise<void> {
   return safe(async (d) => void (await d.add('events', { name, at: new Date().toISOString() })), undefined)
+}
+
+/** "Was this wrong?" on a recognised item: stores the food id only (accuracy measurement, Phase 8). */
+export function addWrongItemFeedback(foodId: string): Promise<void> {
+  return safe(async (d) => void (await d.add('events', { name: 'item_wrong', at: new Date().toISOString(), foodId })), undefined)
+}
+
+export function listEvents(): Promise<QueuedEvent[]> {
+  return safe((d) => d.getAll('events'), [])
 }
 
 // --- delete everything ------------------------------------------------------------
