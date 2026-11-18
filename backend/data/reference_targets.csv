@@ -1,0 +1,20 @@
+nutrient,group,value,unit,type,source,url,date
+free_sugars,all any,10,% of daily energy,limit,"WHO Healthy diet fact sheet (26 Jan 2026): free sugars limited to less than 10% of total daily energy intake, throughout the life course",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+saturated_fat,all any,10,% of daily energy,limit,"WHO Healthy diet fact sheet (26 Jan 2026): no more than 10% of total energy from saturated fat (WHO guideline for adults and children)",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+trans_fat,all any,1,% of daily energy,limit,"WHO Healthy diet fact sheet (26 Jan 2026): no more than 1% of total energy from trans fat (WHO guideline for adults and children)",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+fruit_veg,11+ any,400,g per day,target,"WHO Healthy diet fact sheet (26 Jan 2026): everyone older than 10 years should aim for at least 400 g of fruits and vegetables per day",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+total_fat,18+ any,30,% of daily energy,limit,"WHO Healthy diet fact sheet (26 Jan 2026): for adults, total fat 30% or less of total daily energy intake",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+sodium,18+ any,2,g per day,limit,"WHO Healthy diet fact sheet (26 Jan 2026): in adults, salt less than 5 g per day (2 g sodium)",https://www.who.int/news-room/fact-sheets/detail/healthy-diet,2026-11-18
+sodium,13-17 any,,g per day,limit,awaiting dietitian-approved reference,,
+energy,13-17 any,,kcal per day,target,awaiting dietitian-approved reference,,
+energy,18+ any,,kcal per day,target,awaiting dietitian-approved reference,,
+protein,13-17 any,,g per day,target,awaiting dietitian-approved reference,,
+protein,18+ any,,g per day,target,awaiting dietitian-approved reference,,
+fibre,13-17 any,,g per day,target,awaiting dietitian-approved reference,,
+fibre,18+ any,,g per day,target,awaiting dietitian-approved reference,,
+iron,13-17 any,,mg per day,target,awaiting dietitian-approved reference,,
+iron,18+ any,,mg per day,target,awaiting dietitian-approved reference,,
+zinc,13-17 any,,mg per day,target,awaiting dietitian-approved reference,,
+zinc,18+ any,,mg per day,target,awaiting dietitian-approved reference,,
+calcium,13-17 any,,mg per day,target,awaiting dietitian-approved reference,,
+calcium,18+ any,,mg per day,target,awaiting dietitian-approved reference,,

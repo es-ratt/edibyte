@@ -137,6 +137,23 @@ Two fictional demo profiles: `student_budget`, `muscle_gain`.
 ## `POST /profiles/targets`
 Body: `Profile`. Returns `Targets` (same as in the report).
 
+## `GET /reference/targets?age=&sex=&activity=`
+Sourced targets ("get enough") and limits ("go easy") from `backend/data/reference_targets.csv`. Nothing is hard-coded.
+- `age` 13-80 (required), `sex` `female|male|unspecified`, `activity` `low|medium|high` (accepted; no sourced energy reference yet).
+- One item per nutrient; the most specific age/sex row wins. Rows without a sourced value return `status: "unavailable"`, `value: null` and a `note`.
+
+```json
+{ "age": 15, "sex": "female", "activity": "medium", "teen": true,
+  "items": [
+    { "nutrient": "free_sugars", "type": "limit", "value": 10, "unit": "% of daily energy", "status": "sourced",
+      "source": "WHO Healthy diet fact sheet (26 Jan 2026): ...", "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+      "date": "2026-11-18", "note": null },
+    { "nutrient": "energy", "type": "target", "value": null, "unit": "kcal per day", "status": "unavailable",
+      "source": "awaiting dietitian-approved reference", "url": null, "date": null,
+      "note": "Target pending expert review: no dietitian-approved reference chosen yet." }
+  ] }
+```
+
 ## `GET /data/status`
 ```json
 { "foods_total": 48, "foods_verified": 0, "foods_with_price": 0, "tips_total": 15, "tips_verified": 0,
