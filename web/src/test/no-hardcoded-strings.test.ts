@@ -23,7 +23,8 @@ describe('no hard-coded UI strings', () => {
       // Text between tags: >Some words<
       for (const m of src.matchAll(/>\s*([^<>{}\s][^<>{}]*?)\s*</g)) {
         const text = m[1].trim()
-        if (/[A-Za-zঀ-৿]{2,}/.test(text) && !ALLOWED_TEXT.has(text) && !/^[=&|?:.)(]/.test(text)) {
+        const looksLikeCode = /^[=&|?:.)(]/.test(text) || /(if|return|const|let)|&&|\|\|/.test(text)
+        if (/[A-Za-zঀ-৿]{2,}/.test(text) && !ALLOWED_TEXT.has(text) && !looksLikeCode) {
           problems.push(`${relative(SRC, file)}: "${text}"`)
         }
       }

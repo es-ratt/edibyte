@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, useLocation } from 'react-router-dom'
 import { Layout } from './Layout'
 import { useAppStore, useT } from './store'
 import Home from '@/routes/Home'
+import Onboarding from '@/routes/Onboarding'
 import { Placeholder } from '@/routes/Placeholder'
 import Welcome from '@/routes/Welcome'
 
@@ -41,11 +42,16 @@ const page = (el: ReactNode) => (
   </RouteBoundary>
 )
 
-/** First run goes to /welcome. Phase 2 also sends users without a profile to /onboarding. */
+/** Reachable without a profile (so "delete all" and the data page always work). */
+const NO_PROFILE_ROUTES = ['/onboarding', '/settings', '/data-sources']
+
+/** First run goes to /welcome; then everything except NO_PROFILE_ROUTES needs a profile. */
 function FirstRunGate({ children }: BoundaryProps) {
   const welcomed = useAppStore((s) => s.welcomed)
+  const hasProfile = useAppStore((s) => s.profile !== null)
   const { pathname } = useLocation()
   if (!welcomed && pathname !== '/welcome') return <Navigate to="/welcome" replace />
+  if (welcomed && !hasProfile && !NO_PROFILE_ROUTES.includes(pathname)) return <Navigate to="/onboarding" replace />
   return children
 }
 
@@ -65,7 +71,7 @@ export const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { path: '/welcome', element: page(<Welcome />) },
-        { path: '/onboarding', element: gated(<Placeholder titleKey="route.onboarding" />) },
+        { path: '/onboarding', element: gated(<Onboarding />) },
         { path: '/', element: gated(<Home />) },
         { path: '/capture', element: gated(<Placeholder titleKey="route.capture" />) },
         { path: '/confirm', element: gated(<Placeholder titleKey="route.confirm" />) },

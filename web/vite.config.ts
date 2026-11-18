@@ -39,6 +39,8 @@ export default defineConfig({
       },
     }),
   ],
+  // The demo adapter imports backend/data/reference_targets.csv (single source of truth).
+  server: { fs: { allow: ['..'] } },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },

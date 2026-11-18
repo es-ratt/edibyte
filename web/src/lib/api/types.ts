@@ -2,7 +2,9 @@
 // works identically on a static host (demo) and against the FastAPI backend (live).
 // Phases 2-8 extend this interface; the demo adapter must implement every method it adds.
 
+import type { ProfileSummary } from '@/features/profile/model'
 import type { Lang } from '@/lib/i18n'
+import type { ReferenceTargets } from '@/lib/targets'
 
 export type ApiMode = 'demo' | 'live'
 
@@ -39,6 +41,8 @@ export interface Api {
   health(): Promise<Health>
   dataStatus(): Promise<DataStatus>
   searchFoods(query: string, lang: Lang): Promise<FoodHit[]>
+  /** Sourced targets/limits for this age and sex; rows without a source come back "unavailable". */
+  referenceTargets(summary: ProfileSummary): Promise<ReferenceTargets>
 }
 
 export class ApiError extends Error {

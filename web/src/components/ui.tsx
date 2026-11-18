@@ -27,16 +27,27 @@ export function Button({ variant = 'primary', block = false, className = '', ...
   )
 }
 
+export type CardTone = 'surface' | 'tint' | 'olive' | 'mustard'
+
+// One background per tone. Do not pass bg-* in className: it would compete with the tone class.
+const CARD_TONES: Record<CardTone, string> = {
+  surface: 'bg-surface text-ink',
+  tint: 'bg-olive-50 text-ink',
+  olive: 'bg-olive-700 text-white',
+  mustard: 'bg-mustard-100 text-ink',
+}
+
 type CardProps = {
   children: ReactNode
   className?: string
   as?: 'section' | 'div' | 'article'
   labelledBy?: string
+  tone?: CardTone
 }
 
-export function Card({ children, className = '', as: Tag = 'div', labelledBy }: CardProps) {
+export function Card({ children, className = '', as: Tag = 'div', labelledBy, tone = 'surface' }: CardProps) {
   return (
-    <Tag aria-labelledby={labelledBy} className={`rounded-card bg-surface p-5 shadow-card ${className}`}>
+    <Tag aria-labelledby={labelledBy} className={`rounded-card p-5 shadow-card ${CARD_TONES[tone]} ${className}`}>
       {children}
     </Tag>
   )

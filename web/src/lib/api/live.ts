@@ -1,4 +1,6 @@
+import type { ProfileSummary } from '@/features/profile/model'
 import type { Lang } from '@/lib/i18n'
+import type { ReferenceTargets } from '@/lib/targets'
 import { ApiError, type Api, type DataStatus, type FoodHit, type Health } from './types'
 
 const TIMEOUT_MS = 20_000
@@ -31,5 +33,10 @@ export function createLiveApi(baseUrl: string): Api {
     dataStatus: () => request<DataStatus>(base, '/data/status'),
     searchFoods: async (query: string, _lang: Lang): Promise<FoodHit[]> =>
       request<FoodHit[]>(base, `/foods?query=${encodeURIComponent(query)}&limit=10`),
+    referenceTargets: (s: ProfileSummary): Promise<ReferenceTargets> => {
+      // Only age band inputs leave the device: age, sex, activity.
+      const q = new URLSearchParams({ age: String(s.age), sex: s.sex, activity: s.activity })
+      return request<ReferenceTargets>(base, `/reference/targets?${q}`)
+    },
   }
 }

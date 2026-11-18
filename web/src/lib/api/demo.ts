@@ -2,7 +2,10 @@
 // Every screen shows the "Demo data" banner while this adapter is active.
 // Values are placeholders and are never marked verified.
 
+import referenceCsv from '../../../../backend/data/reference_targets.csv?raw'
+import type { ProfileSummary } from '@/features/profile/model'
 import type { Lang } from '@/lib/i18n'
+import { parseReferenceCsv, targetsFor, type ReferenceTargets } from '@/lib/targets'
 import type { Api, DataStatus, FoodHit, Health } from './types'
 
 export const DEMO_SOURCE = 'DEMO SAMPLE - not real data'
@@ -17,6 +20,9 @@ const FOODS: FoodHit[] = [
   { id: 'singara', name_bn: 'সিঙ্গারা', name_en: 'Singara', verified: false },
   { id: 'burger', name_bn: 'বার্গার', name_en: 'Burger', verified: false },
 ]
+
+// Real sourced reference rows (same file as the backend), not sample data.
+const REFERENCE_ROWS = parseReferenceCsv(referenceCsv)
 
 const wait = <T,>(value: T, ms = 250): Promise<T> => new Promise((r) => setTimeout(() => r(value), ms))
 
@@ -40,5 +46,7 @@ export function createDemoApi(): Api {
         : FOODS
       return wait(hits.slice(0, 10))
     },
+    referenceTargets: (s: ProfileSummary): Promise<ReferenceTargets> =>
+      wait({ age: s.age, sex: s.sex, activity: s.activity, teen: s.age <= 17, items: targetsFor(REFERENCE_ROWS, s.age, s.sex) }),
   }
 }
