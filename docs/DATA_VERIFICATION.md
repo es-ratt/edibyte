@@ -12,6 +12,18 @@
 4. Re-import: `cd backend && python -m app.scripts.import_foods data/foods_seed.csv`
 5. Run `python -m pytest -q` and `python -m eval.run`.
 
+## New columns (Phase 3)
+
+| Column | Meaning |
+|---|---|
+| `dish_type` | `simple` (rice, egg, fruit), `mixed` (home-cooked dishes), `street`, `restaurant`, `packaged`. Sets the confidence: only `simple` foods start High. |
+| `free_sugars_g`, `sat_fat_g`, `trans_fat_g`, `sodium_mg`, `iron_mg`, `zinc_mg`, `calcium_mg` | Per 100 g. **Blank = not in our data yet** (the app says so). Never enter 0 for "unknown". |
+| `method` | `analysed`, `borrowed`, `recipe`, `label` or `estimate`. All current rows are `estimate`. |
+| `source_ref`, `source_year` | Table row or page number, and the table's year. |
+| `verified_by`, `date_checked` | Who checked the row and when. The app accepts `verified=true` only when `source_url`, `verified_by` and `date_checked` are all filled. |
+
+After changing `backend/app/check.py`, regenerate the web demo fixtures: `cd backend && python -m eval.export_check_fixtures` (the web parity test fails until you do).
+
 ## Piece weights (`piece_grams`)
 
 `piece_grams` is the weight of ONE piece, used when a user writes a count ("10ta fuchka", "2 biscuits").

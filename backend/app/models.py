@@ -26,6 +26,8 @@ class Food(SQLModel, table=True):
     name_en: str
     aliases: list[str] = Field(default_factory=list, sa_column=Column(JSON))
     category: str
+    # simple | mixed | street | restaurant | packaged. Sets the base confidence of estimates.
+    dish_type: str = "mixed"
     serving_desc_bn: str
     serving_desc_en: str
     serving_grams: float
@@ -37,6 +39,14 @@ class Food(SQLModel, table=True):
     carbs_g: float
     fat_g: float
     fiber_g: float | None = None
+    # Per 100 g. None = not in our data yet (never 0 for unknown).
+    free_sugars_g: float | None = None
+    sat_fat_g: float | None = None
+    trans_fat_g: float | None = None
+    sodium_mg: float | None = None
+    iron_mg: float | None = None
+    zinc_mg: float | None = None
+    calcium_mg: float | None = None
     price_bdt_estimate: float | None = None
     price_date: str | None = None
     price_source: str | None = None
@@ -44,6 +54,12 @@ class Food(SQLModel, table=True):
     source: str
     source_url: str | None = None
     verified: bool = False
+    # Provenance: analysed | borrowed | recipe | label | estimate. verified=True needs a cited source.
+    method: str = "estimate"
+    source_ref: str | None = None
+    source_year: int | None = None
+    verified_by: str | None = None
+    date_checked: str | None = None
     notes: str | None = None
 
 

@@ -11,8 +11,9 @@ from ..db import get_session
 from ..meal import match_items, parse_meal
 from ..models import MealLog
 from ..parser import LLMItems, LLM_SYSTEM
+from ..check import check_meal
 from ..rules import build_report
-from ..schemas import Lang, ParseRequest, ParseResponse, ReportRequest, ReportResponse
+from ..schemas import CheckRequest, CheckResponse, Lang, ParseRequest, ParseResponse, ReportRequest, ReportResponse
 
 router = APIRouter(prefix="/meal", tags=["meal"])
 
@@ -42,6 +43,16 @@ async def report(req: ReportRequest, session: Session = Depends(get_session)) ->
         )
         session.commit()
     return result
+
+
+@router.post("/check", response_model=CheckResponse)
+async def check(req: CheckRequest) -> CheckResponse:
+    """v2 report: ranges, confidence, get-enough / go-easy sections, verdict, suggestions.
+    Becomes /meal/report when /web replaces /frontend (REBUILD_PLAN Phase 9)."""
+    try:
+        return check_meal(req)
+    except KeyError as exc:
+        raise HTTPException(status_code=422, detail=f"Unknown food_id: {exc.args[0]}") from exc
 
 
 @router.post("/parse-image", response_model=ParseResponse)

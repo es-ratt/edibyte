@@ -216,3 +216,144 @@ class CoachResponse(BaseModel):
     lang: Lang
     mode: Mode
     guardrail: str | None = None
+
+
+# --- /meal/check (v2 report) ---------------------------------------------------------
+# Language-neutral: the server returns numbers and codes; the app renders text in bn/en/banglish.
+
+Confidence = Literal["high", "medium", "low"]
+
+
+class CheckItemIn(BaseModel):
+    food_id: str = Field(min_length=1, max_length=64)
+    quantity: float | None = Field(None, ge=0, le=5000)
+    unit: str | None = Field(None, max_length=20)
+    # How the item and its portion were obtained. "photo" portions are rougher.
+    source: Literal["photo", "text", "manual"] = "manual"
+    match_confidence: float = Field(1.0, ge=0, le=1)
+
+
+class CheckAnswers(BaseModel):
+    """The questions a photo cannot answer."""
+
+    oil: Literal["none", "little", "normal", "lot", "unknown"] = "unknown"
+    fried: Literal["yes", "no", "unknown"] = "unknown"
+    sugar_spoons: int | None = Field(None, ge=0, le=10)
+
+
+class CheckProfile(BaseModel):
+    """Profile summary only: no birth date, body numbers or avoid list leave the device."""
+
+    age: int = Field(ge=13, le=80)
+    sex: Literal["female", "male", "unspecified"] = "unspecified"
+    activity: Literal["low", "medium", "high"] = "medium"
+    goal: Literal["balanced", "energy", "muscle", "maintain"] = "balanced"
+    diet: Literal["any", "vegetarian", "no_beef"] = "any"
+
+
+class CheckRequest(BaseModel):
+    items: list[CheckItemIn] = Field(min_length=1, max_length=30)
+    answers: CheckAnswers = Field(default_factory=CheckAnswers)
+    profile: CheckProfile | None = None
+    meal_type: Literal["breakfast", "lunch", "dinner", "snack"] | None = None
+
+
+class Amount(BaseModel):
+    value: float
+    low: float
+    high: float
+    unit: str
+
+
+class CheckItemOut(BaseModel):
+    food: FoodBrief
+    quantity: float | None
+    unit: str | None
+    grams: float
+    grams_low: float
+    grams_high: float
+    assumed: bool
+    portion_note: str | None
+    confidence: Confidence
+    confidence_reasons: list[str]
+    groups: list[str]
+    tags: list[str]
+    source: str
+    method: str
+    verified: bool
+
+
+class NutrientLine(BaseModel):
+    nutrient: str
+    unit: str
+    value: float | None = Field(description="null = not in our data yet")
+    low: float | None
+    high: float | None
+    complete: bool = Field(description="False when some foods in the meal have no value for this nutrient")
+    status: str
+    # "get enough": % of your daily target (only with a sourced target)
+    pct_of_target: float | None = None
+    target_value: float | None = None
+    # "go easy": share of this meal's energy, or % of your daily limit (only with a sourced limit)
+    share_of_meal_energy_pct: float | None = None
+    pct_of_limit: float | None = None
+    limit_value: float | None = None
+    limit_unit: str | None = None
+    limit_status: Literal["sourced", "pending", "none"] = "none"
+    limit_source_url: str | None = None
+
+
+class AddedSugar(BaseModel):
+    spoons: int
+    grams: float
+    method: Literal["estimate"] = "estimate"
+
+
+class VerdictReason(BaseModel):
+    code: str
+    kind: Literal["good", "tip", "warn"]
+    food_ids: list[str] = []
+
+
+class Verdict(BaseModel):
+    level: Literal["fits", "mostly", "change"]
+    reasons: list[VerdictReason]
+
+
+class Suggestion(BaseModel):
+    food: FoodBrief
+    reason: str
+    tags: list[str]
+
+
+class Swap(BaseModel):
+    from_food: FoodBrief
+    to_food: FoodBrief
+    reason: str
+    # Tags of to_food, so the app can drop swaps to foods on the user's avoid list.
+    to_tags: list[str] = []
+
+
+class SourceRef(BaseModel):
+    kind: Literal["food", "reference"]
+    label: str
+    url: str | None
+    verified: bool
+    rows: int
+
+
+class CheckResponse(BaseModel):
+    teen: bool | None
+    items: list[CheckItemOut]
+    energy: Amount
+    macros: list[NutrientLine]
+    get_enough: list[NutrientLine]
+    go_easy: list[NutrientLine]
+    added_sugar: AddedSugar | None
+    plate: dict[str, bool]
+    verdict: Verdict
+    add_ons: list[Suggestion]
+    swaps: list[Swap]
+    notes: list[str]
+    sources: list[SourceRef]
+    method_note: str

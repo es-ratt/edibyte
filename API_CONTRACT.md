@@ -66,6 +66,27 @@ Request
 - **Negation.** Foods the user says they did not eat ("bhat khai nai", "no rice") are left out.
 Possible `warnings`: `ai_unavailable_used_offline_parser`, `no_food_found`.
 
+## `POST /meal/check`
+v2 report used by `/web` (becomes `/meal/report` when `/web` replaces `/frontend`). Language-neutral: numbers and codes only; the app renders the text.
+
+Request:
+```json
+{ "items": [{ "food_id": "bhat", "quantity": 300, "unit": "g", "source": "photo", "match_confidence": 0.95 }],
+  "answers": { "oil": "little", "fried": "no", "sugar_spoons": null },
+  "profile": { "age": 15, "sex": "female", "activity": "medium", "goal": "energy", "diet": "any" },
+  "meal_type": "lunch" }
+```
+- `profile` is a summary only (no birth date, body numbers or avoid list). `age` 13-80.
+- Unknown `food_id` -> `422`.
+
+Response (abridged):
+- `items[]`: grams + `grams_low`/`grams_high`, `confidence` (`high|medium|low`) + `confidence_reasons`, `groups`, `tags`, `source`, `method`, `verified`.
+- `energy`: value + range (kcal).
+- `get_enough[]` (protein, fibre, iron, zinc, calcium): value/range or `null` ("not in our data yet"); `pct_of_target` only with a sourced target, else `status: "target_pending"`.
+- `go_easy[]` (free_sugars, saturated_fat, trans_fat, sodium): `share_of_meal_energy_pct` vs the WHO % (status `within|above`) when data is complete; `pct_of_limit` for sodium where WHO gives a number (adults); `limit_status` `sourced|pending`.
+- `added_sugar`: from the sugar-spoons answer, `method: "estimate"`, not added to energy.
+- `plate` (grain / protein_food / veg_fruit / dairy), `verdict` (`fits|mostly|change` + reason codes), `add_ons[]`, `swaps[]` (with `to_tags` so the app can respect the avoid list), `notes[]`, `sources[]`, `method_note`.
+
 ## `POST /meal/parse-image` (feature flag)
 `multipart/form-data` with `image` (JPEG/PNG/WebP, ≤ 4 MB) and `lang`. Returns the same shape as
 `/meal/parse`. `404` when `ENABLE_PHOTO=false` (default), `503` when no LLM is configured.

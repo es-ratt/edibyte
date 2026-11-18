@@ -52,6 +52,7 @@ def food_from_row(row: dict[str, str]) -> Food:
         name_en=row["name_en"].strip(),
         aliases=_list(row.get("aliases")),
         category=row["category"].strip(),
+        dish_type=_str(row.get("dish_type")) or "mixed",
         serving_desc_bn=row["serving_desc_bn"].strip(),
         serving_desc_en=row["serving_desc_en"].strip(),
         serving_grams=float(row["serving_grams"]),
@@ -61,15 +62,32 @@ def food_from_row(row: dict[str, str]) -> Food:
         carbs_g=float(row["carbs_g"]),
         fat_g=float(row["fat_g"]),
         fiber_g=_float(row.get("fiber_g")),
+        free_sugars_g=_float(row.get("free_sugars_g")),
+        sat_fat_g=_float(row.get("sat_fat_g")),
+        trans_fat_g=_float(row.get("trans_fat_g")),
+        sodium_mg=_float(row.get("sodium_mg")),
+        iron_mg=_float(row.get("iron_mg")),
+        zinc_mg=_float(row.get("zinc_mg")),
+        calcium_mg=_float(row.get("calcium_mg")),
         price_bdt_estimate=price,
         price_date=_str(row.get("price_date")),
         price_source=_str(row.get("price_source")),
         tags=_list(row.get("tags")),
         source=row.get("source", "").strip() or "UNKNOWN",
         source_url=_str(row.get("source_url")),
-        verified=_bool(row.get("verified")),
+        verified=_verified(row),
+        method=_str(row.get("method")) or "estimate",
+        source_ref=_str(row.get("source_ref")),
+        source_year=int(row["source_year"]) if _str(row.get("source_year")) else None,
+        verified_by=_str(row.get("verified_by")),
+        date_checked=_str(row.get("date_checked")),
         notes=_str(row.get("notes")),
     )
+
+
+def _verified(row: dict[str, str]) -> bool:
+    """verified=true is only accepted with a cited source URL, a reviewer and a check date."""
+    return _bool(row.get("verified")) and all(_str(row.get(k)) for k in ("source_url", "verified_by", "date_checked"))
 
 
 def tip_from_row(row: dict[str, str]) -> Tip:

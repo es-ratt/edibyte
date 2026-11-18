@@ -28,7 +28,16 @@ engine = create_engine(_url, connect_args=_connect_args, pool_pre_ping=True)
 
 # Columns added after the first release: (table, column, SQL type). create_all() never
 # alters an existing table, so these are added by hand on startup.
-_ADDED_COLUMNS = [("food", "piece_grams", "FLOAT")]
+_ADDED_COLUMNS = [
+    ("food", "piece_grams", "FLOAT"),
+    ("food", "dish_type", "VARCHAR DEFAULT 'mixed'"),
+    *[("food", c, "FLOAT") for c in ("free_sugars_g", "sat_fat_g", "trans_fat_g", "sodium_mg", "iron_mg", "zinc_mg", "calcium_mg")],
+    ("food", "method", "VARCHAR DEFAULT 'estimate'"),
+    ("food", "source_ref", "VARCHAR"),
+    ("food", "source_year", "INTEGER"),
+    ("food", "verified_by", "VARCHAR"),
+    ("food", "date_checked", "VARCHAR"),
+]
 
 
 def init_db() -> list[str]:

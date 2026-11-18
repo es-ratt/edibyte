@@ -86,3 +86,18 @@ SERVING_UNITS = {"serving", "plate", "bati", "cup", "glass", "piece", "slice", "
 PIECE_UNITS = {"piece", "slice"}
 # A match below this confidence is shown to the user as "not sure".
 UNCERTAIN_BELOW = 0.9
+
+# --- Meal check (POST /meal/check) --------------------------------------------
+# Range half-width per confidence level, as a share of the estimate: value x (1 +/- f).
+# ENGINEERING DEFAULTS, NOT NUTRITION DATA. To be replaced by the error measured in the
+# weighed-meal validation (REBUILD_PLAN Phase 8). Shown to users as "how was this calculated".
+CONFIDENCE_RANGE = {"high": 0.15, "medium": 0.30, "low": 0.50}
+# Dish types whose values vary a lot by cook/shop: confidence starts Low (prompt section 2).
+LOW_CONFIDENCE_DISH_TYPES = {"mixed", "street", "restaurant", "packaged"}
+# Pending decision 2 in REBUILD_PLAN: the current WHO fact sheet does not say whether potatoes
+# count as vegetables. Until a source is chosen they are NOT counted (the conservative choice).
+COUNT_STARCHY_ROOTS_AS_VEGETABLE = False
+# Tips are about lunch and dinner protein (prompt S7 habits).
+PROTEIN_MEALS = {"lunch", "dinner"}
+# Verdict: number of gentle tips at or above which the verdict becomes "change".
+VERDICT_CHANGE_AT_TIPS = 3
