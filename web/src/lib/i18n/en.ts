@@ -432,4 +432,23 @@ export const en: Record<TKey, string> = {
   "plan.pickTheme": "Pick a focus to see the review.",
   "home.planToday": "{n} foods in today's plan",
   "home.planOpen": "Open plan",
+
+  // Phase 7: data and privacy
+  "data.method": "Method: {m} rows \"{k}\"",
+  "data.methodNote": "\"estimate\" means a team starting value, not yet checked against a food composition table.",
+  "data.references": "Guidelines and limits",
+  "data.refCounts": "{s} sourced, {p} pending expert review",
+  "data.checkedOn": "Checked {d}",
+  "data.ages": "Ages: {g}",
+  "data.weeklyTips": "Weekly tips: {t}, reviewed by a dietitian: {r}",
+  "data.accuracy": "Accuracy",
+  "data.accuracyNone": "Not measured yet. Plan: compare the app with 100+ meals weighed on a kitchen scale and publish the results honestly, failures included.",
+  "data.report": "Report a mistake",
+  "data.reportNote": "Opens a public note on GitHub. Do not write your name or health details.",
+  "priv.title": "Privacy",
+  "priv.phone": "Stays on this phone: profile, meal logs, plans, settings.",
+  "priv.sent": "Sent to the server only when needed: food ids and grams, your answers, the text you type for meal search or the coach, and a summary of age, sex, goal and diet. Never your birth date, weight or avoid list.",
+  "priv.photo": "Photos are sent once to recognise food and never stored. They are made smaller on the phone first, and location data is removed.",
+  "priv.logs": "Server logs never contain what you type.",
+  "priv.delete": "You can delete everything any time in Settings.",
 }

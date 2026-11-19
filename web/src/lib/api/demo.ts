@@ -66,6 +66,9 @@ export function createDemoApi(): Api {
     dataStatus: (): Promise<DataStatus> => {
       const sources = new Map<string, number>()
       FOODS.forEach((f) => sources.set(f.source, (sources.get(f.source) ?? 0) + 1))
+      const methods: Record<string, number> = {}
+      FOODS.forEach((f) => (methods[f.method] = (methods[f.method] ?? 0) + 1))
+      const sourced = REFERENCE_ROWS.filter((r) => r.value !== null && r.source !== 'awaiting dietitian-approved reference')
       return wait({
         foods_total: FOODS.length,
         foods_verified: FOODS.filter((f) => f.verified).length,
@@ -73,6 +76,13 @@ export function createDemoApi(): Api {
         tips_verified: 0,
         sources: [...sources].map(([source, rows]) => ({ source, rows })),
         nutrient_basis: 'per 100 g edible portion',
+        food_methods: methods,
+        references: {
+          sourced: sourced.length,
+          pending: REFERENCE_ROWS.length - sourced.length,
+          rows: sourced.map((r) => ({ nutrient: r.nutrient, group: `${r.ageMin}-${r.ageMax} ${r.sex}`, value: r.value, unit: r.unit, type: r.type, source: r.source, url: r.url, date: r.date })),
+        },
+        weekly_tips: { total: TIPS.length, reviewed: TIPS.filter((t) => t.reviewed_by !== null).length },
       })
     },
     searchFoods: (query: string, _lang: Lang): Promise<FoodBrief[]> => {

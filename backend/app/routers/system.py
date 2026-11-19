@@ -12,9 +12,11 @@ from ..config import EVAL_DIR, get_settings
 from ..db import get_session
 from ..models import MealLog
 from ..profiles import DEMO_PROFILES
+from ..reference import PENDING_SOURCE, load_reference_rows
 from ..rules import compute_targets
 from ..schemas import DemoProfile, FoodOut, Profile, Targets
 from ..store import all_foods, all_tips, food_index
+from ..suggestions import load_tips
 from ..text import normalize
 
 router = APIRouter()
@@ -67,8 +69,13 @@ async def data_status() -> dict:
     foods = all_foods()
     tips = all_tips()
     sources: dict[str, int] = {}
+    methods: dict[str, int] = {}
     for f in foods:
         sources[f.source] = sources.get(f.source, 0) + 1
+        methods[f.method] = methods.get(f.method, 0) + 1
+    refs = load_reference_rows()
+    sourced = [r for r in refs if r.value is not None and r.source != PENDING_SOURCE]
+    weekly = load_tips()
     return {
         "foods_total": len(foods),
         "foods_verified": sum(f.verified for f in foods),
@@ -77,6 +84,17 @@ async def data_status() -> dict:
         "tips_verified": sum(t.verified for t in tips),
         "sources": [{"source": k, "rows": v} for k, v in sorted(sources.items(), key=lambda kv: -kv[1])],
         "nutrient_basis": "per 100 g edible portion",
+        "food_methods": methods,
+        "references": {
+            "sourced": len(sourced),
+            "pending": len(refs) - len(sourced),
+            "rows": [
+                {"nutrient": r.nutrient, "group": f"{r.age_min}-{r.age_max} {r.sex}", "value": r.value, "unit": r.unit,
+                 "type": r.type, "source": r.source, "url": r.url, "date": r.date}
+                for r in sourced
+            ],
+        },  # fmt: skip
+        "weekly_tips": {"total": len(weekly), "reviewed": sum(t.reviewed_by is not None for t in weekly)},
     }
 
 

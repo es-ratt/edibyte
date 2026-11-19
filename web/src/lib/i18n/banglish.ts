@@ -432,4 +432,23 @@ export const banglish: Record<TKey, string> = {
   "plan.pickTheme": "Review dekhte ekta bishoy beche nao.",
   "home.planToday": "Aajker plan e {n} ta khabar",
   "home.planOpen": "Plan dekho",
+
+  // Phase 7: data and privacy
+  "data.method": "Method: {m} ta row \"{k}\"",
+  "data.methodNote": "\"estimate\" mane team er prathomik value, ekhono kono food table er sathe milano hoyni.",
+  "data.references": "Guideline ar shima",
+  "data.refCounts": "{s} ta source shoho, {p} ta expert review er opekkhay",
+  "data.checkedOn": "Check kora: {d}",
+  "data.ages": "Boyosh: {g}",
+  "data.weeklyTips": "Saptahik poramorsho: {t} ta, dietitian review kora {r} ta",
+  "data.accuracy": "Accuracy",
+  "data.accuracyNone": "Ekhono mapa hoyni. Plan: rannagharer pallay mapa 100+ khabarer sathe app er hishab miliye dekha, bhul gulo shoho shotbhabe prokash kora.",
+  "data.report": "Bhul dekhle janao",
+  "data.reportNote": "GitHub e ekta public note khulbe. Tomar nam ba shasthyer tottho likho na.",
+  "priv.title": "Privacy",
+  "priv.phone": "Ei phone ei thake: profile, khabarer log, plan, settings.",
+  "priv.sent": "Server e jay shudhu ja dorkar: khabarer id ar gram, tomar uttor, khabar khoja ba coach er jonno ja lekho sei lekha, ar boyosh/linggo/goal/khaddabhyash er sharangsho. Jonmotarikh, ojon ba eriye cholar list jay na.",
+  "priv.photo": "Chobi shudhu khabar chenar jonno ekbar pathano hoy, kothao save hoy na. Pathanor age phone ei choto kora hoy ar location tottho muche fela hoy.",
+  "priv.logs": "Server er log e tomar lekha kichu thake na.",
+  "priv.delete": "Settings theke jekono shomoy shob tottho muche felte paro.",
 }

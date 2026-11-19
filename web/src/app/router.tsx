@@ -1,5 +1,5 @@
 import { Component, lazy, Suspense, type ReactNode } from 'react'
-import { createBrowserRouter, Navigate, useLocation } from 'react-router-dom'
+import { createBrowserRouter, Navigate, useLocation, type RouteObject } from 'react-router-dom'
 import { Layout } from './Layout'
 import { useAppStore, useT } from './store'
 import Home from '@/routes/Home'
@@ -71,8 +71,8 @@ export const ROUTE_PATHS = [
   '/progress', '/plans', '/settings', '/data-sources',
 ] as const // fmt: skip
 
-export const router = createBrowserRouter(
-  [
+/** Route table, shared by the app's browser router and the accessibility tests. */
+export const routes: RouteObject[] = [
     {
       element: <Layout />,
       children: [
@@ -90,6 +90,6 @@ export const router = createBrowserRouter(
         { path: '*', element: page(<Placeholder titleKey="route.notFound" />) },
       ],
     },
-  ],
-  { basename },
-)
+]
+
+export const router = createBrowserRouter(routes, { basename })

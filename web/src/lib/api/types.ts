@@ -24,6 +24,17 @@ export interface DataSourceRow {
   rows: number
 }
 
+export interface ReferenceSourceRow {
+  nutrient: string
+  group: string
+  value: number | null
+  unit: string
+  type: string
+  source: string
+  url: string | null
+  date: string | null
+}
+
 export interface DataStatus {
   foods_total: number
   foods_verified: number
@@ -31,6 +42,9 @@ export interface DataStatus {
   tips_verified: number
   sources: DataSourceRow[]
   nutrient_basis: string
+  food_methods: Record<string, number>
+  references: { sourced: number; pending: number; rows: ReferenceSourceRow[] }
+  weekly_tips: { total: number; reviewed: number }
 }
 
 export interface FoodHit {
