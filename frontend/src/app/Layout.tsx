@@ -1,9 +1,8 @@
 import { useEffect, useRef, useSyncExternalStore, type ReactNode } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { CalendarCheck, Camera, Home, MessageCircle, Settings, TrendingUp, WifiOff, FlaskConical, type LucideIcon } from 'lucide-react'
+import { CalendarCheck, Camera, Home, MessageCircle, Settings, TrendingUp, WifiOff, type LucideIcon } from 'lucide-react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
-import { api } from '@/lib/api'
-import { LANGS, type Lang, type TKey } from '@/lib/i18n'
+import { UI_LANGS, type Lang, type TKey } from '@/lib/i18n'
 import { useAppStore, useT } from './store'
 
 type Tab = { to: string; label: TKey; icon: LucideIcon; end?: boolean; raised?: boolean }
@@ -40,7 +39,7 @@ function LanguageSwitch() {
   const setLang = useAppStore((s) => s.setLang)
   return (
     <div role="group" aria-label={t('lang.label')} className="flex rounded-full border border-olive-200 bg-surface p-0.5">
-      {LANGS.map((l) => (
+      {UI_LANGS.map((l) => (
         <button
           key={l}
           type="button"
@@ -153,7 +152,6 @@ export function Layout() {
             )}
           </div>
         </div>
-        {api.mode === 'demo' && <Banner icon={FlaskConical}>{t('banner.demo')}</Banner>}
         {!online && <Banner icon={WifiOff}>{t('banner.offline')}</Banner>}
         <UpdatePrompt />
       </header>

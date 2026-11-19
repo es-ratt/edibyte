@@ -2,7 +2,7 @@ import { Camera, Leaf, ShieldCheck, Smartphone, type LucideIcon } from 'lucide-r
 import { useNavigate } from 'react-router-dom'
 import { useAppStore, useT } from '@/app/store'
 import { Button, Card } from '@/components/ui'
-import { LANGS, type TKey } from '@/lib/i18n'
+import { UI_LANGS, type TKey } from '@/lib/i18n'
 
 const POINTS: { icon: LucideIcon; key: TKey }[] = [
   { icon: Leaf, key: 'welcome.point1' },
@@ -49,7 +49,7 @@ export default function Welcome() {
           {t('welcome.chooseLang')}
         </h2>
         <div className="grid grid-cols-3 gap-2">
-          {LANGS.map((l) => (
+          {UI_LANGS.map((l) => (
             <Button key={l} variant={lang === l ? 'primary' : 'secondary'} aria-pressed={lang === l} onClick={() => setLang(l)}>
               {t(`lang.${l}`)}
             </Button>

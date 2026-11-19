@@ -6,6 +6,8 @@ export type Lang = 'bn' | 'en' | 'banglish'
 export type { TKey }
 
 export const LANGS: Lang[] = ['bn', 'en', 'banglish']
+/** Languages offered in the pickers. Banglish strings are kept but not offered. */
+export const UI_LANGS: Lang[] = ['bn', 'en']
 export const DICTS: Record<Lang, Record<TKey, string>> = { bn, en, banglish }
 
 /** HTML lang attribute: Banglish is Bangla written in Latin letters. */

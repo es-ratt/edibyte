@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { ageOn, parseProfile, teenModeOn, type Profile } from '@/features/profile/model'
 import { clearAllData, getProfile, getSetting, saveProfile, setSetting } from '@/lib/db'
-import { htmlLang, LANGS, translate, type Lang, type TKey } from '@/lib/i18n'
+import { htmlLang, translate, UI_LANGS, type Lang, type TKey } from '@/lib/i18n'
 
 export interface SafetySettings {
   /** Adults (18+) may opt in; under 18 teen mode is always on regardless of this value. */
@@ -62,7 +62,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
       getProfile(),
       getSetting<Partial<SafetySettings>>('safety', {}),
     ])
-    const safeLang = LANGS.includes(lang) ? lang : 'bn'
+    const safeLang = UI_LANGS.includes(lang) ? lang : 'bn'
     applyLang(safeLang)
     set({
       hydrated: true,

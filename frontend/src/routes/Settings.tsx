@@ -6,7 +6,7 @@ import { SwitchRow } from '@/components/form'
 import { Button, Card, Chip, PageTitle } from '@/components/ui'
 import { GuidanceCard } from '@/features/profile/GuidanceCard'
 import { SupportCard, WellbeingCheckIn } from '@/features/safety/SafetyCards'
-import { fmtNum, LANGS } from '@/lib/i18n'
+import { fmtNum, UI_LANGS } from '@/lib/i18n'
 
 export default function Settings() {
   const t = useT()
@@ -97,7 +97,7 @@ export default function Settings() {
             {t('settings.language')}
           </h2>
           <div className="grid grid-cols-3 gap-2">
-            {LANGS.map((l) => (
+            {UI_LANGS.map((l) => (
               <Button key={l} variant={lang === l ? 'primary' : 'secondary'} aria-pressed={lang === l} onClick={() => setLang(l)}>
                 {t(`lang.${l}`)}
               </Button>
