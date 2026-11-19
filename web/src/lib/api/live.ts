@@ -1,6 +1,8 @@
 import type { ProfileSummary } from '@/features/profile/model'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
 import type { Lang } from '@/lib/i18n'
+import type { HabitSummary } from '@/lib/progress/habits'
+import type { SuggestionResult } from '@/lib/progress/suggest'
 import type { ReferenceTargets } from '@/lib/targets'
 import { ApiError, type Api, type DataStatus, type Health, type ParseResult } from './types'
 
@@ -57,5 +59,7 @@ export function createLiveApi(baseUrl: string): Api {
     },
     checkMeal: (req: CheckRequest): Promise<CheckResponse> =>
       request<CheckResponse>(base, '/meal/check', { method: 'POST', body: JSON.stringify(req) }),
+    suggestion: (summary: HabitSummary): Promise<SuggestionResult> =>
+      request<SuggestionResult>(base, '/suggestions', { method: 'POST', body: JSON.stringify(summary) }),
   }
 }

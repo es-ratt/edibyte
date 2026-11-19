@@ -6,17 +6,21 @@
 
 import foodsCsv from '../../../../backend/data/foods_seed.csv?raw'
 import referenceCsv from '../../../../backend/data/reference_targets.csv?raw'
+import tipsCsv from '../../../../backend/data/tips.csv?raw'
 import type { ProfileSummary } from '@/features/profile/model'
 import { checkMeal, toGrams } from '@/lib/check/engine'
 import { brief, parseFoodsCsv, type Food } from '@/lib/check/foods'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
 import type { Lang } from '@/lib/i18n'
+import type { HabitSummary } from '@/lib/progress/habits'
+import { parseTipsCsv, suggestionFor, type SuggestionResult } from '@/lib/progress/suggest'
 import { parseReferenceCsv, targetsFor, type ReferenceTargets } from '@/lib/targets'
 import { ApiError, type Api, type DataStatus, type Health, type ParsedItem, type ParseResult } from './types'
 
 const FOODS: Food[] = parseFoodsCsv(foodsCsv)
 const BY_ID = new Map(FOODS.map((f) => [f.id, f]))
 const REFERENCE_ROWS = parseReferenceCsv(referenceCsv)
+const TIPS = parseTipsCsv(tipsCsv)
 
 /** The meal a demo "photo" always returns (names + rough portions only, as a vision model would). */
 export const DEMO_PHOTO_MEAL: { food_id: string; quantity: number | null; unit: string | null; confidence: number }[] = [
@@ -89,5 +93,6 @@ export function createDemoApi(): Api {
         })
       }),
     checkMeal: (req: CheckRequest): Promise<CheckResponse> => wait(checkMeal(req, FOODS, REFERENCE_ROWS)),
+    suggestion: (summary: HabitSummary): Promise<SuggestionResult> => wait(suggestionFor(TIPS, summary), 150),
   }
 }

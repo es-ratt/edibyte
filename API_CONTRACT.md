@@ -175,6 +175,11 @@ Sourced targets ("get enough") and limits ("go easy") from `backend/data/referen
   ] }
 ```
 
+## `POST /suggestions`
+One weekly tip chosen by **rules** from `backend/data/tips.csv` (first active tip by priority whose trigger matches). Request = habit counts only:
+`{ "meals_logged": 12, "days_logged": 5, "veg_fruit_share": 0.6, "protein_share": 0.8, "sugary_drinks": 3, "fried_meals": 1, "packaged_snacks": 0, "breakfast_share": 1 }`
+Response: `{ "tip": { "id": "sugary_high", "text_bn": "...", "text_en": "...", "text_bl": "...", "source": "...", "source_url": "...", "reviewed": false }, "reason": null }`, or `{ "tip": null, "reason": "not_enough_meals" }` below 3 meals. Triggers are `metric op number` (no eval). `reviewed` is true only when a dietitian is named in `reviewed_by`.
+
 ## `GET /data/status`
 ```json
 { "foods_total": 48, "foods_verified": 0, "foods_with_price": 0, "tips_total": 15, "tips_verified": 0,

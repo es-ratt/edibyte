@@ -5,6 +5,8 @@
 import type { ProfileSummary } from '@/features/profile/model'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
 import type { Lang } from '@/lib/i18n'
+import type { HabitSummary } from '@/lib/progress/habits'
+import type { SuggestionResult } from '@/lib/progress/suggest'
 import type { ReferenceTargets } from '@/lib/targets'
 
 export type ApiMode = 'demo' | 'live'
@@ -75,6 +77,8 @@ export interface Api {
   /** The photo is sent once for recognition and never stored. */
   parseImage(photo: Blob, lang: Lang, signal?: AbortSignal): Promise<ParseResult>
   checkMeal(req: CheckRequest): Promise<CheckResponse>
+  /** One weekly tip chosen by rules from tips.csv. Only habit counts are sent. */
+  suggestion(summary: HabitSummary): Promise<SuggestionResult>
 }
 
 export class ApiError extends Error {

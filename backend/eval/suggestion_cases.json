@@ -1,0 +1,8 @@
+[
+ {"name": "too few meals logged", "summary": {"meals_logged": 2, "days_logged": 1, "veg_fruit_share": 0, "protein_share": 0, "sugary_drinks": 2, "fried_meals": 0, "packaged_snacks": 0, "breakfast_share": 0}, "expected": null},
+ {"name": "low vegetables wins over everything", "summary": {"meals_logged": 12, "days_logged": 5, "veg_fruit_share": 0.3, "protein_share": 0.2, "sugary_drinks": 5, "fried_meals": 6, "packaged_snacks": 5, "breakfast_share": 0.2}, "expected": "veg_low"},
+ {"name": "sugary drinks", "summary": {"meals_logged": 12, "days_logged": 5, "veg_fruit_share": 0.6, "protein_share": 0.8, "sugary_drinks": 3, "fried_meals": 1, "packaged_snacks": 0, "breakfast_share": 1}, "expected": "sugary_high"},
+ {"name": "fried food", "summary": {"meals_logged": 10, "days_logged": 4, "veg_fruit_share": 0.7, "protein_share": 0.7, "sugary_drinks": 0, "fried_meals": 4, "packaged_snacks": 0, "breakfast_share": 1}, "expected": "fried_high"},
+ {"name": "breakfast", "summary": {"meals_logged": 9, "days_logged": 4, "veg_fruit_share": 0.7, "protein_share": 0.7, "sugary_drinks": 0, "fried_meals": 0, "packaged_snacks": 0, "breakfast_share": 0.25}, "expected": "breakfast_low"},
+ {"name": "balanced week", "summary": {"meals_logged": 14, "days_logged": 6, "veg_fruit_share": 0.8, "protein_share": 0.9, "sugary_drinks": 1, "fried_meals": 1, "packaged_snacks": 1, "breakfast_share": 1}, "expected": "keep_going"}
+]
