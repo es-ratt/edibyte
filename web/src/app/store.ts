@@ -12,6 +12,8 @@ export interface SafetySettings {
   notifications: boolean
   /** Set by a flagged wellbeing check-in: tracking is hidden and the support card is shown. */
   wellbeingFlagged: boolean
+  /** Send anonymous usage counts (names and numbers only, live mode only). */
+  shareUsage: boolean
 }
 
 export const DEFAULT_SAFETY: SafetySettings = {
@@ -20,6 +22,7 @@ export const DEFAULT_SAFETY: SafetySettings = {
   hideNumbers: false,
   notifications: false,
   wellbeingFlagged: false,
+  shareUsage: true,
 }
 
 export interface AppState {

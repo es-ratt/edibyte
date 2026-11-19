@@ -15,7 +15,7 @@ from sqlmodel import Session
 from .config import get_settings
 from .db import engine, init_db
 from .middleware import RateLimitMiddleware, setup_logging
-from .routers import coach, meal, reference, suggestions, system
+from .routers import analytics, coach, meal, reference, suggestions, system
 from .seed import FOOD_SEED, import_csv, seed_if_empty
 from .store import refresh
 
@@ -58,6 +58,7 @@ def create_app() -> FastAPI:
     app.include_router(coach.router)
     app.include_router(reference.router)
     app.include_router(suggestions.router)
+    app.include_router(analytics.router)
     return app
 
 

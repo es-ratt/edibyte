@@ -451,4 +451,12 @@ export const en: Record<TKey, string> = {
   "priv.photo": "Photos are sent once to recognise food and never stored. They are made smaller on the phone first, and location data is removed.",
   "priv.logs": "Server logs never contain what you type.",
   "priv.delete": "You can delete everything any time in Settings.",
+
+  // Phase 8: analytics and validation
+  "set.shareUsage": "Share anonymous usage counts",
+  "set.shareUsageHint": "Only counts of what was used, never text, foods or profile. Helps the team see if the app is useful.",
+  "data.accMeals": "Validated on {n} weighed meals ({d})",
+  "data.accId": "Food identification: precision {p}, recall {r}",
+  "data.accMae": "Mean error ({k}): {v} (from {n} meals)",
+  "data.accFailures": "Failed meals: {n} (all listed in the results)",
 }

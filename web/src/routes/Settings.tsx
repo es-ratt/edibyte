@@ -86,6 +86,7 @@ export default function Settings() {
           />
           <SwitchRow label={t('set.hideNumbers')} hint={t('set.hideNumbersHint')} checked={safety.hideNumbers} onChange={(on) => setSafety({ hideNumbers: on })} />
           <SwitchRow label={t('set.notifications')} hint={t('set.notificationsHint')} checked={safety.notifications} onChange={(on) => setSafety({ notifications: on })} />
+          <SwitchRow label={t('set.shareUsage')} hint={t('set.shareUsageHint')} checked={safety.shareUsage} onChange={(on) => setSafety({ shareUsage: on })} />
         </Card>
 
         <WellbeingCheckIn />

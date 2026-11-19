@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { BadgeCheck, CircleAlert, ExternalLink, FlaskConical, Hourglass, Lock, MessageSquareWarning } from 'lucide-react'
 import { useAppStore, useT } from '@/app/store'
 import { Card, Chip, PageTitle } from '@/components/ui'
-import { api, type DataStatus } from '@/lib/api'
+import { api, type DataStatus, type ValidationResult } from '@/lib/api'
 import { fmtNum, type TKey } from '@/lib/i18n'
 
 type Load = { state: 'loading' } | { state: 'ok'; data: DataStatus } | { state: 'error' }
@@ -14,10 +14,15 @@ export default function DataSources() {
   const t = useT()
   const lang = useAppStore((s) => s.lang)
   const [load, setLoad] = useState<Load>({ state: 'loading' })
+  const [validation, setValidation] = useState<ValidationResult | null>(null)
   const n = (x: number) => fmtNum(x, lang)
 
   useEffect(() => {
     let active = true
+    api
+      .validation()
+      .then((v) => active && setValidation(v))
+      .catch(() => active && setValidation({ status: 'not_measured' }))
     api
       .dataStatus()
       .then((data) => active && setLoad({ state: 'ok', data }))
@@ -102,7 +107,18 @@ export default function DataSources() {
               <FlaskConical size={18} aria-hidden />
               {t('data.accuracy')}
             </h2>
-            <p>{t('data.accuracyNone')}</p>
+            {validation?.status === 'ok' && validation.identification ? (
+              <ul className="flex flex-col gap-1 text-sm">
+                <li>{t('data.accMeals', { n: n(validation.meals ?? 0), d: validation.date ?? '' })}</li>
+                <li>{t('data.accId', { p: fmtNum(validation.identification.precision, lang, 2), r: fmtNum(validation.identification.recall, lang, 2) })}</li>
+                {Object.entries(validation.mean_absolute_error ?? {}).map(([k, v]) =>
+                  v === null ? null : <li key={k}>{t('data.accMae', { k, v: fmtNum(v, lang, 1), n: n(validation.compared?.[k] ?? 0) })}</li>,
+                )}
+                <li>{t('data.accFailures', { n: n(validation.failures?.length ?? 0) })}</li>
+              </ul>
+            ) : (
+              <p>{t('data.accuracyNone')}</p>
+            )}
           </Card>
 
           <Card as="section" labelledBy="data-priv">

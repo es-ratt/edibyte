@@ -451,4 +451,12 @@ export const banglish: Record<TKey, string> = {
   "priv.photo": "Chobi shudhu khabar chenar jonno ekbar pathano hoy, kothao save hoy na. Pathanor age phone ei choto kora hoy ar location tottho muche fela hoy.",
   "priv.logs": "Server er log e tomar lekha kichu thake na.",
   "priv.delete": "Settings theke jekono shomoy shob tottho muche felte paro.",
+
+  // Phase 8: analytics and validation
+  "set.shareUsage": "Benami byabohar er hishab pathao",
+  "set.shareUsageHint": "Shudhu kotobar kon kaj hoyeche tar shonkha, kono lekha, khabar ba profile na. App ta kaje lagche kina bujhte help kore.",
+  "data.accMeals": "{n} ta ojon mapa khabare jachai ({d})",
+  "data.accId": "Khabar chena: precision {p}, recall {r}",
+  "data.accMae": "Gor bhul ({k}): {v} ({n} ta khabare)",
+  "data.accFailures": "Byortho khabar: {n} ta (shobgulo result e dekhano)",
 }

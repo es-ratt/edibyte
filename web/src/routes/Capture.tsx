@@ -6,6 +6,7 @@ import { Field, inputClass } from '@/components/form'
 import { Button, Card, PageTitle } from '@/components/ui'
 import { rowsFromParse, unmatchedFromParse, useDraft } from '@/features/capture/draft'
 import { api, ApiError, type ParseResult } from '@/lib/api'
+import { queueEvent } from '@/lib/db'
 import { LOW_DATA_MAX_SIDE_PX, MAX_SIDE_PX, prepareMealPhoto } from '@/lib/image'
 import type { TKey } from '@/lib/i18n'
 
@@ -18,6 +19,7 @@ export default function Capture() {
   const lang = useAppStore((s) => s.lang)
   const lowData = useAppStore((s) => s.lowData)
   const start = useDraft((s) => s.start)
+  const markStarted = useDraft((s) => s.markStarted)
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' })
   const [text, setText] = useState('')
   const abort = useRef<AbortController | null>(null)
@@ -37,6 +39,8 @@ export default function Capture() {
     if (!file) return
     const ctrl = new AbortController()
     abort.current = ctrl
+    markStarted()
+    void queueEvent('photo_used')
     setPhase({ kind: 'analyzing' })
     try {
       const photo = await prepareMealPhoto(file, lowData ? LOW_DATA_MAX_SIDE_PX : MAX_SIDE_PX)
@@ -56,6 +60,7 @@ export default function Capture() {
 
   const handleText = async () => {
     if (!text.trim()) return
+    markStarted()
     setPhase({ kind: 'analyzing' })
     try {
       goConfirm(await api.parseMeal(text.trim(), lang), false)

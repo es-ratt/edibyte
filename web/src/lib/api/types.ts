@@ -98,6 +98,22 @@ export interface Api {
   coach(req: CoachRequest): Promise<CoachAnswer>
   /** Check a planned day before eating, slot by slot (same engine). */
   planCheck(slots: Partial<Record<MealType, CheckItemIn[]>>, profile: CheckProfile | null): Promise<PlanCheckResult>
+  /** Anonymous events (names + numbers only). Live mode only. */
+  sendEvents(sessionId: string, events: { name: string; value: number | null; week: number | null }[]): Promise<void>
+  /** "Was this wrong?" taps: food ids only. Live mode only. */
+  sendFeedback(sessionId: string, foodIds: string[]): Promise<void>
+  /** Weighed-meal validation results, or "not_measured". */
+  validation(): Promise<ValidationResult>
+}
+
+export interface ValidationResult {
+  status: 'ok' | 'not_measured'
+  date?: string
+  meals?: number
+  identification?: { precision: number; recall: number; f1: number }
+  mean_absolute_error?: Record<string, number | null>
+  compared?: Record<string, number>
+  failures?: { meal_id: string; reasons: string[] }[]
 }
 
 export interface PlanCheckResult {

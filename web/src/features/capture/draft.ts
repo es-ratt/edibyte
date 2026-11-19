@@ -67,10 +67,13 @@ interface DraftState {
   answers: CheckAnswers
   mealType: MealType
   fromPhoto: boolean
+  /** When the user started this meal (for the anonymous time-to-log measure). */
+  startedAt: number
   result: CheckResponse | null
   start: (rows: DraftRow[], fromPhoto: boolean, unmatched?: UnmatchedRow[]) => void
   /** Resolve an unmatched phrase: pick a food (kept with its amount) or dismiss it (food = null). */
   resolveUnmatched: (key: string, food: FoodBrief | null) => void
+  markStarted: () => void
   updateRow: (key: string, patch: Partial<DraftRow>) => void
   removeRow: (key: string) => void
   addFood: (food: FoodBrief) => void
@@ -86,8 +89,10 @@ export const useDraft = create<DraftState>()((set) => ({
   answers: DEFAULT_ANSWERS,
   mealType: mealTypeFor(),
   fromPhoto: false,
+  startedAt: Date.now(),
   result: null,
   start: (rows, fromPhoto, unmatched = []) => set({ rows, unmatched, fromPhoto, answers: DEFAULT_ANSWERS, mealType: mealTypeFor(), result: null }),
+  markStarted: () => set({ startedAt: Date.now() }),
   resolveUnmatched: (key, food) =>
     set((s) => {
       const u = s.unmatched.find((x) => x.key === key)

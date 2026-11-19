@@ -36,6 +36,10 @@ export interface QueuedEvent {
   at: string
   /** Only for "item_wrong" feedback: the food id. Never user text. */
   foodId?: string
+  /** Optional number (e.g. seconds to log, a weekly habit share). */
+  value?: number
+  /** Optional week index since first use (habit change: baseline vs later weeks). */
+  week?: number
 }
 
 interface EdiByteDB extends DBSchema {
@@ -137,8 +141,15 @@ export function listPlans(): Promise<StoredPlan[]> {
 
 // --- anonymous event queue (Phase 8 sends it; names only, never user text) ---------
 
-export function queueEvent(name: string): Promise<void> {
-  return safe(async (d) => void (await d.add('events', { name, at: new Date().toISOString() })), undefined)
+export function queueEvent(name: string, extra: { value?: number; week?: number } = {}): Promise<void> {
+  return safe(async (d) => void (await d.add('events', { name, at: new Date().toISOString(), ...extra })), undefined)
+}
+
+export function deleteEvents(ids: number[]): Promise<void> {
+  return safe(async (d) => {
+    const tx = d.transaction('events', 'readwrite')
+    await Promise.all([...ids.map((id) => tx.store.delete(id)), tx.done])
+  }, undefined)
 }
 
 /** "Was this wrong?" on a recognised item: stores the food id only (accuracy measurement, Phase 8). */

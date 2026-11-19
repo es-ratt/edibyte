@@ -110,6 +110,18 @@ async def eval_results() -> dict:
     return {"status": "ok", **data}
 
 
+@router.get("/eval/validation", tags=["eval"])
+async def eval_validation() -> dict:
+    """Weighed-meal validation results (eval/validation_results.json), or "not measured" honestly."""
+    path = EVAL_DIR / "validation_results.json"
+    if not path.exists():
+        return {"status": "not_measured", "message": "No weighed meals validated yet."}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=500, detail="validation_results.json is not valid JSON") from exc
+
+
 @router.delete("/session/data", tags=["privacy"])
 async def clear_my_data(
     x_session_id: str = Header(..., max_length=64), session: Session = Depends(get_session)

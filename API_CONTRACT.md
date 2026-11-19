@@ -204,6 +204,19 @@ Response: `{ "tip": { "id": "sugary_high", "text_bn": "...", "text_en": "...", "
 `{ "status": "not_run", "message": "Not run yet" }` until `python -m eval.run` has been run;
 afterwards `{ "status": "ok", "timestamp", "test_set": "team-made", "mode", "overall", "by_lang", "failures", … }`.
 
+## `POST /events`
+Anonymous adoption events. `{ "session_id": "<random device id>", "events": [ { "name": "meal_logged", "value": 42 }, { "name": "habit_veg_share", "value": 0.5, "week": 2 } ] }`.
+Allowed names: `first_log`, `meal_logged` (value = seconds to log), `report_viewed`, `photo_used`, `coach_asked`, `plan_created`, `plan_completed`, `day3_return`, `day7_return`, `habit_veg_share` / `habit_sugary_drinks` (value + week index). Any other name or extra field (e.g. text) -> `422`. The app sends events only in live mode and only when "share anonymous usage counts" is on.
+
+## `POST /feedback/item`
+"Was this wrong?" taps: `{ "session_id": "...", "food_ids": ["dim_bhaji"] }` (food ids only; unknown id -> `422`).
+
+## `GET /impact/summary`
+Off (`404`) unless `IMPACT_KEY` is set; needs header `X-Impact-Key` (else `401`). Returns users, meals logged and per user, median time-to-log, photo/coach/report counts, day-3/day-7 return rates, plans created/completed, habit change (each user's first vs latest reported week; a proxy, not a medical outcome) and the most-reported wrong items.
+
+## `GET /eval/validation`
+Weighed-meal validation results (`backend/eval/validation_results.json`, see docs/VALIDATION.md) or `{ "status": "not_measured" }`.
+
 ## `DELETE /session/data`
 Header `X-Session-Id: <anonymous id>`. Deletes stored meal logs for that id. Returns `{ "deleted": n }`.
 

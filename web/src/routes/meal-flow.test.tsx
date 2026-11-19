@@ -123,7 +123,8 @@ describe('photo -> confirm', () => {
     await user.click(screen.getAllByRole('button', { name: en('conf.wrong') })[2])
     expect(screen.getByText(en('conf.wrongThanks'))).toBeTruthy()
     const events = await listEvents()
-    expect(events).toEqual([expect.objectContaining({ name: 'item_wrong', foodId: 'dim_bhaji' })])
+    expect(events.filter((e) => e.name === 'item_wrong')).toEqual([expect.objectContaining({ name: 'item_wrong', foodId: 'dim_bhaji' })])
+    expect(events.map((e) => e.name)).toContain('photo_used')
   })
 })
 

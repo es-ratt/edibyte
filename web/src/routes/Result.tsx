@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ArrowRightLeft, CalendarPlus, Camera, CircleCheck, Info, MessageCircle, Plus, ShieldAlert } from 'lucide-react'
 import { useAppStore, useMode, useT } from '@/app/store'
@@ -8,7 +8,7 @@ import type { Avoid } from '@/features/profile/model'
 import { foodName, FoodIcon } from '@/features/report/food'
 import { ConfidenceChip, NutrientRow, PlateBalance, VerdictCard } from '@/features/report/parts'
 import type { CheckResponse, Confidence } from '@/lib/check/types'
-import { addMeal, queueEvent } from '@/lib/db'
+import { addMeal, getSetting, queueEvent, setSetting } from '@/lib/db'
 import { fmtNum } from '@/lib/i18n'
 
 const ORDER: Confidence[] = ['high', 'medium', 'low']
@@ -26,8 +26,12 @@ export default function Result() {
   const lang = useAppStore((s) => s.lang)
   const profile = useAppStore((s) => s.profile)
   const mode = useMode()
-  const { result, mealType, reset } = useDraft()
+  const { result, mealType, reset, startedAt } = useDraft()
   const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    if (result) void queueEvent('report_viewed')
+  }, [result])
 
   if (!result) return <Navigate to="/capture" replace />
 
@@ -50,7 +54,12 @@ export default function Result() {
       groups: [...new Set(result.items.flatMap((i) => i.groups))],
       plate: result.plate,
     })
-    void queueEvent('meal_logged')
+    // Anonymous time-to-log: seconds from starting the meal to adding it (capped at one hour).
+    void queueEvent('meal_logged', { value: Math.min(3600, Math.round((Date.now() - startedAt) / 1000)) })
+    if (!(await getSetting<boolean>('firstLogSent', false))) {
+      await setSetting('firstLogSent', true)
+      void queueEvent('first_log')
+    }
     setSaved(true)
   }
 

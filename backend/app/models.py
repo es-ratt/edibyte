@@ -84,3 +84,24 @@ class MealLog(SQLModel, table=True):
     meal_type: str | None = None
     items: list[dict] = Field(default_factory=list, sa_column=Column(JSON))
     total_kcal: float = 0
+
+
+class Event(SQLModel, table=True):
+    """Anonymous usage event: an allow-listed name, an optional number, a random session id.
+    Never user text, foods eaten, profile data or IP addresses."""
+
+    id: int | None = Field(default=None, primary_key=True)
+    session_id: str = Field(index=True, max_length=64)
+    name: str = Field(index=True, max_length=40)
+    value: float | None = None
+    week: int | None = None
+    created_at: datetime = Field(default_factory=utcnow)
+
+
+class FeedbackItem(SQLModel, table=True):
+    """A "was this wrong?" tap on a recognised item: the food id only (accuracy measurement)."""
+
+    id: int | None = Field(default=None, primary_key=True)
+    session_id: str = Field(index=True, max_length=64)
+    food_id: str = Field(index=True, max_length=64)
+    created_at: datetime = Field(default_factory=utcnow)

@@ -17,7 +17,7 @@ import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import { parseTipsCsv, suggestionFor, type SuggestionResult } from '@/lib/progress/suggest'
 import { parseReferenceCsv, targetsFor, type ReferenceTargets } from '@/lib/targets'
-import { ApiError, type Api, type DataStatus, type Health, type ParsedItem, type ParseResult, type PlanCheckResult } from './types'
+import { ApiError, type Api, type DataStatus, type Health, type ParsedItem, type ParseResult, type PlanCheckResult, type ValidationResult } from './types'
 
 const FOODS: Food[] = parseFoodsCsv(foodsCsv)
 const BY_ID = new Map(FOODS.map((f) => [f.id, f]))
@@ -118,6 +118,10 @@ export function createDemoApi(): Api {
       const day_plate = Object.fromEntries(keys.map((k) => [k, results.some((r) => r!.plate[k])])) as CheckResponse['plate']
       return wait({ slots: out, day_plate, veg_fruit_slots: results.filter((r) => r!.plate.veg_fruit).length })
     },
+    // Demo mode never sends anything off the device.
+    sendEvents: async (): Promise<void> => undefined,
+    sendFeedback: async (): Promise<void> => undefined,
+    validation: (): Promise<ValidationResult> => wait({ status: 'not_measured' }, 100),
     coach: (req: CoachRequest): Promise<CoachAnswer> => wait(demoCoach(req, FOODS, REFERENCE_ROWS), 400),
   }
 }

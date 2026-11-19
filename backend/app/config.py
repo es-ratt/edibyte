@@ -57,6 +57,8 @@ class Settings:
     # Only read X-Forwarded-For when the app sits behind a proxy we trust (Render, a load
     # balancer). Off by default: otherwise any client could fake its IP and dodge the limiter.
     trust_proxy: bool = field(default_factory=lambda: _bool("TRUST_PROXY", False))
+    # Secret for GET /impact/summary. Empty = the summary endpoint is switched off (404).
+    impact_key: str = field(default_factory=lambda: os.getenv("IMPACT_KEY", "").strip())
     match_threshold: int = field(default_factory=lambda: _int("MATCH_THRESHOLD", 88))
 
     @property

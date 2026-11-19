@@ -5,7 +5,7 @@ import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import type { SuggestionResult } from '@/lib/progress/suggest'
 import type { ReferenceTargets } from '@/lib/targets'
-import { ApiError, type Api, type DataStatus, type Health, type ParseResult, type PlanCheckResult } from './types'
+import { ApiError, type Api, type DataStatus, type Health, type ParseResult, type PlanCheckResult, type ValidationResult } from './types'
 
 const TIMEOUT_MS = 20_000
 /** Photo recognition can take longer (vision model + a free server waking up). */
@@ -64,6 +64,13 @@ export function createLiveApi(baseUrl: string): Api {
       request<SuggestionResult>(base, '/suggestions', { method: 'POST', body: JSON.stringify(summary) }),
     planCheck: (slots: Partial<Record<MealType, CheckItemIn[]>>, profile: CheckProfile | null): Promise<PlanCheckResult> =>
       request<PlanCheckResult>(base, '/meal/plan-check', { method: 'POST', body: JSON.stringify({ slots, profile }) }),
+    sendEvents: async (session_id, events): Promise<void> => {
+      await request(base, '/events', { method: 'POST', body: JSON.stringify({ session_id, events: events.map((e) => ({ name: e.name, ...(e.value !== null ? { value: e.value } : {}), ...(e.week !== null ? { week: e.week } : {}) })) }) })
+    },
+    sendFeedback: async (session_id, food_ids): Promise<void> => {
+      await request(base, '/feedback/item', { method: 'POST', body: JSON.stringify({ session_id, food_ids }) })
+    },
+    validation: (): Promise<ValidationResult> => request<ValidationResult>(base, '/eval/validation'),
     coach: (req: CoachRequest): Promise<CoachAnswer> => request<CoachAnswer>(base, '/coach', { method: 'POST', body: JSON.stringify(req) }, 45_000),
   }
 }

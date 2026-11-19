@@ -35,6 +35,7 @@ Mock data switches off automatically once `VITE_API_BASE_URL` is set. To force d
 | `DATABASE_URL` | PostgreSQL URL (Neon or Supabase free tier). Without it the app uses SQLite, which Render wipes on restart: the food table is reseeded automatically, but anonymous meal history is lost. |
 | `LLM_PROVIDER`, `LLM_MODEL`, `LLM_API_KEY` | AI mode for the coach and photo input. Without them the app runs in offline mode. The key stays on the backend only. |
 | `ENABLE_PHOTO` | `true` to enable photo input (needs AI mode). |
+| `IMPACT_KEY` | A long random secret. Turns on `GET /impact/summary` (anonymous adoption numbers) for requests with header `X-Impact-Key`. Leave empty to keep it off. |
 | `CORS_ORIGINS` | Already set to `https://es-ratt.github.io,http://localhost:5173`. Add an origin here if the frontend moves. |
 
 ## Smoke test
