@@ -3,13 +3,13 @@ import { createBrowserRouter, Navigate, useLocation, type RouteObject } from 're
 import { Layout } from './Layout'
 import { useAppStore, useT } from './store'
 import Home from '@/routes/Home'
-import Onboarding from '@/routes/Onboarding'
-import Capture from '@/routes/Capture'
 import { Placeholder } from '@/routes/Placeholder'
 import Welcome from '@/routes/Welcome'
 
 const Settings = lazy(() => import('@/routes/Settings'))
 const DataSources = lazy(() => import('@/routes/DataSources'))
+const Onboarding = lazy(() => import('@/routes/Onboarding'))
+const Capture = lazy(() => import('@/routes/Capture'))
 const Confirm = lazy(() => import('@/routes/Confirm'))
 const Result = lazy(() => import('@/routes/Result'))
 const Progress = lazy(() => import('@/routes/Progress'))

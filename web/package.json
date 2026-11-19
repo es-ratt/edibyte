@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "test": "vitest run",
-    "size": "node scripts/check-size.mjs"
+    "size": "node scripts/check-size.mjs",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@fontsource/hind-siliguri": "5.3.0",
@@ -24,6 +25,7 @@
     "zustand": "5.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.53.1",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.1",

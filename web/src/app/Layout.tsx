@@ -6,12 +6,12 @@ import { api } from '@/lib/api'
 import { LANGS, type Lang, type TKey } from '@/lib/i18n'
 import { useAppStore, useT } from './store'
 
-type Tab = { to: string; label: TKey; icon: LucideIcon; end?: boolean; raised?: boolean; aria?: TKey }
+type Tab = { to: string; label: TKey; icon: LucideIcon; end?: boolean; raised?: boolean }
 
 export const TABS: Tab[] = [
   { to: '/', label: 'nav.home', icon: Home, end: true },
   { to: '/progress', label: 'nav.progress', icon: TrendingUp },
-  { to: '/capture', label: 'nav.photo', icon: Camera, raised: true, aria: 'nav.photoLabel' },
+  { to: '/capture', label: 'nav.photo', icon: Camera, raised: true },
   { to: '/plans', label: 'nav.plans', icon: CalendarCheck },
   { to: '/coach', label: 'nav.coach', icon: MessageCircle },
 ]
@@ -46,7 +46,8 @@ function LanguageSwitch() {
           type="button"
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          aria-label={t(`lang.${l}`)}
+          // Label in name (WCAG 2.5.3): the spoken name contains the visible short text.
+          aria-label={`${t(`lang.${l}`)} (${LANG_SHORT[l]})`}
           className={`min-h-10 min-w-10 rounded-full px-2 text-sm font-semibold ${lang === l ? 'bg-olive-700 text-white' : 'text-olive-900'}`}
         >
           {LANG_SHORT[l]}
@@ -89,12 +90,11 @@ function BottomNav() {
   return (
     <nav aria-label={t('nav.main')} className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
       <ul className="mx-auto grid max-w-[480px] grid-cols-5">
-        {TABS.map(({ to, label, icon: Icon, end, raised, aria }) => (
+        {TABS.map(({ to, label, icon: Icon, end, raised }) => (
           <li key={to} className="flex justify-center">
             <NavLink
               to={to}
               end={end}
-              aria-label={aria ? t(aria) : undefined}
               className={({ isActive }) =>
                 raised
                   ? 'flex -translate-y-4 flex-col items-center gap-0.5 text-xs font-semibold text-olive-900'
