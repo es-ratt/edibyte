@@ -1,10 +1,15 @@
-name: Deploy frontend to GitHub Pages
+name: Deploy web app to GitHub Pages
+
+# Builds the new PWA in /web (the legacy /frontend is no longer deployed).
+# Without the VITE_API_BASE_URL repository variable the site runs in demo mode: the full flow works
+# in the browser on the same data files as the API (backend/data/*.csv), with a "Demo data" banner.
 
 on:
   push:
     branches: [main]
     paths:
-      - "frontend/**"
+      - "web/**"
+      - "backend/data/**"
       - ".github/workflows/deploy-frontend.yml"
   workflow_dispatch:
 
@@ -22,36 +27,35 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: web
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: web/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
       - name: Install dependencies
-        run: |
-          if [ -f pnpm-lock.yaml ]; then
-            npm install -g pnpm
-            pnpm install --frozen-lockfile || pnpm install
-          else
-            npm ci || npm install
-          fi
+        run: pnpm install --frozen-lockfile
+      - name: Test
+        run: pnpm test
       - name: Build
         env:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
           # Mock data only while no backend URL is set; set VITE_USE_MOCK_DATA to override.
           VITE_USE_MOCK_DATA: ${{ vars.VITE_USE_MOCK_DATA || (vars.VITE_API_BASE_URL && 'false' || 'true') }}
         run: |
-          if [ -f pnpm-lock.yaml ]; then
-            pnpm exec vite build --base=/edibyte/
-          else
-            npx vite build --base=/edibyte/
-          fi
+          pnpm exec tsc -b
+          pnpm exec vite build --base=/edibyte/
+          # SPA fallback: deep links like /edibyte/capture load the app instead of a 404 page.
           cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist
+          path: web/dist
 
   deploy:
     needs: build
