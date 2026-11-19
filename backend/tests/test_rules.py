@@ -52,7 +52,8 @@ def test_report_unknown_food(client):
 
 def test_guardrails():
     assert check("I am pregnant, what to eat?") == "pregnancy"
-    assert check("ami diabetes er jonno ki khabo") == "medical"
+    # Conditions now get general guidance + "see a doctor" instead of a flat refusal (coach v2).
+    assert check("ami diabetes er jonno ki khabo") == "condition"
     assert check("I want a 600 calorie per day diet") == "eating_disorder"
     assert check("dim e koto protein?") is None
     assert check("আমি রোগা, ওজন বাড়াতে চাই") is None

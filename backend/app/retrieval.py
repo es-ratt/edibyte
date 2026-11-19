@@ -16,6 +16,7 @@ from functools import lru_cache
 from rank_bm25 import BM25Okapi
 
 from .models import Food, Tip
+from .reference import ReferenceRow
 from .text import stem_variants, tokenize
 
 CONCEPTS: dict[str, list[str]] = {
@@ -51,16 +52,27 @@ MIN_SHARED_WORDS = 2
 _OPPOSITES = [("c:weight_gain", "c:weight_loss"), ("c:weight_loss", "c:weight_gain")]
 
 
+# Words that should find each sourced reference row (WHO healthy-diet facts).
+REFERENCE_WORDS = {
+    "free_sugars": "free sugar sugars added sugar sweet chini mishti চিনি মিষ্টি",
+    "saturated_fat": "saturated fat fats chorbi চর্বি ফ্যাট",
+    "trans_fat": "trans fat fats ট্রান্স ফ্যাট",
+    "fruit_veg": "fruit fruits vegetable vegetables fol shobji sobji ফল সবজি শাকসবজি",
+    "total_fat": "total fat fats chorbi চর্বি",
+    "sodium": "salt sodium lobon লবণ",
+}
+
+
 @dataclass
 class Doc:
-    kind: str  # "food" | "tip"
+    kind: str  # "food" | "tip" | "reference"
     id: str
-    obj: Food | Tip
+    obj: Food | Tip | ReferenceRow
     tokens: list[str]
 
 
 class Retriever:
-    def __init__(self, foods: list[Food], tips: list[Tip]):
+    def __init__(self, foods: list[Food], tips: list[Tip], references: list[ReferenceRow] | None = None):
         # alias phrase (normalised, 1-3 words) -> food id
         self.alias: dict[str, str] = {}
         for f in foods:
@@ -75,6 +87,9 @@ class Retriever:
         for t in tips:
             text = " ".join([t.text_bn, t.text_en, t.text_bl, " ".join(t.tags)])
             self.docs.append(Doc("tip", t.id, t, self.tokens(text)))
+        for r in references or []:
+            text = f"{r.nutrient.replace('_', ' ')} {REFERENCE_WORDS.get(r.nutrient, '')} who guideline limit day"
+            self.docs.append(Doc("reference", r.nutrient, r, self.tokens(text)))
         self.bm25 = BM25Okapi([d.tokens for d in self.docs]) if self.docs else None
 
     def tokens(self, text: str) -> list[str]:
@@ -148,6 +163,9 @@ class Retriever:
 
 @lru_cache
 def get_retriever() -> Retriever:
+    from .reference import PENDING_SOURCE, load_reference_rows
     from .store import all_foods, all_tips
 
-    return Retriever(list(all_foods()), list(all_tips()))
+    # Only rows with a sourced value are knowledge; pending rows are never quoted.
+    refs = [r for r in load_reference_rows() if r.value is not None and r.source != PENDING_SOURCE]
+    return Retriever(list(all_foods()), list(all_tips()), refs)

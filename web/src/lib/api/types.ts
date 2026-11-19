@@ -4,6 +4,7 @@
 
 import type { ProfileSummary } from '@/features/profile/model'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import type { SuggestionResult } from '@/lib/progress/suggest'
@@ -79,6 +80,8 @@ export interface Api {
   checkMeal(req: CheckRequest): Promise<CheckResponse>
   /** One weekly tip chosen by rules from tips.csv. Only habit counts are sent. */
   suggestion(summary: HabitSummary): Promise<SuggestionResult>
+  /** Answers only from the approved knowledge base, with sources. */
+  coach(req: CoachRequest): Promise<CoachAnswer>
 }
 
 export class ApiError extends Error {

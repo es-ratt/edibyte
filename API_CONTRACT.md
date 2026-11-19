@@ -132,22 +132,29 @@ Response (abridged)
 ## `POST /coach`
 Request
 ```json
-{ "question": "dim e koto protein?", "lang": "banglish", "profile": { /* optional Profile */ },
-  "history": [ { "role": "user", "content": "…" }, { "role": "assistant", "content": "…" } ] }
+{ "question": "how much protein is in this meal?", "lang": "en",
+  "history": [ { "role": "user", "content": "…" }, { "role": "assistant", "content": "…" } ],
+  "context": { "age": 15, "goal": "energy", "diet": "any",
+               "meal_food_ids": ["bhat", "dal"], "verdict_codes": ["add_veg"], "habits": null } }
 ```
+`context` is optional and carries no birth date, body numbers or typed history beyond `history`. The legacy `profile` field is still accepted.
+
 Response
 ```json
 {
-  "answer": "… \n\nEta general nutrition information, medical advice na.",
-  "sources": [ { "type": "food", "id": "dim_sheddho", "title": "সেদ্ধ ডিম / Boiled egg",
-                 "source": "UNVERIFIED SAMPLE - team must replace with sourced data", "verified": false } ],
-  "lang": "banglish",
-  "mode": "offline",
-  "guardrail": null
+  "answer": "… 
+
+General nutrition information, not medical advice.",
+  "sources": [ { "type": "food", "id": "dal", "title": "ডাল / Lentil dal (masur)", "source": "UNVERIFIED SAMPLE …", "verified": false, "url": null },
+               { "type": "reference", "id": "free_sugars", "title": "Free sugars", "source": "WHO Healthy diet fact sheet (26 Jan 2026)", "verified": true, "url": "https://www.who.int/…" } ],
+  "lang": "en", "mode": "offline", "guardrail": null, "checked": true
 }
 ```
-`guardrail`: `null` · `medical` · `pregnancy` · `eating_disorder` (then `sources` is empty and the
-answer is a kind redirect to a doctor/dietitian). The disclaimer is always appended server-side.
+- Knowledge base: foods, tips and sourced WHO reference rows (adult-only rows are never used for teens). The confirmed meal's foods are added when the question is about the meal.
+- `guardrail`: `null` · `condition` (diabetes, blood pressure, cholesterol: general WHO guidance + see a doctor, cites WHO) · `allergy` ("I can't verify this") · `medical` (medicines, treatment) · `pregnancy` · `eating_disorder` · `teen_weight` (weight-loss questions from under-18s).
+- AI mode: an answer containing any number that is not in the retrieved rows (or the question) is discarded and the offline answer is returned with `checked: false`.
+- Teens: offline answers leave out kcal unless the question asks about calories or energy.
+- The disclaimer is always appended server-side.
 
 ## `GET /foods?query=&limit=20`
 List or search foods (prefix + fuzzy across Bangla, English and aliases). Returns full `Food` rows.

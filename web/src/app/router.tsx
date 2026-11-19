@@ -13,6 +13,7 @@ const DataSources = lazy(() => import('@/routes/DataSources'))
 const Confirm = lazy(() => import('@/routes/Confirm'))
 const Result = lazy(() => import('@/routes/Result'))
 const Progress = lazy(() => import('@/routes/Progress'))
+const Coach = lazy(() => import('@/routes/Coach'))
 
 function Loading() {
   const t = useT()
@@ -80,7 +81,7 @@ export const router = createBrowserRouter(
         { path: '/capture', element: gated(<Capture />) },
         { path: '/confirm', element: gated(<Confirm />) },
         { path: '/result', element: gated(<Result />) },
-        { path: '/coach', element: gated(<Placeholder titleKey="route.coach" />) },
+        { path: '/coach', element: gated(<Coach />) },
         { path: '/progress', element: gated(<Progress />) },
         { path: '/plans', element: gated(<Placeholder titleKey="route.plans" />) },
         { path: '/settings', element: gated(<Settings />) },

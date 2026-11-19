@@ -11,6 +11,8 @@ import type { ProfileSummary } from '@/features/profile/model'
 import { checkMeal, toGrams } from '@/lib/check/engine'
 import { brief, parseFoodsCsv, type Food } from '@/lib/check/foods'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import { demoCoach } from '@/lib/coach/demo'
+import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import { parseTipsCsv, suggestionFor, type SuggestionResult } from '@/lib/progress/suggest'
@@ -94,5 +96,6 @@ export function createDemoApi(): Api {
       }),
     checkMeal: (req: CheckRequest): Promise<CheckResponse> => wait(checkMeal(req, FOODS, REFERENCE_ROWS)),
     suggestion: (summary: HabitSummary): Promise<SuggestionResult> => wait(suggestionFor(TIPS, summary), 150),
+    coach: (req: CoachRequest): Promise<CoachAnswer> => wait(demoCoach(req, FOODS, REFERENCE_ROWS), 400),
   }
 }

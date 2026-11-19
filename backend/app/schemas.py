@@ -195,19 +195,32 @@ class ChatTurn(BaseModel):
     content: str = Field(max_length=2000)
 
 
+class CoachContext(BaseModel):
+    """What the coach may know about the user: no birth date, body numbers or text history."""
+
+    age: int | None = Field(None, ge=13, le=80)
+    goal: Literal["balanced", "energy", "muscle", "maintain"] | None = None
+    diet: Literal["any", "vegetarian", "no_beef"] | None = None
+    meal_food_ids: list[str] = Field(default_factory=list, max_length=30)
+    verdict_codes: list[str] = Field(default_factory=list, max_length=20)
+    habits: dict[str, float] | None = None
+
+
 class CoachRequest(BaseModel):
     question: str = Field(min_length=1, max_length=1000)
     lang: Lang = "bn"
     profile: Profile | None = None
     history: list[ChatTurn] = Field(default_factory=list, max_length=20)
+    context: CoachContext | None = None
 
 
 class SourceOut(BaseModel):
-    type: Literal["food", "tip"]
+    type: Literal["food", "tip", "reference"]
     id: str
     title: str
     source: str
     verified: bool
+    url: str | None = None
 
 
 class CoachResponse(BaseModel):
@@ -216,6 +229,8 @@ class CoachResponse(BaseModel):
     lang: Lang
     mode: Mode
     guardrail: str | None = None
+    # False when an AI answer failed the number post-check and the offline answer was used instead.
+    checked: bool = True
 
 
 # --- /meal/check (v2 report) ---------------------------------------------------------

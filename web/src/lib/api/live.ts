@@ -1,5 +1,6 @@
 import type { ProfileSummary } from '@/features/profile/model'
 import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import type { SuggestionResult } from '@/lib/progress/suggest'
@@ -61,5 +62,6 @@ export function createLiveApi(baseUrl: string): Api {
       request<CheckResponse>(base, '/meal/check', { method: 'POST', body: JSON.stringify(req) }),
     suggestion: (summary: HabitSummary): Promise<SuggestionResult> =>
       request<SuggestionResult>(base, '/suggestions', { method: 'POST', body: JSON.stringify(summary) }),
+    coach: (req: CoachRequest): Promise<CoachAnswer> => request<CoachAnswer>(base, '/coach', { method: 'POST', body: JSON.stringify(req) }, 45_000),
   }
 }
