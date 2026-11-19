@@ -67,7 +67,7 @@ Request
 Possible `warnings`: `ai_unavailable_used_offline_parser`, `no_food_found`.
 
 ## `POST /meal/check`
-v2 report used by `/web` (becomes `/meal/report` when `/web` replaces `/frontend`). Language-neutral: numbers and codes only; the app renders the text.
+v2 report used by the app in `/frontend` (the legacy `/meal/report` stays for compatibility). Language-neutral: numbers and codes only; the app renders the text.
 
 Request:
 ```json

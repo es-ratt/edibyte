@@ -26,8 +26,10 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run tests
+        run: pip install -r requirements.txt ruff==0.17.5
+      - name: Lint (ruff, rules in backend/ruff.toml)
+        run: ruff check .
+      - name: Tests
         run: python -m pytest -q
 
   frontend:
@@ -49,33 +51,33 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Typecheck
         run: pnpm typecheck
-      - name: Unit tests
-        run: pnpm test
-      - name: Build
-        run: pnpm exec vite build --base=/edibyte/
-
-  web:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          package_json_file: web/package.json
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: web/pnpm-lock.yaml
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Unit tests (incl. i18n completeness and no hard-coded strings)
+      - name: Unit, flow, i18n and accessibility (axe) tests
         run: pnpm test
       - name: Build (PWA)
         run: pnpm build
       - name: Bundle budget
         run: pnpm size
+
+  e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build (demo mode)
+        run: pnpm build
+      - name: End-to-end flows (Playwright)
+        run: pnpm e2e

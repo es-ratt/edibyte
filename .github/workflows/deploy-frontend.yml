@@ -1,6 +1,6 @@
 name: Deploy web app to GitHub Pages
 
-# Builds the new PWA in /web (the legacy /frontend is no longer deployed).
+# Builds the PWA in /frontend (the previous app is archived in /legacy-frontend and not deployed).
 # Without the VITE_API_BASE_URL repository variable the site runs in demo mode: the full flow works
 # in the browser on the same data files as the API (backend/data/*.csv), with a "Demo data" banner.
 
@@ -8,7 +8,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "web/**"
+      - "frontend/**"
       - "backend/data/**"
       - ".github/workflows/deploy-frontend.yml"
   workflow_dispatch:
@@ -27,17 +27,17 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: web
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          package_json_file: web/package.json
+          package_json_file: frontend/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: web/pnpm-lock.yaml
+          cache-dependency-path: frontend/pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Test
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web/dist
+          path: frontend/dist
 
   deploy:
     needs: build

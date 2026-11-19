@@ -28,7 +28,7 @@ Take a photo of your meal, confirm the foods, and see how it fits **your** goal,
 |---|---|
 | **Live demo** | **[es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/)**, works on any phone or laptop, no sign-up |
 | **What runs there** | The full app in **demo mode**: the real rules engine runs in your browser on the project's food table. A yellow "Demo data" banner is always shown. |
-| **Try this** | Choose a language → enter a birth year (try an age under 18 to see teen mode) → tap **Photo** → pick any image from your gallery (the demo always recognises a sample meal) **or** type `bhat dal shak` → confirm → see the result. |
+| **Try this** | Choose a language → enter a birth year (try an age under 18 to see teen mode) → tap **Photo** → pick any image from your gallery (the demo always recognises a sample meal) **or** type `bhat dal shak` → confirm → see the result → **Ask the coach** → open **Progress** and **Plans**. |
 | **Backend API** | Not deployed yet. One-click setup on Render from this repo: see [DEPLOY.md](DEPLOY.md). |
 
 > **Honest status.** All 48 foods in the current table are **unverified team estimates**, labelled as such in the app. Nutrients we do not have yet (sugar, sodium, saturated and trans fat, iron, zinc, calcium) are shown as *"not in our data yet"*, never guessed. EdiByte gives general nutrition information, **not medical advice**.
@@ -73,14 +73,24 @@ EdiByte answers one everyday question, *"is this meal right for my diet and goal
 
 <table>
 <tr>
-<td align="center"><img src="docs/screenshots/welcome.png" width="220" alt="Welcome screen in Bangla"><br><sub>Welcome (Bangla first)</sub></td>
-<td align="center"><img src="docs/screenshots/home.png" width="220" alt="Home with photo card and week dots"><br><sub>Home: photo card, week dots, no scores</sub></td>
-<td align="center"><img src="docs/screenshots/confirm.png" width="220" alt="Confirm foods and portions"><br><sub>Confirm foods and household portions</sub></td>
+<td align="center"><img src="docs/screenshots/welcome.png" width="220" alt="Welcome (Bangla first)"><br><sub>Welcome (Bangla first)</sub></td>
+<td align="center"><img src="docs/screenshots/home.png" width="220" alt="Home: photo, week dots, today's plan"><br><sub>Home: photo, week dots, today's plan</sub></td>
+<td align="center"><img src="docs/screenshots/confirm.png" width="220" alt="Confirm foods and portions"><br><sub>Confirm foods and portions</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="docs/screenshots/result.png" width="220" alt="Result verdict and plate balance"><br><sub>Verdict and plate balance</sub></td>
-<td align="center"><img src="docs/screenshots/result-nutrients.png" width="220" alt="Nutrients with ranges, confidence and source"><br><sub>Ranges, confidence and source on every number</sub></td>
-<td align="center"><img src="docs/screenshots/result-bangla.png" width="220" alt="Result in Bangla"><br><sub>Full Bangla support</sub></td>
+<td align="center"><img src="docs/screenshots/result.png" width="220" alt="Verdict and plate balance"><br><sub>Verdict and plate balance</sub></td>
+<td align="center"><img src="docs/screenshots/result-nutrients.png" width="220" alt="Range, confidence, source"><br><sub>Range, confidence, source</sub></td>
+<td align="center"><img src="docs/screenshots/result-bangla.png" width="220" alt="Full Bangla support"><br><sub>Full Bangla support</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/screenshots/coach.png" width="220" alt="Coach with meal context"><br><sub>Coach with meal context</sub></td>
+<td align="center"><img src="docs/screenshots/coach-safe.png" width="220" alt="Safe answer for health topics"><br><sub>Safe answer for health topics</sub></td>
+<td align="center"><img src="docs/screenshots/progress.png" width="220" alt="Weekly habits and suggestion"><br><sub>Weekly habits and suggestion</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/screenshots/plans.png" width="220" alt="Day plan pre-check"><br><sub>Day plan pre-check</sub></td>
+<td align="center"><img src="docs/screenshots/data.png" width="220" alt="Every source with a link"><br><sub>Every source with a link</sub></td>
+<td align="center"><img src="docs/screenshots/guidance.png" width="220" alt="WHO guidance, rest pending review"><br><sub>WHO guidance, rest pending review</sub></td>
 </tr>
 </table>
 
@@ -90,15 +100,16 @@ EdiByte answers one everyday question, *"is this meal right for my diet and goal
 
 | Area | What it does | Status |
 |---|---|---|
-| **Profile** | Birth year and month, sex, optional height/weight, activity with Bangladeshi examples, teen-safe goals, diet (any / vegetarian / no beef), allergy avoid-list, meals per day, where you eat, fasting, optional budget. Stored only on the phone. | Done |
-| **Teen mode** | Automatic under 18: no weight-loss goals, no calorie headline, no scores or streaks, weight never shown, notifications off. | Done |
-| **Photo → confirm** | Camera or gallery, client-side resize (drops EXIF, photo never stored), foods recognised by name only, "not sure" highlight, household portions (bati, plate, piece, glass), questions a photo cannot answer (oil, fried, sugar spoons). | Done |
-| **Meal result** | Fits / mostly / change verdict with gentle reasons, plate balance, "get enough" and "go easy" sections with range bars, confidence and source chips, add-ons and swaps that respect diet and avoid-list, "I can't verify allergens" notice. | Done |
-| **Guidance** | WHO limits and targets loaded from the source with URL and date. Values without an approved reference say "pending expert review". | Done |
-| **Safety switches** | Pause tracking, hide numbers, delete all my data, wellbeing check-in placeholder (questions to be written by a psychologist), support card. | Done |
-| **Progress** | Weekly habits (vegetables, protein, sugary drinks, fried food), monthly and yearly views, one rule-based weekly suggestion. | Next |
-| **Coach** | Follow-up questions about the meal, answers only from an approved knowledge base with citations. | Planned |
-| **Plans** | Day, week and month plans with a pre-check using the same engine; treat days built in. | Planned |
+| **Profile** | Birth year and month, sex, optional height/weight, activity with Bangladeshi examples, teen-safe goals, diet (any / vegetarian / no beef), allergy avoid-list, meals per day, where you eat, fasting, optional budget. Stored only on the phone. | Built |
+| **Teen mode** | Automatic under 18: no weight-loss goals, no calorie headline, no scores or streaks, weight never shown, notifications off. | Built |
+| **Photo → confirm** | Camera or gallery, client-side resize (drops EXIF, photo never stored), foods named by AI only, "not sure" highlight, household portions, unmatched foods never dropped, questions a photo cannot answer (oil, fried, sugar spoons). | Built |
+| **Meal result** | Gentle verdict, plate balance, "get enough" / "go easy" with range bars, confidence and source chips, add-ons and swaps that respect diet and avoid-list, "I can't verify allergens". | Built |
+| **Coach** | Follow-up questions with the meal as context; answers only from foods, tips and WHO rows, with citations; number post-check on AI answers; safe answers for health topics; voice input where supported. | Built |
+| **Progress** | Week (main), month and year views of food-group habits, "based on X of Y meals", one rule-chosen weekly suggestion with source. | Built |
+| **Plans** | Day plan with pre-check by the same engine, week goals (max 3) with treat days and "5 of 7 is a win", month focus with check-ins and review. | Built |
+| **Safety and privacy** | Pause tracking, hide numbers, delete all data, wellbeing check-in placeholder, support card, privacy card, anonymous usage switch. | Built |
+| **Data and sources** | Verified vs unverified counts, every WHO reference with link and date, accuracy status, report a mistake. | Built |
+| **Measurement** | Anonymous adoption events, protected impact summary, weighed-meal validation script. | Built (no results yet) |
 
 ---
 
@@ -236,7 +247,7 @@ flowchart TB
 | AI (optional) | Provider-agnostic: Gemini, Anthropic Claude or OpenAI, configured by environment variables |
 | Data | CSV files in `backend/data/` imported into SQLite (local) or Postgres (deploy) |
 | Testing | pytest, Vitest, Testing Library, golden-fixture parity tests, headless-browser click-through |
-| CI/CD | GitHub Actions (tests, typecheck, build, bundle budget), GitHub Pages (web), Render (API) |
+| CI/CD | GitHub Actions (ruff, pytest, typecheck, Vitest incl. axe accessibility, build, bundle budget, Playwright e2e), GitHub Pages (frontend), Render (API) |
 
 ---
 
@@ -244,25 +255,29 @@ flowchart TB
 
 ```text
 edibyte/
-├── web/                      # New PWA (deployed to GitHub Pages)
+├── frontend/                 # PWA (deployed to GitHub Pages)
 │   └── src/
 │       ├── app/              # router, layout, store
-│       ├── routes/           # Welcome, Onboarding, Home, Capture, Confirm, Result, Settings, ...
-│       ├── features/         # profile, capture, report, safety
+│       ├── routes/           # Welcome, Onboarding, Home, Capture, Confirm, Result, Coach, Progress, Plans, Settings, Data
+│       ├── features/         # profile, capture, report, progress, plans, safety
 │       ├── lib/
 │       │   ├── api/          # Api interface, live client, demo adapter
 │       │   ├── check/        # demo engine (port of check.py) + parity fixtures
+│       │   ├── coach/        # coach types + demo coach
+│       │   ├── plans/        # day / week / month plan rules
+│       │   ├── progress/     # habit metrics + weekly suggestion rules
 │       │   ├── db/           # IndexedDB
 │       │   ├── i18n/         # bn (source) / en / banglish
 │       │   └── targets/      # reference targets
 │       └── styles/           # design tokens with measured contrast
 ├── backend/
-│   ├── app/                  # FastAPI: parser, matcher, check engine, reference, coach, routers
-│   ├── data/                 # foods_seed.csv, reference_targets.csv, tips_seed.csv
-│   ├── eval/                 # parser regression set, demo fixture exporter
+│   ├── app/                  # FastAPI: parser, matcher, check engine, reference, coach, suggestions, analytics
+│   ├── data/                 # foods_seed.csv, reference_targets.csv, tips.csv, tips_seed.csv
+│   ├── eval/                 # parser regression set, demo fixtures, weighed-meal validation
 │   └── tests/                # pytest
-├── frontend/                 # Legacy app (kept until /web replaces it)
-├── docs/                     # REBUILD_PLAN.md, DATA_VERIFICATION.md, screenshots
+├── legacy-frontend/          # Previous app (archived, not built or deployed)
+├── docs/                     # REBUILD_PLAN.md, DATA_VERIFICATION.md, VALIDATION.md, screenshots
+├── PITCH.md
 ├── API_CONTRACT.md
 ├── DEPLOY.md
 └── render.yaml
@@ -283,15 +298,15 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload   # http://localhost:8000/docs
 ```
 
-**Terminal 2: web app**
+**Terminal 2: frontend**
 ```bash
-cd web
+cd frontend
 cp .env.example .env.local      # VITE_API_BASE_URL=http://localhost:8000
 pnpm install
 pnpm dev                        # http://localhost:5173
 ```
 
-Leave `VITE_API_BASE_URL` empty to run the web app alone in demo mode.
+Leave `VITE_API_BASE_URL` empty to run the frontend alone in demo mode.
 
 **Optional AI mode** (`backend/.env`):
 
@@ -303,6 +318,7 @@ Leave `VITE_API_BASE_URL` empty to run the web app alone in demo mode.
 | `DATABASE_URL` | Postgres URL; blank = local SQLite |
 | `CORS_ORIGINS` | Allowed web origins |
 | `TRUST_PROXY` | `true` only behind a trusted proxy (Render) |
+| `IMPACT_KEY` | Secret that turns on `GET /impact/summary`; empty = off |
 
 ---
 
@@ -316,9 +332,14 @@ Interactive docs at `/docs` when the backend runs. Full contract: [API_CONTRACT.
 | `POST` | `/meal/parse` | Text → foods (names, amounts, match confidence, unmatched with suggestions) |
 | `POST` | `/meal/parse-image` | Photo → foods (vision model names foods only; photo not stored) |
 | `POST` | `/meal/check` | Confirmed foods + answers + profile summary → ranges, sections, verdict, sources |
+| `POST` | `/meal/plan-check` | A planned day checked slot by slot before eating |
 | `GET` | `/reference/targets` | Sourced targets and limits for an age and sex, or "unavailable" |
+| `POST` | `/suggestions` | Habit counts → one rule-chosen weekly tip |
 | `GET` | `/foods?query=` | Food search |
-| `POST` | `/coach` | Nutrition questions with sources and safety guardrails |
+| `POST` | `/coach` | Questions with meal context, citations, number post-check and safety guardrails |
+| `POST` | `/events`, `/feedback/item` | Anonymous adoption events (names + numbers), wrong-item taps (food ids) |
+| `GET` | `/impact/summary` | Protected adoption and habit-change summary (off without `IMPACT_KEY`) |
+| `GET` | `/eval/validation` | Weighed-meal validation results or "not measured" |
 | `GET` | `/data/status` | Verified vs unverified counts by source |
 | `DELETE` | `/session/data` | Delete anonymous server-side meal logs |
 
@@ -327,21 +348,22 @@ Interactive docs at `/docs` when the backend runs. Full contract: [API_CONTRACT.
 ## Testing and quality
 
 ```bash
-cd backend && python -m pytest -q
-cd web && pnpm typecheck && pnpm test && pnpm build && pnpm size
+cd backend && ruff check . && python -m pytest -q
+cd frontend && pnpm typecheck && pnpm test && pnpm build && pnpm size
+cd frontend && PW_CHANNEL=msedge pnpm e2e      # CI uses Chromium
 ```
 
 | Suite | Result | Covers |
 |---|---|---|
-| Backend (pytest) | **100 passing** | Parser and matcher (incl. regression tests for every fixed bug), check engine, reference targets, guardrails, rate limiting, migrations |
-| Web (Vitest) | **77 passing** | i18n completeness, no hard-coded UI strings, IndexedDB, profile and teen rules, onboarding, settings, photo → confirm → result flows, demo-engine parity with Python |
-| Legacy frontend | 9 passing | Kept green until replaced |
-| Bundle budget | 150 KB / 200 KB JS (gzip) | Checked in CI for mobile data |
+| Backend (pytest) | **137 passing** | Parser and matcher (regression tests for every fixed bug), check engine, plan check, reference targets, coach (guardrails, citations, number post-check, teen rules), suggestions, events and impact summary, validation script |
+| Frontend (Vitest) | **129 passing** | i18n completeness, no hard-coded UI strings, storage, profile and teen rules, all screen flows, demo-engine parity with Python, suggestion rules shared with Python, analytics privacy rules |
+| Accessibility (axe-core) | **11 / 11 screens, 0 violations** | WCAG 2.1 A/AA rules inside the real layout; colour contrast checked separately in a real browser (EN and BN): 0 issues |
+| End-to-end (Playwright) | **5 / 5 flows** | Teen onboarding; photo → confirm → result → add to day → progress; typed meal + coach; plans; delete all data |
+| Lighthouse (mobile, simulated slow 4G) | Accessibility **100**, Best Practices **100**, SEO **100**, Performance **79-92** | The performance target (85) is not met on every run: the first screen waits for local settings so it opens in the right language |
+| Bundle budget | 183 KB / 200 KB JS (gzip) | Checked in CI |
 | Parser regression set | 34 / 34 meals | Team-written; a regression check, **not** an accuracy result |
 
-Every phase is also checked in a real headless browser at phone size (390 × 844), in demo and live mode.
-
-**Accuracy is not measured yet.** The plan is a validation on 100+ meals weighed on a kitchen scale (including street and fast food), reporting mean error for energy, protein, sodium and sugar, with failures included.
+**Accuracy is not measured yet.** The validation tooling is ready ([docs/VALIDATION.md](docs/VALIDATION.md)): 100+ meals weighed on a kitchen scale, error per nutrient, failures included. Results will appear on the Data page and here exactly as produced.
 
 ---
 
@@ -351,12 +373,12 @@ Every phase is also checked in a real headless browser at phone size (390 × 844
 flowchart LR
     Dev["git push main"] --> GA["GitHub Actions"]
     GA --> CI["CI: tests, typecheck,<br/>build, bundle budget"]
-    GA --> GP["GitHub Pages<br/>/web (PWA)"]
+    GA --> GP["GitHub Pages<br/>/frontend (PWA)"]
     Dev --> R["Render<br/>FastAPI backend"]
     GP -->|"HTTPS + CORS<br/>(when VITE_API_BASE_URL is set)"| R
 ```
 
-- **Web:** every push to `main` that touches `web/` or `backend/data/` rebuilds GitHub Pages. Without a backend URL it runs in demo mode.
+- **Frontend:** every push to `main` that touches `frontend/` or `backend/data/` rebuilds GitHub Pages (after the tests pass). Without a backend URL it runs in demo mode.
 - **Backend:** Render Blueprint from `render.yaml`, no secrets required (offline mode). Step-by-step guide: [DEPLOY.md](DEPLOY.md).
 
 ---
@@ -389,19 +411,18 @@ gantt
     dateFormat YYYY-MM-DD
     axisFormat %d %b
     section Built
-    Audit and plan                 :done, p0, 2026-11-18, 1d
-    Foundation (PWA, i18n, storage) :done, p1, 2026-11-19, 1d
-    Profile, teen mode, safety     :done, p2, 2026-11-19, 1d
-    Photo, confirm, result         :done, p3, 2026-11-19, 2d
-    section Next
-    Progress and weekly suggestion :p5, 2026-11-22, 4d
-    Coach with citations           :p4, after p5, 4d
-    Plans with pre-check           :p6, after p4, 4d
-    Data page, privacy, a11y       :p7, after p6, 3d
-    Analytics and validation tools :p8, after p7, 3d
-    Polish, e2e, deploy            :p9, after p8, 4d
-    Feature freeze                 :milestone, 2026-12-19, 0d
-    Showcase                       :milestone, 2026-12-26, 0d
+    Plan, foundation, profile, teen mode      :done, a, 2026-11-18, 2d
+    Photo, confirm, result                    :done, b, 2026-11-19, 1d
+    Progress, coach, plans                    :done, c, 2026-11-19, 1d
+    Data page, a11y, analytics, e2e, launch   :done, d, 2026-11-19, 1d
+    section Team work for honest results
+    Food-table permission and sourced data    :t1, 2026-11-20, 14d
+    Dietitian review of targets, tips, words  :t2, 2026-11-20, 14d
+    Deploy API and AI vision key              :t3, 2026-11-20, 3d
+    Weighed-meal validation (100+ meals)      :t4, 2026-11-24, 18d
+    Pilot with real users (2+ weeks)          :t5, 2026-11-27, 18d
+    Feature freeze                            :milestone, 2026-12-19, 0d
+    Showcase                                  :milestone, 2026-12-26, 0d
 ```
 
 **Team tasks outside the code:** reuse permission for the Bangladesh food table, a dietitian to approve teen references and tips, weighing 100+ real meals for validation, an AI vision key for photo recognition, and a legal review of parental consent for minors.

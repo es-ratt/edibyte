@@ -1,6 +1,6 @@
-# EdiByte web (v2, in progress)
+# EdiByte frontend
 
-New mobile-first PWA replacing `/frontend` (legacy, kept until this app is complete). Plan: [docs/REBUILD_PLAN.md](../docs/REBUILD_PLAN.md).
+Mobile-first PWA (React 19, Vite, Tailwind 4). The previous app is archived in `/legacy-frontend`. Plan and history: [docs/REBUILD_PLAN.md](../docs/REBUILD_PLAN.md).
 
 ## Run
 
@@ -17,6 +17,7 @@ Demo mode (sample data, "Demo data" banner) is used when `VITE_API_BASE_URL` is 
 pnpm typecheck
 pnpm test           # unit tests, i18n completeness, no hard-coded UI strings
 pnpm build && pnpm size   # PWA build + JS budget (200 KB gzip)
+PW_CHANNEL=msedge pnpm e2e  # Playwright flows (CI uses Chromium)
 ```
 
 ## Layout

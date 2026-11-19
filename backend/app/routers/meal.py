@@ -6,15 +6,22 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from sqlmodel import Session
 
 from .. import llm
+from ..check import check_meal
 from ..config import get_settings
 from ..db import get_session
 from ..meal import match_items, parse_meal
 from ..models import MealLog
-from ..parser import LLMItems, LLM_SYSTEM
-from ..check import check_meal
+from ..parser import LLM_SYSTEM, LLMItems
 from ..rules import build_report
 from ..schemas import (
-    CheckRequest, CheckResponse, Lang, ParseRequest, ParseResponse, PlanCheckRequest, PlanCheckResponse, ReportRequest,
+    CheckRequest,
+    CheckResponse,
+    Lang,
+    ParseRequest,
+    ParseResponse,
+    PlanCheckRequest,
+    PlanCheckResponse,
+    ReportRequest,
     ReportResponse,
 )  # fmt: skip
 

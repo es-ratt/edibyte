@@ -2,7 +2,9 @@
 
 Date: 2026-11-18 · Event: 2026-12-26 (about 5.5 weeks) · Baseline: `main` @ c8ce578
 
-Status: **plan only, no code changed.** Decisions marked **DECIDE** need the team before the phase that uses them.
+Status: **all phases (P0-P9) built** (Nov 2026). `/web` was moved to `/frontend`; the previous app is in `/legacy-frontend`. Open items are in the README roadmap.
+
+Original Phase 0 status: plan only, no code changed. Decisions marked **DECIDE** need the team before the phase that uses them.
 
 ---
 

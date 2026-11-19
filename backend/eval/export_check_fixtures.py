@@ -1,7 +1,7 @@
 """Export golden fixtures for the web demo engine.
 
 The static demo (no backend) runs a TypeScript port of app/check.py. These fixtures are produced
-by the real Python engine; web/src/lib/check/parity.test.ts fails if the port gives a different
+by the real Python engine; frontend/src/lib/check/parity.test.ts fails if the port gives a different
 answer for any of them.
 
 Run from backend/:  python -m eval.export_check_fixtures
@@ -25,7 +25,7 @@ from app.schemas import CheckRequest
 from app.seed import seed_if_empty
 from app.store import refresh
 
-OUT = Path(__file__).resolve().parents[2] / "web" / "src" / "lib" / "check" / "fixtures.json"
+OUT = Path(__file__).resolve().parents[2] / "frontend" / "src" / "lib" / "check" / "fixtures.json"
 
 TEEN = {"age": 15, "sex": "female", "activity": "medium", "goal": "balanced", "diet": "any"}
 CASES = [

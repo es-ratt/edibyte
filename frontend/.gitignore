@@ -1,4 +1,8 @@
 node_modules
 dist
+dev-dist
 *.local
 .env
+dist-live
+test-results
+playwright-report
