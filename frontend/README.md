@@ -9,7 +9,7 @@ pnpm install
 pnpm dev            # http://localhost:5173
 ```
 
-Demo mode (sample data, "Demo data" banner) is used when `VITE_API_BASE_URL` is empty or `VITE_USE_MOCK_DATA=true`. For the real backend copy `.env.example` to `.env.local`.
+Demo mode (sample data, no banner) is used when `VITE_API_BASE_URL` is empty or `VITE_USE_MOCK_DATA=true`. For the real backend copy `.env.example` to `.env.local`.
 
 ## Checks
 

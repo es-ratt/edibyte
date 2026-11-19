@@ -13,7 +13,7 @@ Take a photo of your meal, confirm the foods, and see how it fits **your** goal,
 ![React 19](https://img.shields.io/badge/React-19-4F6B2A?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Python%203.12-4F6B2A?style=flat-square)
 ![PWA](https://img.shields.io/badge/PWA-offline%20ready-4F6B2A?style=flat-square)
-![Languages](https://img.shields.io/badge/UI-বাংলা%20%7C%20English%20%7C%20Banglish-E0A526?style=flat-square)
+![Languages](https://img.shields.io/badge/UI-বাংলা%20%7C%20English-E0A526?style=flat-square)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2F3E1A?style=flat-square)](LICENSE)
 
 **Team Qbits** · International AI Builders Congress 2026 · *Idea to Unicorn* · Challenge: **Nutrition Intelligence**
@@ -27,7 +27,7 @@ Take a photo of your meal, confirm the foods, and see how it fits **your** goal,
 | | |
 |---|---|
 | **Live demo** | **[es-ratt.github.io/edibyte](https://es-ratt.github.io/edibyte/)**, works on any phone or laptop, no sign-up |
-| **What runs there** | The full app in **demo mode**: the real rules engine runs in your browser on the project's food table. A yellow "Demo data" banner is always shown. |
+| **What runs there** | The full app in **demo mode**: the real rules engine runs in your browser on the project's food table. |
 | **Try this** | Choose a language → enter a birth year (try an age under 18 to see teen mode) → tap **Photo** → pick any image from your gallery (the demo always recognises a sample meal) **or** type `bhat dal shak` → confirm → see the result → **Ask the coach** → open **Progress** and **Plans**. |
 | **Backend API** | Not deployed yet. One-click setup on Render from this repo: see [DEPLOY.md](DEPLOY.md). |
 
@@ -61,7 +61,7 @@ Take a photo of your meal, confirm the foods, and see how it fits **your** goal,
 
 Bangladeshi teenagers eat a mix of traditional home food (bhat, dal, shak, mach) and street, fast and packaged food (fuchka, singara, burgers, soft drinks). Most nutrition apps are built for Western foods, English and adult weight loss, and they hide how uncertain their numbers are.
 
-EdiByte answers one everyday question, *"is this meal right for my diet and goal?"*, in **Bangla, English or Banglish**, with three promises:
+EdiByte answers one everyday question, *"is this meal right for my diet and goal?"*, in **Bangla or English**, with three promises:
 
 - **Verified data, not AI guesses.** Every number comes from a food table or a cited guideline. The AI only names foods; it never produces nutrition numbers.
 - **Honest ranges.** Every amount shows a range and a confidence level. A photo can never be exact, so the app never pretends it is.
@@ -135,7 +135,7 @@ sequenceDiagram
     App->>API: POST /meal/check (food ids, grams, answers, profile summary)
     API->>Data: Per-100 g values, sourced targets and limits
     API-->>App: Ranges, confidence, verdict, sources
-    App-->>Teen: Result in Bangla, English or Banglish
+    App-->>Teen: Result in Bangla or English
     Note over App: Saved only on the phone (IndexedDB)
 ```
 
@@ -208,7 +208,7 @@ Also: no "bad food" wording, amber (never red) for limits, terracotta only for a
 ```mermaid
 flowchart TB
     subgraph Phone["User's phone (PWA)"]
-        UI["React 19 app<br/>bn / en / banglish"]
+        UI["React 19 app<br/>bn / en"]
         IDB[("IndexedDB<br/>profile, meals, plans")]
         DEMO["Demo adapter<br/>same engine, same CSVs"]
         UI <--> IDB

@@ -13,7 +13,7 @@ Live demo: https://es-ratt.github.io/edibyte/
 
 ## 2. Solution
 
-**"Is this meal right for me?"**, answered in Bangla, English or Banglish, before eating.
+**"Is this meal right for me?"**, answered in Bangla or English, before eating.
 
 1. **Profile** with teen mode (automatic under 18): no weight-loss goals, no calorie headline, no scores or streaks.
 2. **Photo or typed meal**, the AI only *names* the foods; the user confirms foods and household portions (bati, plate, piece) and answers what a photo cannot show (oil, fried, sugar spoons).
@@ -68,7 +68,7 @@ Before: open the live demo on a phone; if the API is deployed, open `/health` 5 
 
 | Time | Do | Say |
 |---|---|---|
-| 0:00 | Welcome screen in Bangla | "Before you eat: is this meal right for **me**? In Bangla, English or Banglish." |
+| 0:00 | Welcome screen in Bangla | "Before you eat: is this meal right for **me**? In Bangla or English." |
 | 0:10 | Onboard as a 15-year-old | "Under 18, teen mode is automatic: no weight-loss goals, no calorie counting." |
 | 0:20 | Photo → pick an image | "The AI only names the foods. It never gives numbers." |
 | 0:30 | Confirm screen: point at "Not sure" | "The user confirms foods and portions, and answers what a photo can't show." |
