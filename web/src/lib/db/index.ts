@@ -127,6 +127,10 @@ export function savePlan(plan: StoredPlan): Promise<void> {
   return safe(async (d) => void (await d.put('plans', plan)), undefined)
 }
 
+export function getPlan<T extends StoredPlan>(id: string): Promise<T | null> {
+  return safe(async (d) => ((await d.get('plans', id)) as T | undefined) ?? null, null)
+}
+
 export function listPlans(): Promise<StoredPlan[]> {
   return safe((d) => d.getAll('plans'), [])
 }

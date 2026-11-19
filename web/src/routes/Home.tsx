@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import { useAppStore, useMode, useT } from '@/app/store'
 import { Card, Chip, PageTitle } from '@/components/ui'
 import { SupportCard } from '@/features/safety/SafetyCards'
-import { listMeals } from '@/lib/db'
+import { getPlan, listMeals } from '@/lib/db'
+import { dayPlanId, planFoodIds, type DayPlan } from '@/lib/plans/model'
+import { fmtNum } from '@/lib/i18n'
 import { htmlLang } from '@/lib/i18n'
 
 /** Monday-first week containing `day`, as 7 local dates. */
@@ -62,6 +64,33 @@ function WeekDots() {
   )
 }
 
+function TodayPlanCard() {
+  const t = useT()
+  const lang = useAppStore((s) => s.lang)
+  const [count, setCount] = useState<number | null>(null)
+  useEffect(() => {
+    let active = true
+    getPlan<DayPlan>(dayPlanId(new Date())).then((p) => active && setCount(p ? planFoodIds(p).length : 0))
+    return () => {
+      active = false
+    }
+  }, [])
+  return (
+    <Card as="section" labelledBy="plan-title" className="flex items-center justify-between gap-3">
+      <div>
+        <h2 id="plan-title" className="font-semibold text-olive-900">
+          {t('home.plan')}
+        </h2>
+        <p className="text-sm text-muted">{count ? t('home.planToday', { n: fmtNum(count, lang) }) : t('home.planNone')}</p>
+      </div>
+      <Link to="/plans" className="inline-flex min-h-tap shrink-0 items-center gap-1 font-semibold text-olive-700 underline underline-offset-4">
+        <CalendarCheck size={18} aria-hidden />
+        {count ? t('home.planOpen') : t('home.planCta')}
+      </Link>
+    </Card>
+  )
+}
+
 export default function Home() {
   const t = useT()
   const mode = useMode()
@@ -106,18 +135,7 @@ export default function Home() {
           </>
         )}
 
-        <Card as="section" labelledBy="plan-title" className="flex items-center justify-between gap-3">
-          <div>
-            <h2 id="plan-title" className="font-semibold text-olive-900">
-              {t('home.plan')}
-            </h2>
-            <p className="text-sm text-muted">{t('home.planNone')}</p>
-          </div>
-          <Link to="/plans" className="inline-flex min-h-tap shrink-0 items-center gap-1 font-semibold text-olive-700 underline underline-offset-4">
-            <CalendarCheck size={18} aria-hidden />
-            {t('home.planCta')}
-          </Link>
-        </Card>
+        <TodayPlanCard />
       </div>
     </>
   )

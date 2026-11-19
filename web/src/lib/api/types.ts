@@ -3,7 +3,7 @@
 // Phases 2-8 extend this interface; the demo adapter must implement every method it adds.
 
 import type { ProfileSummary } from '@/features/profile/model'
-import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import type { CheckItemIn, CheckProfile, CheckRequest, CheckResponse, FoodBrief, MealType } from '@/lib/check/types'
 import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
@@ -82,6 +82,14 @@ export interface Api {
   suggestion(summary: HabitSummary): Promise<SuggestionResult>
   /** Answers only from the approved knowledge base, with sources. */
   coach(req: CoachRequest): Promise<CoachAnswer>
+  /** Check a planned day before eating, slot by slot (same engine). */
+  planCheck(slots: Partial<Record<MealType, CheckItemIn[]>>, profile: CheckProfile | null): Promise<PlanCheckResult>
+}
+
+export interface PlanCheckResult {
+  slots: Partial<Record<MealType, CheckResponse>>
+  day_plate: CheckResponse['plate']
+  veg_fruit_slots: number
 }
 
 export class ApiError extends Error {

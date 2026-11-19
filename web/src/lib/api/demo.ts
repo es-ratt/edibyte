@@ -10,14 +10,14 @@ import tipsCsv from '../../../../backend/data/tips.csv?raw'
 import type { ProfileSummary } from '@/features/profile/model'
 import { checkMeal, toGrams } from '@/lib/check/engine'
 import { brief, parseFoodsCsv, type Food } from '@/lib/check/foods'
-import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import type { CheckItemIn, CheckProfile, CheckRequest, CheckResponse, FoodBrief, MealType } from '@/lib/check/types'
 import { demoCoach } from '@/lib/coach/demo'
 import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import { parseTipsCsv, suggestionFor, type SuggestionResult } from '@/lib/progress/suggest'
 import { parseReferenceCsv, targetsFor, type ReferenceTargets } from '@/lib/targets'
-import { ApiError, type Api, type DataStatus, type Health, type ParsedItem, type ParseResult } from './types'
+import { ApiError, type Api, type DataStatus, type Health, type ParsedItem, type ParseResult, type PlanCheckResult } from './types'
 
 const FOODS: Food[] = parseFoodsCsv(foodsCsv)
 const BY_ID = new Map(FOODS.map((f) => [f.id, f]))
@@ -96,6 +96,18 @@ export function createDemoApi(): Api {
       }),
     checkMeal: (req: CheckRequest): Promise<CheckResponse> => wait(checkMeal(req, FOODS, REFERENCE_ROWS)),
     suggestion: (summary: HabitSummary): Promise<SuggestionResult> => wait(suggestionFor(TIPS, summary), 150),
+    planCheck: (slots: Partial<Record<MealType, CheckItemIn[]>>, profile: CheckProfile | null): Promise<PlanCheckResult> => {
+      // Same rules as backend /meal/plan-check: empty slots skipped, plate is the union of slots.
+      const out: PlanCheckResult['slots'] = {}
+      for (const [slot, items] of Object.entries(slots) as [MealType, CheckItemIn[]][]) {
+        if (items.length) out[slot] = checkMeal({ items, answers: { oil: 'unknown', fried: 'unknown', sugar_spoons: null }, profile, meal_type: slot }, FOODS, REFERENCE_ROWS)
+      }
+      const results = Object.values(out)
+      if (!results.length) return Promise.reject(new ApiError('The plan has no foods yet.', 422))
+      const keys = ['grain', 'protein_food', 'veg_fruit', 'dairy'] as const
+      const day_plate = Object.fromEntries(keys.map((k) => [k, results.some((r) => r!.plate[k])])) as CheckResponse['plate']
+      return wait({ slots: out, day_plate, veg_fruit_slots: results.filter((r) => r!.plate.veg_fruit).length })
+    },
     coach: (req: CoachRequest): Promise<CoachAnswer> => wait(demoCoach(req, FOODS, REFERENCE_ROWS), 400),
   }
 }

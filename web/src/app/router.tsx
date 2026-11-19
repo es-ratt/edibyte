@@ -14,6 +14,7 @@ const Confirm = lazy(() => import('@/routes/Confirm'))
 const Result = lazy(() => import('@/routes/Result'))
 const Progress = lazy(() => import('@/routes/Progress'))
 const Coach = lazy(() => import('@/routes/Coach'))
+const Plans = lazy(() => import('@/routes/Plans'))
 
 function Loading() {
   const t = useT()
@@ -83,7 +84,7 @@ export const router = createBrowserRouter(
         { path: '/result', element: gated(<Result />) },
         { path: '/coach', element: gated(<Coach />) },
         { path: '/progress', element: gated(<Progress />) },
-        { path: '/plans', element: gated(<Placeholder titleKey="route.plans" />) },
+        { path: '/plans', element: gated(<Plans />) },
         { path: '/settings', element: gated(<Settings />) },
         { path: '/data-sources', element: gated(<DataSources />) },
         { path: '*', element: page(<Placeholder titleKey="route.notFound" />) },

@@ -13,7 +13,10 @@ from ..models import MealLog
 from ..parser import LLMItems, LLM_SYSTEM
 from ..check import check_meal
 from ..rules import build_report
-from ..schemas import CheckRequest, CheckResponse, Lang, ParseRequest, ParseResponse, ReportRequest, ReportResponse
+from ..schemas import (
+    CheckRequest, CheckResponse, Lang, ParseRequest, ParseResponse, PlanCheckRequest, PlanCheckResponse, ReportRequest,
+    ReportResponse,
+)  # fmt: skip
 
 router = APIRouter(prefix="/meal", tags=["meal"])
 
@@ -53,6 +56,23 @@ async def check(req: CheckRequest) -> CheckResponse:
         return check_meal(req)
     except KeyError as exc:
         raise HTTPException(status_code=422, detail=f"Unknown food_id: {exc.args[0]}") from exc
+
+
+@router.post("/plan-check", response_model=PlanCheckResponse)
+async def plan_check(req: PlanCheckRequest) -> PlanCheckResponse:
+    """Check a planned day BEFORE eating, slot by slot, with the same engine as /meal/check."""
+    slots: dict[str, CheckResponse] = {}
+    try:
+        for slot, items in req.slots.items():
+            if items:
+                slots[slot] = check_meal(CheckRequest(items=items, profile=req.profile, meal_type=slot))
+    except KeyError as exc:
+        raise HTTPException(status_code=422, detail=f"Unknown food_id: {exc.args[0]}") from exc
+    if not slots:
+        raise HTTPException(status_code=422, detail="The plan has no foods yet.")
+    keys = ("grain", "protein_food", "veg_fruit", "dairy")
+    day_plate = {k: any(r.plate[k] for r in slots.values()) for k in keys}
+    return PlanCheckResponse(slots=slots, day_plate=day_plate, veg_fruit_slots=sum(r.plate["veg_fruit"] for r in slots.values()))
 
 
 @router.post("/parse-image", response_model=ParseResponse)

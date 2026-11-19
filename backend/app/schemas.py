@@ -372,3 +372,19 @@ class CheckResponse(BaseModel):
     notes: list[str]
     sources: list[SourceRef]
     method_note: str
+
+
+# --- /meal/plan-check -------------------------------------------------------------------
+
+PlanSlot = Literal["breakfast", "lunch", "snack", "dinner"]
+
+
+class PlanCheckRequest(BaseModel):
+    slots: dict[PlanSlot, list[CheckItemIn]] = Field(description="Planned foods per meal slot; empty slots are skipped")
+    profile: CheckProfile | None = None
+
+
+class PlanCheckResponse(BaseModel):
+    slots: dict[PlanSlot, CheckResponse]
+    day_plate: dict[str, bool]
+    veg_fruit_slots: int

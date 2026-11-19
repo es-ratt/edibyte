@@ -87,6 +87,12 @@ Response (abridged):
 - `added_sugar`: from the sugar-spoons answer, `method: "estimate"`, not added to energy.
 - `plate` (grain / protein_food / veg_fruit / dairy), `verdict` (`fits|mostly|change` + reason codes), `add_ons[]`, `swaps[]` (with `to_tags` so the app can respect the avoid list), `notes[]`, `sources[]`, `method_note`.
 
+## `POST /meal/plan-check`
+Checks a planned day **before eating**, slot by slot, with the same engine as `/meal/check`.
+Request: `{ "slots": { "breakfast": [CheckItemIn], "lunch": [...], "snack": [], "dinner": [...] }, "profile": CheckProfile | null }`.
+Response: `{ "slots": { "<slot>": CheckResponse }, "day_plate": { "grain": true, "protein_food": true, "veg_fruit": true, "dairy": false }, "veg_fruit_slots": 1 }`.
+Empty slots are skipped; an all-empty plan or an unknown `food_id` -> `422`.
+
 ## `POST /meal/parse-image` (feature flag)
 `multipart/form-data` with `image` (JPEG/PNG/WebP, ≤ 4 MB) and `lang`. Returns the same shape as
 `/meal/parse`. `404` when `ENABLE_PHOTO=false` (default), `503` when no LLM is configured.

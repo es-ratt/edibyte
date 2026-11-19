@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FlaskConical, PauseCircle } from 'lucide-react'
 import { useAppStore, useMode, useT } from '@/app/store'
+import { Tabs } from '@/components/Tabs'
 import { Button, Card, PageTitle } from '@/components/ui'
 import { DayRows, HabitsCard, MonthView, SuggestionCard, YearView } from '@/features/progress/views'
 import { listMeals } from '@/lib/db'
@@ -21,7 +22,6 @@ export default function Progress() {
   const [view, setView] = useState<View>('week')
   const [logged, setLogged] = useState<MealFlags[] | null>(null)
   const [sample, setSample] = useState(false)
-  const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const today = useMemo(() => new Date(), [])
 
   useEffect(() => {
@@ -48,38 +48,11 @@ export default function Progress() {
   const week = summarizeWeek(meals, weekStart(today), mealsPerDay)
   const fewReal = (logged?.length ?? 0) < 3
 
-  // Arrow keys move between tabs (WAI-ARIA tabs pattern).
-  const handleKey = (e: KeyboardEvent, i: number) => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
-    const next = (i + (e.key === 'ArrowRight' ? 1 : VIEWS.length - 1)) % VIEWS.length
-    setView(VIEWS[next].id)
-    tabs.current[next]?.focus()
-  }
-
   return (
     <>
       <PageTitle>{t('route.progress')}</PageTitle>
 
-      <div role="tablist" aria-label={t('prog.views')} className="mb-4 grid grid-cols-3 rounded-2xl bg-olive-50 p-1">
-        {VIEWS.map((v, i) => (
-          <button
-            key={v.id}
-            ref={(el) => {
-              tabs.current[i] = el
-            }}
-            role="tab"
-            id={`tab-${v.id}`}
-            aria-selected={view === v.id}
-            aria-controls={`panel-${v.id}`}
-            tabIndex={view === v.id ? 0 : -1}
-            onClick={() => setView(v.id)}
-            onKeyDown={(e) => handleKey(e, i)}
-            className={`min-h-tap rounded-xl font-semibold ${view === v.id ? 'bg-surface text-olive-900 shadow-card' : 'text-muted'}`}
-          >
-            {t(v.label)}
-          </button>
-        ))}
-      </div>
+      <Tabs idPrefix="prog" label={t('prog.views')} tabs={VIEWS.map((v) => ({ id: v.id, label: t(v.label) }))} value={view} onChange={setView} />
 
       {sample && (
         <p role="status" className="mb-4 flex items-center gap-2 rounded-2xl bg-mustard-100 p-3 text-sm font-medium">
@@ -95,7 +68,7 @@ export default function Progress() {
         </Button>
       )}
 
-      <div role="tabpanel" id={`panel-${view}`} aria-labelledby={`tab-${view}`} className="flex flex-col gap-4">
+      <div role="tabpanel" id={`prog-panel-${view}`} aria-labelledby={`prog-tab-${view}`} className="flex flex-col gap-4">
         {view === 'week' && (
           <>
             <SuggestionCard week={week} />

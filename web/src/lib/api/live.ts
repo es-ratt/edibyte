@@ -1,11 +1,11 @@
 import type { ProfileSummary } from '@/features/profile/model'
-import type { CheckRequest, CheckResponse, FoodBrief } from '@/lib/check/types'
+import type { CheckItemIn, CheckProfile, CheckRequest, CheckResponse, FoodBrief, MealType } from '@/lib/check/types'
 import type { CoachAnswer, CoachRequest } from '@/lib/coach/types'
 import type { Lang } from '@/lib/i18n'
 import type { HabitSummary } from '@/lib/progress/habits'
 import type { SuggestionResult } from '@/lib/progress/suggest'
 import type { ReferenceTargets } from '@/lib/targets'
-import { ApiError, type Api, type DataStatus, type Health, type ParseResult } from './types'
+import { ApiError, type Api, type DataStatus, type Health, type ParseResult, type PlanCheckResult } from './types'
 
 const TIMEOUT_MS = 20_000
 /** Photo recognition can take longer (vision model + a free server waking up). */
@@ -62,6 +62,8 @@ export function createLiveApi(baseUrl: string): Api {
       request<CheckResponse>(base, '/meal/check', { method: 'POST', body: JSON.stringify(req) }),
     suggestion: (summary: HabitSummary): Promise<SuggestionResult> =>
       request<SuggestionResult>(base, '/suggestions', { method: 'POST', body: JSON.stringify(summary) }),
+    planCheck: (slots: Partial<Record<MealType, CheckItemIn[]>>, profile: CheckProfile | null): Promise<PlanCheckResult> =>
+      request<PlanCheckResult>(base, '/meal/plan-check', { method: 'POST', body: JSON.stringify({ slots, profile }) }),
     coach: (req: CoachRequest): Promise<CoachAnswer> => request<CoachAnswer>(base, '/coach', { method: 'POST', body: JSON.stringify(req) }, 45_000),
   }
 }
